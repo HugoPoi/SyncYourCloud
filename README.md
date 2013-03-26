@@ -15,3 +15,7 @@ External links
 * https://developers.google.com/drive/quickstart-java
 * http://doc.owncloud.org/server/5.0/developer_manual/app/app/externalapi.html
 * http://msdn.microsoft.com/fr-fr/library/live/hh826531.aspx
+
+## Conf External
+
+* https://www.dropbox.com/developers/app_info/213385
