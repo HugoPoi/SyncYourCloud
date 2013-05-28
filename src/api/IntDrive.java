@@ -3,7 +3,7 @@ package api;
 public interface IntDrive {
 	
 	//array of files
-	public String getFile(String dir);
+	public String getFiles(String dir);
 	
 	public void addDrive();
 	

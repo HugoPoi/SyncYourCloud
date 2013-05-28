@@ -77,7 +77,7 @@ public class DriveDropBox implements IntDrive{
 	}
 
 	@Override
-	public String getFile(String dir){
+	public String getFiles(String dir){
 		DropboxAPI.Entry root;
 		try {
 			root = api.metadata("/", 0, null, true, null);
