@@ -20,16 +20,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class DriveDropBox implements IntDrive{
 	
 	private String key;
 	private String secret;
 	private String uid;
+	private WebAuthSession session;
+	private AccessTokenPair access;
+	
+	private DropboxAPI<?> api;
 	
 	private static AppKeyPair appKey;
 	
+	
+	/*
+	 * 
+	 * You must call this method before any creation of DropBox*/
 	public static void init(JsonList inAppKey){
 		try {
 			appKey = new AppKeyPair(inAppKey.get(0).expectString(), inAppKey.get(1).expectString());
@@ -37,6 +47,8 @@ public class DriveDropBox implements IntDrive{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	public DriveDropBox(String uid, String key, String secret){
@@ -53,10 +65,32 @@ public class DriveDropBox implements IntDrive{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		AccessTokenPair access = new AccessTokenPair(this.key,this.secret);
+		session = new WebAuthSession(DriveDropBox.appKey, Session.AccessType.DROPBOX, access);
+		this.api = new DropboxAPI<WebAuthSession>(session);
+		try {
+			System.out.println("Connected to : DB "+ this.api.accountInfo().uid +" "+this.api.accountInfo().displayName);
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+
 	@Override
-	public String getFiles() {
-		// TODO Auto-generated method stub
+	public String getFile(String dir){
+		DropboxAPI.Entry root;
+		try {
+			root = api.metadata("/", 0, null, true, null);
+			System.out.println("Files and Dir : ");
+			Iterator<DropboxAPI.Entry> rootIterator = root.contents.iterator();
+			while(rootIterator.hasNext()){
+				System.out.println(rootIterator.next().path);
+				}
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 

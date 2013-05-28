@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,7 +22,11 @@ public class Config {
 	
 	private JsonThing data;
 	
+	public ArrayList<JsonMap> dropboxs;
+	public JsonList dropbox_app_key;
+	
 	public Config(String configPath) {
+		dropboxs = new ArrayList<JsonMap>();
 		try {
 			FileReader file = new FileReader(configPath);
 			try {
@@ -31,15 +36,13 @@ public class Config {
 				System.exit(1);
 			}
 			finally{
-				System.out.println(data.toString());
 				try {
-					JsonMap tab = data.expectMap();
-					Iterator<Entry<String, JsonThing>> i = tab.iterator();
-					while(i.hasNext()){
-						Entry<String, JsonThing> ele = i.next();
-						System.out.println(ele.getKey());
-						JsonMap entry = ele.getValue().expectMap();
-						System.out.println("_name:"+entry.get("login").expectString());
+					JsonMap conf = data.expectMap();
+					dropbox_app_key = conf.get("dropbox_app_key").expectList();
+					JsonList dropboxs = conf.get("dropbox").expectList();
+					Iterator<JsonThing> dropboxIterator = dropboxs.iterator();
+					while(dropboxIterator.hasNext()){
+						this.dropboxs.add(dropboxIterator.next().expectMap());
 					}
 					
 				} catch (JsonExtractionException e) {
