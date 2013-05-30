@@ -15,6 +15,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import sun.invoke.empty.Empty;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,10 +33,13 @@ public class DriveDropBox implements IntDrive{
 	private String uid;
 	private WebAuthSession session;
 	private AccessTokenPair access;
+	private WebAuthSession.WebAuthInfo authInfo;
 	
 	private DropboxAPI<?> api;
 	
 	private static AppKeyPair appKey;
+	
+	public String authUrl;
 	
 	
 	/*
@@ -51,21 +56,33 @@ public class DriveDropBox implements IntDrive{
 		
 	}
 	
-	public DriveDropBox(String uid, String key, String secret){
-		this.key = key;
-		this.secret = secret;
-		this.uid = uid;
+	public DriveDropBox(){
+        session = new WebAuthSession(DriveDropBox.appKey, Session.AccessType.DROPBOX);
+        try {
+			authInfo = session.getAuthInfo();
+			authUrl = authInfo.url;
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public Boolean validateToken(){
+        try {
+			uid = session.retrieveWebAccessToken(authInfo.requestTokenPair);
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return (uid.length() == 0);
 	}
 	public DriveDropBox(JsonMap config){
 		try {
 			this.uid = config.get("uid").expectString();
-			this.key = config.get("key").expectString();
-			this.secret = config.get("secret").expectString();
+			access = new AccessTokenPair(config.get("key").expectString(),config.get("secret").expectString());
 		} catch (JsonExtractionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		AccessTokenPair access = new AccessTokenPair(this.key,this.secret);
 		session = new WebAuthSession(DriveDropBox.appKey, Session.AccessType.DROPBOX, access);
 		this.api = new DropboxAPI<WebAuthSession>(session);
 		try {
@@ -109,6 +126,16 @@ public class DriveDropBox implements IntDrive{
 	public IntDrive listDrive() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public JSONObject savedState(){
+		JSONObject save =new JSONObject();
+		save.put("type", "dropbox");
+		save.put("uid", this.uid);
+		save.put("key", access.key);
+		save.put("secret", access.secret);	
+		return save;
 	}
 	
 	

@@ -4,14 +4,17 @@ import com.dropbox.client2.jsonextract.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,15 +25,17 @@ public class Config {
 	
 	private JsonThing data;
 	
-	public ArrayList<JsonMap> dropboxs;
+	public ArrayList<JsonMap> drives;
 	public JsonList dropbox_app_key;
 	
 	public Config(String configPath) {
-		dropboxs = new ArrayList<JsonMap>();
+		drives = new ArrayList<JsonMap>();
 		try {
 			FileReader file = new FileReader(configPath);
+			BufferedReader filebuf = new BufferedReader(file);
+			
 			try {
-				data = new JsonThing(new JSONParser().parse(file));
+				data = new JsonThing(new JSONParser().parse(filebuf));
 			} catch (ParseException e) {
 				e.printStackTrace();
 				System.exit(1);
@@ -42,7 +47,7 @@ public class Config {
 					JsonList dropboxs = conf.get("dropbox").expectList();
 					Iterator<JsonThing> dropboxIterator = dropboxs.iterator();
 					while(dropboxIterator.hasNext()){
-						this.dropboxs.add(dropboxIterator.next().expectMap());
+						this.drives.add(dropboxIterator.next().expectMap());
 					}
 					
 				} catch (JsonExtractionException e) {
@@ -50,7 +55,7 @@ public class Config {
 					e.printStackTrace();
 				}
 			}
-			file.close();
+			filebuf.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,5 +63,23 @@ public class Config {
 		}
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public void save(ArrayList<IntDrive> drives){
+		JSONArray jsondrives = new JSONArray();
+		Iterator<IntDrive> drivesIterator = drives.iterator();
+		while(drivesIterator.hasNext()){
+			jsondrives.add(drivesIterator.next().savedState());
+		}
+		JSONObject conf = new JSONObject();
+		conf.put("dropbox_app_key", this.dropbox_app_key);
+		conf.put("drives", jsondrives);
+		StringWriter out = new StringWriter();
+		try {
+			JSONValue.writeJSONString(conf, out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("JSON :" + out.toString());
+	}
 }
