@@ -3,11 +3,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class FileDrive implements Comparable<FileDrive> {
+public class FileDrive {
 	private String name;
 	private String path;
 	private Date modificationDate;
-	private Date creationDat;
+	private Date creationDate;
 	
 	// Constructeur
 	public FileDrive(String _name,String _path,Date _modificationDate,Date _creationDate){
@@ -22,7 +22,7 @@ public class FileDrive implements Comparable<FileDrive> {
 		return name;
 	}
 	
-	public void getName(String value){
+	public void setName(String value){
 		name = value;
 	}
 	
@@ -30,7 +30,7 @@ public class FileDrive implements Comparable<FileDrive> {
 		return path;
 	}
 	
-	public void getPath(String value){
+	public void setPath(String value){
 		path = value;
 	}
 	
@@ -53,7 +53,7 @@ public class FileDrive implements Comparable<FileDrive> {
 		return creationDate;
 	}
 	
-	public void etCreateDate(String value){
+	public void setCreateDate(String value){
 		try{
 			SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
 			creationDate = formatter.parse(value);
@@ -64,7 +64,7 @@ public class FileDrive implements Comparable<FileDrive> {
 		}
 	}
 	
-	public int compareTo(FileDrive f){
+	/*public int compareTo(FileDrive f){
 		final int BEFORE = -1;
 		final int EQUAL = 0;
 		final int AFTER = 1;
@@ -73,7 +73,7 @@ public class FileDrive implements Comparable<FileDrive> {
 		int pathCompare = path.compareTo(f.getPath());
 		
 		
-	}
+	}*/
 	
 	// Méthode Equals redefinition
 	public boolean Equals(FileDrive f){
