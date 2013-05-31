@@ -13,7 +13,7 @@ public class ManageDrive {
 	public ArrayList<IntDrive> loadDrives(String confpath){
 		ArrayList<IntDrive> drives = new ArrayList<IntDrive>();
 		currentconf = new api.Config(confpath);
-		DriveDropBox.init(currentconf.dropbox_app_key);
+		DriveDropBox.init(currentconf.dropboxAppKey,currentconf.dropboxAppSecret);
 		Iterator<JsonMap> drivesConfIterator = currentconf.drives.iterator();
 		while(drivesConfIterator.hasNext()){
 			JsonMap confDrive = drivesConfIterator.next();

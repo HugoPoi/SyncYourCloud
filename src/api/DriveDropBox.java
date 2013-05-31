@@ -1,5 +1,6 @@
 package api;
 
+import com.dropbox.client2.DropboxAPI.Account;
 import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.session.Session;
 import com.dropbox.client2.session.WebAuthSession;
@@ -38,6 +39,7 @@ public class DriveDropBox implements IntDrive{
 	private WebAuthSession.WebAuthInfo authInfo;
 	
 	private DropboxAPI<?> api;
+	private Account accountInfos;
 	
 	private static AppKeyPair appKey;
 	
@@ -47,15 +49,8 @@ public class DriveDropBox implements IntDrive{
 	/*
 	 * 
 	 * You must call this method before any creation of DropBox*/
-	public static void init(JsonList inAppKey){
-		try {
-			appKey = new AppKeyPair(inAppKey.get(0).expectString(), inAppKey.get(1).expectString());
-		} catch (JsonExtractionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+	public static void init(String key, String secret){
+			appKey = new AppKeyPair(key,secret);
 	}
 	
 	public DriveDropBox(){
@@ -71,6 +66,7 @@ public class DriveDropBox implements IntDrive{
 	public Boolean validateToken(){
         try {
 			uid = session.retrieveWebAccessToken(authInfo.requestTokenPair);
+			access = session.getAccessTokenPair();
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,8 +83,10 @@ public class DriveDropBox implements IntDrive{
 		}
 		session = new WebAuthSession(DriveDropBox.appKey, Session.AccessType.DROPBOX, access);
 		this.api = new DropboxAPI<WebAuthSession>(session);
+		
 		try {
-			System.out.println("Connected to : DB "+ this.api.accountInfo().uid +" "+this.api.accountInfo().displayName);
+			accountInfos = this.api.accountInfo();
+			System.out.println("Connected to : DB "+ accountInfos.uid +" "+accountInfos.displayName);
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,7 +112,7 @@ public class DriveDropBox implements IntDrive{
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject savedState(){
-		JSONObject save =new JSONObject();
+		JSONObject save = new JSONObject();
 		save.put("type", "dropbox");
 		save.put("uid", this.uid);
 		save.put("key", access.key);
@@ -175,10 +173,23 @@ public class DriveDropBox implements IntDrive{
 
 	@Override
 	public ArrayList<api.Entry> getEntries(String dir) {
-		// TODO Auto-generated method stub
+		DropboxAPI.Entry base;
+		ArrayList<api.Entry> outEntries = new ArrayList<>();
+		try {
+			base = api.metadata(dir, 0, null, true, null);
+			if(base.isDir){
+			Iterator<com.dropbox.client2.DropboxAPI.Entry> it = base.contents.iterator();
+			while(it.hasNext()){
+				com.dropbox.client2.DropboxAPI.Entry curfile = it.next();
+				outEntries.add(new api.Entry(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.modified),curfile.isDir,curfile.bytes,curfile.size));
+			}
+			return outEntries;
+			}
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
+
 	}
-	
-	
-	
 }

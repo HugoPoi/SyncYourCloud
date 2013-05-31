@@ -9,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -26,9 +27,12 @@ public class Config {
 	private JsonThing data;
 	
 	public ArrayList<JsonMap> drives;
-	public JsonList dropbox_app_key;
+	public String dropboxAppKey;
+	public String dropboxAppSecret;
+	public String configPath;
 	
-	public Config(String configPath) {
+	public Config(String _configPath) {
+		configPath = _configPath;
 		drives = new ArrayList<JsonMap>();
 		try {
 			FileReader file = new FileReader(configPath);
@@ -43,7 +47,8 @@ public class Config {
 			finally{
 				try {
 					JsonMap conf = data.expectMap();
-					dropbox_app_key = conf.get("dropbox_app_key").expectList();
+					dropboxAppKey = conf.get("dropbox_app_key").expectList().get(0).expectString();
+					dropboxAppSecret = conf.get("dropbox_app_key").expectList().get(1).expectString();
 					JsonList dropboxs = conf.get("drives").expectList();
 					Iterator<JsonThing> dropboxIterator = dropboxs.iterator();
 					while(dropboxIterator.hasNext()){
@@ -71,15 +76,18 @@ public class Config {
 			jsondrives.add(drivesIterator.next().savedState());
 		}
 		JSONObject conf = new JSONObject();
-		conf.put("dropbox_app_key", this.dropbox_app_key);
+		JSONArray dropbox_app_keys = new JSONArray();
+		dropbox_app_keys.add(dropboxAppKey);
+		dropbox_app_keys.add(dropboxAppSecret);
+		conf.put("dropbox_app_key", dropbox_app_keys);
 		conf.put("drives", jsondrives);
-		StringWriter out = new StringWriter();
 		try {
-			JSONValue.writeJSONString(conf, out);
+			FileWriter saved = new FileWriter(configPath);
+			JSONValue.writeJSONString(conf, saved);
+			saved.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("JSON :" + out.toString());
 	}
 }
