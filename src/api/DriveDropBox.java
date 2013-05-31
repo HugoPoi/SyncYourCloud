@@ -6,6 +6,7 @@ import com.dropbox.client2.session.WebAuthSession;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.RESTUtility;
 
 import com.dropbox.client2.jsonextract.*;
 import com.sun.security.auth.SolarisPrincipal;
@@ -20,7 +21,10 @@ import sun.invoke.empty.Empty;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -28,8 +32,6 @@ import java.util.Map.Entry;
 
 public class DriveDropBox implements IntDrive{
 	
-	private String key;
-	private String secret;
 	private String uid;
 	private WebAuthSession session;
 	private AccessTokenPair access;
@@ -94,24 +96,6 @@ public class DriveDropBox implements IntDrive{
 	}
 
 	@Override
-	public String getFiles(String dir){
-		DropboxAPI.Entry root;
-		try {
-			root = api.metadata("/", 0, null, true, null);
-			System.out.println("Files and Dir : ");
-			Iterator<DropboxAPI.Entry> rootIterator = root.contents.iterator();
-			while(rootIterator.hasNext()){
-				System.out.println(rootIterator.next().path);
-				}
-		} catch (DropboxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	@Override
 	public void addDrive() {
 		
 	}
@@ -137,6 +121,64 @@ public class DriveDropBox implements IntDrive{
 		save.put("secret", access.secret);	
 		return save;
 	}
+
+	@Override
+	public InputStream downloadFile(String path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void uploadFile(String path, OutputStream file) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public api.Entry getEntryInfo(String path) {
+		// TODO Auto-generated method stub
+		DropboxAPI.Entry entryInfo;
+		try {
+			entryInfo = api.metadata(path, 0, null, true, null);
+			return new api.Entry(this,entryInfo.fileName(),entryInfo.path,RESTUtility.parseDate(entryInfo.modified),RESTUtility.parseDate(entryInfo.modified),entryInfo.isDir,entryInfo.bytes,entryInfo.size);
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DriveDropBox other = (DriveDropBox) obj;
+		if (uid == null) {
+			if (other.uid != null)
+				return false;
+		} else if (!uid.equals(other.uid))
+			return false;
+		return true;
+	}
+
+	@Override
+	public ArrayList<api.Entry> getEntries(String dir) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 }

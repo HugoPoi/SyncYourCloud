@@ -44,7 +44,7 @@ public class Config {
 				try {
 					JsonMap conf = data.expectMap();
 					dropbox_app_key = conf.get("dropbox_app_key").expectList();
-					JsonList dropboxs = conf.get("dropbox").expectList();
+					JsonList dropboxs = conf.get("drives").expectList();
 					Iterator<JsonThing> dropboxIterator = dropboxs.iterator();
 					while(dropboxIterator.hasNext()){
 						this.drives.add(dropboxIterator.next().expectMap());
