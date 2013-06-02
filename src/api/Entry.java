@@ -1,6 +1,5 @@
 package api;
 
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,14 +8,14 @@ import java.util.Date;
 
 public abstract class Entry {
 	
-	private IntDrive parentDrive;
-	private String name;
-	private String path;
-	private Boolean isDir;
-	private Date modificationDate;
-	private Date creationDate;
-	private long size;
-	private String sizeHumanReadable;	
+	protected IntDrive parentDrive;
+	protected String name;
+	protected String path;
+	protected Boolean isDir;
+	protected Date modificationDate;
+	protected Date creationDate;
+	protected long size;
+	protected String sizeHumanReadable;	
 	
 	// Constructeur
 	public Entry(IntDrive _parentDrive,String _name,String _path,Date _modificationDate,Date _creationDate,Boolean _isDir, long _size,String _sizeHumanReadable){
@@ -117,5 +116,5 @@ public abstract class Entry {
 		return name;
 	}
 
-	public abstract void downloadFile(String path, OutputStream file);
+	public abstract void download(String localFilePath);
 }

@@ -1,9 +1,13 @@
 package api;
 
-import java.io.OutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
-import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
 import com.dropbox.client2.exception.DropboxException;
 
 public class EntryDropBox extends Entry{
@@ -15,16 +19,37 @@ public class EntryDropBox extends Entry{
 			long _size, String _sizeHumanReadable) {
 		super(_parentDrive, _name, _path, _modificationDate, _creationDate, _isDir,
 				_size, _sizeHumanReadable);
-		if(_parentDrive instanceof DriveDropBox) parentDropBox = (DriveDropBox) _parentDrive;
+		if(_parentDrive instanceof DriveDropBox) parentDropBox = (DriveDropBox) parentDrive;
 	}
 	
 	@Override
-	public void downloadFile(String path, OutputStream file) {
-		try {
-			DropboxFileInfo fileinfo = parentDropBox.api.getFile(path,null,file,null);
-		} catch (DropboxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void download(String localPath) {
+		if(!this.isDir){
+			try {
+				FileOutputStream localFile = new FileOutputStream(localPath);
+				parentDropBox.api.getFile(this.path,null,localFile,new CProgressListener());
+				localFile.close();
+				System.out.println("100");
+			} catch (DropboxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else{
+			new File(localPath).mkdir();
+			ArrayList<Entry> tree = parentDropBox.getEntries(this.path);
+			Iterator<Entry> itTree = tree.iterator();
+			while(itTree.hasNext()){
+				Entry next = itTree.next();
+				next.download(localPath+File.separator+next.name);
+			}
+			
 		}
 	}
 }

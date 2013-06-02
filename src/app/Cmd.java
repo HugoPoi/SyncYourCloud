@@ -1,9 +1,12 @@
 package app;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.ExampleMode;
@@ -14,16 +17,19 @@ import api.*;
 public class Cmd {
 
 	ManageDrive driveManagement;
-	ArrayList<IntDrive> drives;
+	private ArrayList<IntDrive> drives;
 	
-	@Option(name = "listdrive",usage="List all drives connected.")
-	public Boolean listDrives;
+	@Option(name = "--listdrive",usage="List all drives connected.")
+	private Boolean listDrives = false;
 	
-	@Option(name = "add",usage="add <dropbox,googledrive,skydrive>.")
-	public String type;
+	@Option(name = "--add",usage="add a drive. <dropbox,skydrive,googledrive>",metaVar="<type>")
+	private String addDrive;
 	
-	@Option(name = "list",usage="<path> list files.")
-	public String path;
+	@Option(name = "--download",usage="Download a file.")
+	private Boolean download = false;
+	
+	@Argument
+	private List<String> targets;
 	
 	public void run(String[] args){
 		CmdLineParser parser = new CmdLineParser(this);
@@ -37,30 +43,54 @@ public class Cmd {
 		}
 		
 		driveManagement = new ManageDrive();
-		drives = driveManagement.loadDrives("test.json");
 		
-		if(listDrives != null){
-			this.list();
+		if(listDrives){		
+			drives = driveManagement.loadDrives("test.json");
+			list();
 		}
-		return;
+		
+		if(addDrive != null){
+			drives = driveManagement.loadDrives("test.json");
+			add();
+		}
+
+		if(targets != null && targets.size() == 2 && !download){
+			drives = driveManagement.loadDrives("test.json");
+			ls(Integer.parseInt(targets.get(0)), targets.get(1));
+		}
+		
+		if(targets != null && targets.size() == 2 && download){
+			drives = driveManagement.loadDrives("test.json");
+			dl(Integer.parseInt(targets.get(0)), targets.get(1),"./test");
+		}
+		
+		System.exit(0);
 	}
 	
 	public void add(){
-		DriveDropBox addDrobox = new DriveDropBox();
-		System.out.println(addDrobox.authUrl);
-        try {
-            while (System.in.read() != '\n');
-        }
-        catch (IOException ex) {
-            
-        }
-		if(addDrobox.validateToken()){ System.out.println("Dropbox Successful Added"); };
-		drives.add(addDrobox);
-		driveManagement.currentconf.save(drives);
+		switch (addDrive) {
+		case "dropbox":
+			
+			DriveDropBox addDrobox = new DriveDropBox();
+			System.out.println(addDrobox.authUrl);
+	        try {
+	            while (System.in.read() != '\n');
+	        }
+	        catch (IOException ex) {
+	            
+	        }
+			if(addDrobox.validateToken()){ System.out.println("Dropbox Successful Added"); };
+			drives.add(addDrobox);
+			driveManagement.currentconf.save(drives);
+			
+			break;
+		default: System.err.println("Api "+addDrive+" isn't implemented yet !");
+			break;
+		}
 	}
 	
-	public void ls(){
-		ArrayList<Entry> rootEntries = drives.get(0).getEntries(path);
+	public void ls(int selectedDrive,String path){
+		ArrayList<Entry> rootEntries = drives.get(selectedDrive).getEntries(path);
 		
 		Iterator<Entry> itFiles = rootEntries.iterator();
 		while(itFiles.hasNext()){
@@ -68,12 +98,22 @@ public class Cmd {
 			System.out.println(file.getName());
 		}
 	}
+	public void dl(int selectedDrive,String path, String where){
+		ArrayList<Entry> rootEntries = drives.get(selectedDrive).getEntries(path);
+		
+		Iterator<Entry> itFiles = rootEntries.iterator();
+		while(itFiles.hasNext()){
+			Entry file = itFiles.next();
+			file.download(where + File.separator +file.getName());
+		}
+	}
 	
 	public void list(){
 		Iterator<IntDrive> itDrive = drives.iterator();
+		int i = 0;
 		while (itDrive.hasNext()) {
 			IntDrive intDrive = (IntDrive) itDrive.next();
-			System.out.println(intDrive.toString());
+			System.out.println( i++ +" "+intDrive.toString());
 		}
 	}
 	/**

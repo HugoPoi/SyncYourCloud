@@ -7,31 +7,15 @@ import com.dropbox.client2.session.WebAuthSession;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.DropboxAPI;
-import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
-import com.dropbox.client2.DropboxAPI.DropboxInputStream;
 import com.dropbox.client2.RESTUtility;
 
 import com.dropbox.client2.jsonextract.*;
-import com.sun.security.auth.SolarisPrincipal;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import sun.invoke.empty.Empty;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class DriveDropBox implements IntDrive{
 	
@@ -88,7 +72,6 @@ public class DriveDropBox implements IntDrive{
 		
 		try {
 			accountInfos = this.api.accountInfo();
-			System.out.println("Connected to : DB "+ accountInfos.uid +" "+accountInfos.displayName);
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,19 +151,27 @@ public class DriveDropBox implements IntDrive{
 	}
 
 	@Override
-	public ArrayList<api.Entry> getEntries(String dir) {
+	public ArrayList<api.Entry> getEntries(String path) {
 		DropboxAPI.Entry base;
 		ArrayList<api.Entry> outEntries = new ArrayList<>();
 		try {
-			base = api.metadata(dir, 0, null, true, null);
+			base = api.metadata(path, 0, null, true, null);
 			if(base.isDir){
-			Iterator<com.dropbox.client2.DropboxAPI.Entry> it = base.contents.iterator();
-			while(it.hasNext()){
-				com.dropbox.client2.DropboxAPI.Entry curfile = it.next();
-				outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.modified),curfile.isDir,curfile.bytes,curfile.size));
+				Iterator<com.dropbox.client2.DropboxAPI.Entry> it = base.contents.iterator();
+				while(it.hasNext()){
+					com.dropbox.client2.DropboxAPI.Entry curfile = it.next();
+					if(!curfile.isDeleted){
+						if(curfile.isDir){
+							outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.modified),curfile.isDir,curfile.bytes,curfile.size));
+						}
+						else outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.clientMtime),curfile.isDir,curfile.bytes,curfile.size));
+					}
+				}
+			}
+			else{
+				outEntries.add(new api.EntryDropBox(this,base.fileName(),base.path,RESTUtility.parseDate(base.modified),RESTUtility.parseDate(base.modified),base.isDir,base.bytes,base.size));
 			}
 			return outEntries;
-			}
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

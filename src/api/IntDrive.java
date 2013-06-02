@@ -1,6 +1,5 @@
 package api;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
@@ -12,7 +11,7 @@ public interface IntDrive {
 	
 	public Entry getEntryInfo(String path);
 	
-	public ArrayList<Entry> getEntries(String dir);
+	public ArrayList<Entry> getEntries(String path);
 	
 	public void addDrive();
 	
