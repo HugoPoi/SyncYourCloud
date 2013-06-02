@@ -7,6 +7,8 @@ import com.dropbox.client2.session.WebAuthSession;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
+import com.dropbox.client2.DropboxAPI.DropboxInputStream;
 import com.dropbox.client2.RESTUtility;
 
 import com.dropbox.client2.jsonextract.*;
@@ -38,7 +40,7 @@ public class DriveDropBox implements IntDrive{
 	private AccessTokenPair access;
 	private WebAuthSession.WebAuthInfo authInfo;
 	
-	private DropboxAPI<?> api;
+	protected DropboxAPI<?> api;
 	private Account accountInfos;
 	
 	private static AppKeyPair appKey;
@@ -121,12 +123,6 @@ public class DriveDropBox implements IntDrive{
 	}
 
 	@Override
-	public InputStream downloadFile(String path) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void uploadFile(String path, OutputStream file) {
 		// TODO Auto-generated method stub
 		
@@ -138,7 +134,7 @@ public class DriveDropBox implements IntDrive{
 		DropboxAPI.Entry entryInfo;
 		try {
 			entryInfo = api.metadata(path, 0, null, true, null);
-			return new api.Entry(this,entryInfo.fileName(),entryInfo.path,RESTUtility.parseDate(entryInfo.modified),RESTUtility.parseDate(entryInfo.modified),entryInfo.isDir,entryInfo.bytes,entryInfo.size);
+			return new api.EntryDropBox(this,entryInfo.fileName(),entryInfo.path,RESTUtility.parseDate(entryInfo.modified),RESTUtility.parseDate(entryInfo.modified),entryInfo.isDir,entryInfo.bytes,entryInfo.size);
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,7 +177,7 @@ public class DriveDropBox implements IntDrive{
 			Iterator<com.dropbox.client2.DropboxAPI.Entry> it = base.contents.iterator();
 			while(it.hasNext()){
 				com.dropbox.client2.DropboxAPI.Entry curfile = it.next();
-				outEntries.add(new api.Entry(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.modified),curfile.isDir,curfile.bytes,curfile.size));
+				outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.modified),curfile.isDir,curfile.bytes,curfile.size));
 			}
 			return outEntries;
 			}
@@ -191,5 +187,9 @@ public class DriveDropBox implements IntDrive{
 		}
 		return null;
 
+	}
+	
+	public String toString(){
+		return "DP:"+ uid + " "+ accountInfos.displayName;
 	}
 }

@@ -1,12 +1,13 @@
 package api;
 
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Entry {
+public abstract class Entry {
 	
 	private IntDrive parentDrive;
 	private String name;
@@ -29,51 +30,16 @@ public class Entry {
 		sizeHumanReadable = _sizeHumanReadable;
 	}	
 	
-	// Accesseurs/Mutateurs
-	public String getName(){
-		return name;
-	}
-	
-	public void setName(String value){
-		name = value;
-	}
-	
-	public String getPath(){
-		return path;
-	}
-	
-	public void setPath(String value){
-		path = value;
-	}
-	
-	public Date getModifDate(){
-		return modificationDate;
-	}
-	
-	public void setModifDate(String value){
+	public static Date convertDate(String value){
 		try{
 			SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-			modificationDate = formatter.parse(value);
+			return formatter.parse(value);
 		}
 		catch(ParseException e)
 		{
 			System.out.println("Error while getting modification date");
 		}
-	}
-	
-	public Date getCreateDate(){
-		return creationDate;
-	}
-	
-	public void setCreateDate(String value){
-		try{
-			SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
-			creationDate = formatter.parse(value);
-		}
-		catch(ParseException e)
-		{
-			System.out.println("Error while getting creation date");
-		}
+		return null;
 	}
 
 	@Override
@@ -146,5 +112,10 @@ public class Entry {
 			return false;
 		return true;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public abstract void downloadFile(String path, OutputStream file);
 }

@@ -8,8 +8,6 @@ import org.json.simple.JSONObject;
 
 public interface IntDrive {
 	
-	public InputStream downloadFile(String path);
-	
 	public void uploadFile(String path,OutputStream file);
 	
 	public Entry getEntryInfo(String path);
@@ -23,5 +21,7 @@ public interface IntDrive {
 	public IntDrive listDrive();
 	
 	public JSONObject savedState();
+	
+	public String toString();
 
 }
