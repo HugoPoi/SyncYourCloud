@@ -1,11 +1,17 @@
 package api;
 
+import java.io.OutputStream;
+import java.util.ArrayList;
+
 import org.json.simple.JSONObject;
 
 public interface IntDrive {
 	
-	//array of files
-	public String getFiles(String dir);
+	public void uploadFile(String path,OutputStream file);
+	
+	public Entry getEntryInfo(String path);
+	
+	public ArrayList<Entry> getEntries(String path);
 	
 	public void addDrive();
 	
@@ -14,5 +20,7 @@ public interface IntDrive {
 	public IntDrive listDrive();
 	
 	public JSONObject savedState();
+	
+	public String toString();
 
 }

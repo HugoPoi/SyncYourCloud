@@ -10,10 +10,12 @@ public class ManageDrive {
 	
 	public Config currentconf;
 	
-	public ArrayList<IntDrive> loadDrives(String confpath){
+	public static final String appConfigPath = "appconf.json";
+	
+	public ArrayList<IntDrive> loadDrives(String userConfPath){
 		ArrayList<IntDrive> drives = new ArrayList<IntDrive>();
-		currentconf = new api.Config(confpath);
-		DriveDropBox.init(currentconf.dropbox_app_key);
+		currentconf = new api.Config(appConfigPath,userConfPath);
+		DriveDropBox.init(currentconf.dropboxAppKey,currentconf.dropboxAppSecret);
 		Iterator<JsonMap> drivesConfIterator = currentconf.drives.iterator();
 		while(drivesConfIterator.hasNext()){
 			JsonMap confDrive = drivesConfIterator.next();
