@@ -13,6 +13,7 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,11 +28,13 @@ public class DriveGoogle implements IntDrive {
 	private static String app_key,app_secret,app_redirect_uri;
 	
 	public String authUrl;
+	private String uid;
 	
 	private GoogleAuthorizationCodeFlow flow;
 	private HttpTransport httpTransport;
 	private JsonFactory jsonFactory;
 	private Drive service;
+	private GoogleCredential credential;
 	
 	public static void init(String key, String secret, String redirect_uri){
 		app_key = key;
@@ -49,16 +52,20 @@ public class DriveGoogle implements IntDrive {
 	        .setApprovalPrompt("auto").build();
 	    
 	    authUrl = flow.newAuthorizationUrl().setRedirectUri(app_redirect_uri).build();
-
+	    
 	}
 	
 	public Boolean validateToken(String code){
 	    GoogleTokenResponse response;
 		try {
 			response = flow.newTokenRequest(code).setRedirectUri(app_redirect_uri).execute();
-			GoogleCredential credential = new GoogleCredential().setFromTokenResponse(response);
+			credential = new GoogleCredential().setFromTokenResponse(response);
 			//Create a new authorized API client
 		    service = new Drive.Builder(httpTransport, jsonFactory, credential).build();
+		    Oauth2 oauthService = getOauth2Service(getCredential(req, resp));
+		    Userinfo about = 
+		    		service.userinfo().get().execute();
+		    uid = about.getId();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,8 +111,11 @@ public class DriveGoogle implements IntDrive {
 
 	@Override
 	public JSONObject savedState() {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject save = new JSONObject();
+		save.put("type", "googledrive");
+		save.put("uid", this.uid);
+		save.put("token", credential.getAccessToken());
+		return save;
 	}
 
 }
