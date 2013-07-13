@@ -40,6 +40,8 @@ public class Model extends Observable
 		this.currentConfFile = currentConfFile;
 		driveManagement = new ManageDrive();
 		drives = driveManagement.loadDrives(this.currentConfFile);
+		setChanged();
+		notifyObservers();
 	}
 
 	private static final String INITIAL_Value="";
