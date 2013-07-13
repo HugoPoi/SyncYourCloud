@@ -144,4 +144,22 @@ public class DriveGoogle implements IntDrive {
 		return save;
 	}
 
+	@Override
+	public String getNiceName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getNiceSize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

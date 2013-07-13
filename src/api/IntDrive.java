@@ -22,5 +22,11 @@ public interface IntDrive {
 	public JSONObject savedState();
 	
 	public String toString();
+	
+	public String getNiceName();
+	
+	public String getNiceSize();
+	
+	public String getId();
 
 }
