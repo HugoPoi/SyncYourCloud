@@ -183,4 +183,22 @@ public class DriveDropBox implements IntDrive{
 	public String toString(){
 		return "DP:"+ uid + " "+ accountInfos.displayName;
 	}
+
+	@Override
+	public String getNiceName() {
+		// TODO Auto-generated method stub
+		return accountInfos.displayName;
+	}
+
+	@Override
+	public String getNiceSize() {
+		// TODO Auto-generated method stub
+		return "" + accountInfos.quotaNormal;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

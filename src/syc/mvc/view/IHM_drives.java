@@ -116,55 +116,58 @@ public class IHM_drives extends IHM_SYC
         
        //=================ModifierApres========================================
         
-       int i=0;
-       Iterator<IntDrive> itDrive = model_SYC.drives.iterator();	
-       while (itDrive.hasNext()) {
-			IntDrive intDrive = (IntDrive) itDrive.next();
-			System.out.println( i++ +" "+intDrive.toString());
-	       String[] s = new String[]{"test","test1","test2","test4"};//Sera un parametre du model via le controlleur
-	       
-	       JPanel jp=createJPanel(Color.WHITE,true);
-	       addElement(s, jp);
-	       
-	       gBC_gBLay_Level_2.ipadx = 0;
-	       gBC_gBLay_Level_2.ipady = 0;
-	       gBC_gBLay_Level_2.fill=GridBagConstraints.HORIZONTAL;
-	       gBC_gBLay_Level_2.gridx = 0;
-	       gBC_gBLay_Level_2.gridy = i;
-	       gBC_gBLay_Level_2.gridwidth = 4;
-	       gBC_gBLay_Level_2.gridheight = 1;
-	       gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
-	       gBC_gBLay_Level_2.insets = new Insets(0, 0, 0, 0);
-	       jPan4.add(jp, gBC_gBLay_Level_2);
-	       
-	       JPanel jp1=createJPanel(Color.LIGHT_GRAY,false);
-	       jp1=defineJPanelLayoutManager(jp1);
-	       //gBC_gBLay_Level_2.fill=GridBagConstraints.BOTH;
-	       gBC_gBLay_Level_2.gridx = 4;
-	       gBC_gBLay_Level_2.gridy = i;
-	       gBC_gBLay_Level_2.gridwidth = gBC_gBLay_Level_2.REMAINDER;
-	       gBC_gBLay_Level_2.gridheight = 1;
-	       //gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_END;
-	       gBC_gBLay_Level_2.insets = new Insets(1, 1, 1, 1);
-	       jPan4.add(jp1, gBC_gBLay_Level_2);
-	       jp1.setPreferredSize(new Dimension(80,80));
-	       gBC_gBLay_Level_2.fill=GridBagConstraints.HORIZONTAL;
-	       JButton jb = createJButton("Voir fichier");
-	       //jb.setFont(policeSmall);
-	       jp1.add(jb);
-	       jb = createJButton("modifier");
-	       //jb.setFont(policeSmall);
-	       jp1.add(jb);
-	       jb = createJButton("Supprimer");
-	       //jb.setFont(policeSmall);
-	       jp1.add(jb);
-
-       }  
+         
        
 	}
 	
 	public void displayIHM_drives(boolean displayed)
 	{	
+		if(displayed){
+			int i=0;
+		       Iterator<IntDrive> itDrive = model_SYC.drives.iterator();	
+		       while (itDrive.hasNext()) {
+					IntDrive intDrive = (IntDrive) itDrive.next();
+					System.out.println( i++ +" "+intDrive.toString());
+			       String[] s = new String[]{intDrive.getNiceName(),intDrive.getNiceSize(),intDrive.getId(),""};//Sera un parametre du model via le controlleur
+			       
+			       JPanel jp=createJPanel(Color.WHITE,true);
+			       addElement(s, jp);
+			       
+			       gBC_gBLay_Level_2.ipadx = 0;
+			       gBC_gBLay_Level_2.ipady = 0;
+			       gBC_gBLay_Level_2.fill=GridBagConstraints.HORIZONTAL;
+			       gBC_gBLay_Level_2.gridx = 0;
+			       gBC_gBLay_Level_2.gridy = i;
+			       gBC_gBLay_Level_2.gridwidth = 4;
+			       gBC_gBLay_Level_2.gridheight = 1;
+			       gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
+			       gBC_gBLay_Level_2.insets = new Insets(0, 0, 0, 0);
+			       jPan4.add(jp, gBC_gBLay_Level_2);
+			       
+			       JPanel jp1=createJPanel(Color.LIGHT_GRAY,false);
+			       jp1=defineJPanelLayoutManager(jp1);
+			       //gBC_gBLay_Level_2.fill=GridBagConstraints.BOTH;
+			       gBC_gBLay_Level_2.gridx = 4;
+			       gBC_gBLay_Level_2.gridy = i;
+			       gBC_gBLay_Level_2.gridwidth = gBC_gBLay_Level_2.REMAINDER;
+			       gBC_gBLay_Level_2.gridheight = 1;
+			       //gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_END;
+			       gBC_gBLay_Level_2.insets = new Insets(1, 1, 1, 1);
+			       jPan4.add(jp1, gBC_gBLay_Level_2);
+			       jp1.setPreferredSize(new Dimension(80,80));
+			       gBC_gBLay_Level_2.fill=GridBagConstraints.HORIZONTAL;
+			       JButton jb = createJButton("Voir fichier");
+			       //jb.setFont(policeSmall);
+			       jp1.add(jb);
+			       jb = createJButton("modifier");
+			       //jb.setFont(policeSmall);
+			       jp1.add(jb);
+			       jb = createJButton("Supprimer");
+			       //jb.setFont(policeSmall);
+			       jp1.add(jb);
+
+		       }
+		}
 		this.setVisible(displayed);
 	}
 		
