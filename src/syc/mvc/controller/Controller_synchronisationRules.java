@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -95,7 +96,19 @@ public class Controller_synchronisationRules implements ActionListener
 		
 		if(e.getSource()==this.view_synchronisationRules.getjBt_Remove())
 		{
-			//delete rules
+			//if a rules is selected 
+			
+			int dialogResult = JOptionPane.showConfirmDialog (this.view_synchronisationRules,
+					"Etes vous sur de vouloir suprrimer cette Règle","SYC message",JOptionPane.OK_CANCEL_OPTION);
+			
+			if(dialogResult == JOptionPane.OK_OPTION)
+			{
+				//delete rules
+				
+				//Then back to IHM_drives
+				model_SYC.init();
+				model_SYC.setDisplay_drives(true);
+			}
 		}	
 	}
 }

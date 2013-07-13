@@ -39,5 +39,9 @@
 	<classpathentry kind="lib" path="jsr311-api-1.1.1-javadoc.jar"/>
 	<classpathentry kind="lib" path="json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="jersey-client-1.17.1.jar"/>
+	<classpathentry kind="lib" path="commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="gwt-dev-2.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

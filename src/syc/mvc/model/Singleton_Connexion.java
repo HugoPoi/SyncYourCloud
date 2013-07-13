@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class Singleton_Connexion 
 {
-	private String connexionUrl ;/*"driver:base://localhost:port"*/
-	private String login;
-	private String password ;
-	private boolean connexionState ;
+	private static String connexionUrl ;/*"driver:base://localhost:port"*/
+	private static String login;
+	private static String password ;
+	private static boolean connexionState ;
 	
 	private static Connection lonelyConnexion;
 	
-	public Singleton_Connexion() 
+	public static void Singleton_Connexion() 
 	{
 		try 
 		{
@@ -22,17 +22,11 @@ public class Singleton_Connexion
 		catch (SQLException e) 
 	  	{
 		    e.printStackTrace();
+		    lonelyConnexion = null;
 	  	}
 		finally
 		{
-			if(lonelyConnexion==null)
-			{
-				this.connexionState=false;
-			}
-			else
-			{
-				this.connexionState=true;
-			}
+			connexionState = lonelyConnexion==null ? false : true;
 		}
 	}
 	
@@ -41,9 +35,9 @@ public class Singleton_Connexion
 		return login;
 	}
 
-	public void setLogin(String login) 
+	public void setLogin(String _login) 
 	{
-		this.login = login;
+		login = _login;
 	}
 
 	public String getPassword() 
@@ -51,9 +45,9 @@ public class Singleton_Connexion
 		return password;
 	}
 
-	public void setPassword(String password) 
+	public void setPassword(String _password) 
 	{
-		this.password = password;
+		password = _password;
 	}
 
 	public boolean isConnexionState() 

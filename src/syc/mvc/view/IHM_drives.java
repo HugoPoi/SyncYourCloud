@@ -23,6 +23,7 @@ import javax.swing.border.LineBorder;
 import api.IntDrive;
 
 import syc.mvc.model.Model;
+import syc.mvc.model.Singleton_Connexion;
 
 public class IHM_drives extends IHM_SYC 
 {

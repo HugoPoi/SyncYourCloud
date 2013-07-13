@@ -1,32 +1,24 @@
 package syc.mvc.model;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
 
 import api.DriveDropBox;
 import api.IntDrive;
 import api.ManageDrive;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.List;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Observer;
 import java.util.Observable;
 
 public class Model extends Observable 
 {	
+	//a creer supprimer ou adapter ds la ou les classe concerner
+	//================================================================================================================
 	private String testText = "INITIAL";
 	private String logo_SYC = "SYC_image.jpg";
-	private String logo_Dropbox = "Dropbox-logo.png";
+	/*private String logo_Dropbox = "Dropbox-logo.png";
 	private String logo_Google = "Google-logo.png";
 	private String logo_Owncloud = "Owncloud-logo.png";
-	private String logo_SkyDrive = "SkyDrive-logo.png";
+	private String logo_SkyDrive = "SkyDrive-logo.png";*/
+
 	private String Drivelink = "---- Erreur : Pas de lien ----";
 	
 	private String currentConfFile = null;
@@ -86,6 +78,7 @@ public class Model extends Observable
     	
     }
     
+    
     public void init()
     {
     	display_account=false;
@@ -104,6 +97,8 @@ public class Model extends Observable
 
 	public void setDrivelink(String drivelink) {
 		Drivelink = drivelink;
+		setChanged();
+		notifyObservers();
 	}
 
 	public String getLogo_SYC() {
@@ -112,6 +107,8 @@ public class Model extends Observable
 
 	public void setLogo_SYC(String logo_SYC) {
 		this.logo_SYC = logo_SYC;
+		setChanged();
+		notifyObservers();
 	}
 
 	public void settestText(String aTestText) 

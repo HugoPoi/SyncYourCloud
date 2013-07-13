@@ -1,39 +1,18 @@
 package syc.mvc.controller;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.List;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
 
-import javax.print.DocFlavor.STRING;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
 
+import syc.mvc.model.Connexion;
 import syc.mvc.model.Model;
-import syc.mvc.view.IHM_account;
 import syc.mvc.view.IHM_home;
 
 public class Controller_home implements ActionListener
@@ -47,7 +26,8 @@ public class Controller_home implements ActionListener
 		this.view_home = aView_home;
     }
 	
-    public void ControllerActionListenerForComponent(Container cont_temps)
+    @SuppressWarnings("unchecked")
+	public void ControllerActionListenerForComponent(Container cont_temps)
 	{
 		if(cont_temps instanceof Container)
 		{
@@ -111,16 +91,26 @@ public class Controller_home implements ActionListener
 		
 		if(e.getSource()==this.view_home.getjBt_Connexion())
 		{
-			if(this.view_home.getTxt_Login().getText().equals("") && this.view_home.getTxt_Password().getText().equals(""))
+			if(this.view_home.getTxt_Login().getText().isEmpty() || this.view_home.getTxt_Password().getText().isEmpty()){
 				JOptionPane.showMessageDialog (this.view_home,"Renseignez les champs pour vous connecter","SYC message",1);//1:exclam,1:exclamTriangle,3:interro 
-				//JOptionPane.showMessageDialog (this.view_home,"Renseignez les champs pour vous connecter","SYC message",JOptionPane.PLAIN_MESSAGE);//without icone
+				return;
+			}
+						
+			if(Connexion.CheckLogin(this.view_home.getTxt_Login().getText())){
+				JOptionPane.showMessageDialog (this.view_home,"Ce login n'existe pas.","SYC message",1); 
+				return;
+			}
 			
 			//Connection and go to IHM_drives
-			if(true)//pr linstant
+			if(Connexion.Exist(this.view_home.getTxt_Login().getText(), this.view_home.getTxt_Password().getText()))//pr linstant
 			{
 				model_SYC.init();
-				model_SYC.setCurrentConfFile("test.json");
+				model_SYC.setCurrentConfFile(Connexion.fileConf);
 				model_SYC.setDisplay_drives(true);  	
+			}
+			else
+			{
+				JOptionPane.showMessageDialog (this.view_home,"Identifiant ou mot de passe incorrect.","SYC message",1); 
 			}
 		}	
 	}
