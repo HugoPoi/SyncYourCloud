@@ -1,6 +1,7 @@
 package syc.mvc.controller;
 import syc.mvc.view.IHM_account;
 import syc.mvc.view.IHM_home;
+import syc.mvc.model.Connexion;
 import syc.mvc.model.Model;
 
 import java.awt.BorderLayout;
@@ -79,35 +80,40 @@ public class Controller_account implements ActionListener
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{
+    	String login = this.view_account.getTxt_Login().getText();
+    	String pwd = this.view_account.getTxt_Password().getText();
+    	
 		if(e.getSource()==this.view_account.getjBt_Account())
 		{
-			int ok=1;
-			if(this.view_account.getTxt_Login().getText().equals("") || this.view_account.getTxt_Password().getText().equals("") || this.view_account.getTxt_PasswordBis().getText().equals(""))
+			if(login.isEmpty() || pwd.isEmpty() || this.view_account.getTxt_PasswordBis().getText().isEmpty())
 			{
-				JOptionPane.showMessageDialog (this.view_account,"Renseignez les champs pour vous connecter","SYC message",1);//1:exclam,1:exclamTriangle,3:interro
-				ok=0;
+				JOptionPane.showMessageDialog (this.view_account,"Renseignez les champs pour vous connecter","SYC message",1);
+				return;
 			}
 			
-			if(!this.view_account.getTxt_Password().getText().equals(this.view_account.getTxt_PasswordBis().getText()))
+			if(!pwd.equals(this.view_account.getTxt_PasswordBis().getText()))
 			{
-				JOptionPane.showMessageDialog (this.view_account,"Mot de passe incorrect","SYC message",1);//1:exclam,1:exclamTriangle,3:interro
-				ok=0;
+				JOptionPane.showMessageDialog (this.view_account,"Mot de passe incorrect","SYC message",1);
+				return;
 			}
 			
-			if(ok==1)
+			if(!Connexion.CheckLogin(login))
 			{
-				//create account
+				JOptionPane.showMessageDialog (this.view_account,"Login existant","SYC message",1);
+				return;
+			}
+			
+			if(Connexion.CreateIdentifiant(login,pwd))
+			{
+				model_SYC.init();
+				model_SYC.setCurrentConfFile(Connexion.fileConf);
+				model_SYC.setDisplay_drives(true);
+			}
+			else
+				JOptionPane.showMessageDialog (this.view_account,"Une erreur est intervenue. Contactez l'administrateur.","SYC message",1);
 				
-				//Connection and go to IHM_drives
-				if(true)//pr linstant
-				{
-					model_SYC.init();
-					model_SYC.setDisplay_drives(true);
-				}
-			}
-	
-		}	
-		
+		}
+			
 		if(e.getSource()==this.view_account.getjBt_Cancel())
 		{
 			//Back to IHM_home			

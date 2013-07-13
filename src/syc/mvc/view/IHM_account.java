@@ -31,8 +31,8 @@ public class IHM_account extends IHM_SYC
 	private TextField txt_Password = new TextField();
 	private TextField txt_PasswordBis = new TextField();
 	
-	private JLabel jLab_Login = new JLabel("Nouveau nom d'utilisateur : ");
-	private JLabel jLab_Password = new JLabel("Nouveau mot de passe : ");
+	private JLabel jLab_Login = new JLabel("Nom d'utilisateur : ");
+	private JLabel jLab_Password = new JLabel("Mot de passe : ");
 	private JLabel jLab_PasswordBis = new JLabel("Vérificaiton du mot de passe : ");
 	
 	public IHM_account(Model aModel_SYC)
