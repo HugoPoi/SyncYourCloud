@@ -119,6 +119,7 @@ public class Controller_home implements ActionListener
 			if(true)//pr linstant
 			{
 				model_SYC.init();
+				model_SYC.setCurrentConfFile("test.json");
 				model_SYC.setDisplay_drives(true);  	
 			}
 		}	

@@ -24,7 +24,8 @@ public class ManageDrive {
 				case "dropbox": 
 					drives.add(new DriveDropBox(confDrive));
 					break;
-
+				case "googledrive":
+					drives.add(new DriveDropBox(confDrive));
 				default:
 					break;
 				}

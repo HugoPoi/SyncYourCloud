@@ -3,6 +3,10 @@ package syc.mvc.model;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
+import api.IntDrive;
+import api.ManageDrive;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,6 +28,20 @@ public class Model extends Observable
 	private String logo_SkyDrive = "SkyDrive-logo.png";
 	private String Drivelink = "https://www.dropbox.com:443/1/oauth/authorize?oauth_token=VrkJyghx3cX3D8qv&locale=fr"; //a creer ds la classe concerner
 	
+	private String currentConfFile = null;
+	private ManageDrive driveManagement;
+	public ArrayList<IntDrive> drives;
+	
+	public String getCurrentConfFile() {
+		return currentConfFile;
+	}
+
+	public void setCurrentConfFile(String currentConfFile) {
+		this.currentConfFile = currentConfFile;
+		driveManagement = new ManageDrive();
+		drives = driveManagement.loadDrives(this.currentConfFile);
+	}
+
 	private static final String INITIAL_Value="";
 	public static String getInitialValue() {
 		return INITIAL_Value;

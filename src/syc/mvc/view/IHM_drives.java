@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.LayoutManager2;
 import java.awt.event.ActionEvent;
+import java.util.Iterator;
 import java.util.Observable;
 
 import javax.swing.BorderFactory;
@@ -18,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+
+import api.IntDrive;
 
 import syc.mvc.model.Model;
 
@@ -114,10 +117,10 @@ public class IHM_drives extends IHM_SYC
        //=================ModifierApres========================================
         
        int i=0;
-       int numberOfDrive = 5;
-       
-       for(i=2 ;i<numberOfDrive ;i++)
-       {
+       Iterator<IntDrive> itDrive = model_SYC.drives.iterator();	
+       while (itDrive.hasNext()) {
+			IntDrive intDrive = (IntDrive) itDrive.next();
+			System.out.println( i++ +" "+intDrive.toString());
 	       String[] s = new String[]{"test","test1","test2","test4"};//Sera un parametre du model via le controlleur
 	       
 	       JPanel jp=createJPanel(Color.WHITE,true);
