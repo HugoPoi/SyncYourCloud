@@ -68,6 +68,7 @@ public class Model extends Observable
     	
     }
     
+    
     public void init()
     {
     	display_account=false;
@@ -86,6 +87,8 @@ public class Model extends Observable
 
 	public void setDrivelink(String drivelink) {
 		Drivelink = drivelink;
+		setChanged();
+		notifyObservers();
 	}
 
 	public String getLogo_SYC() {

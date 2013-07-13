@@ -16,6 +16,7 @@ import syc.mvc.controller.Controller_addDrive;
 import syc.mvc.controller.Controller_addSynchronisationRule;
 import syc.mvc.controller.Controller_authorization;
 import syc.mvc.controller.Controller_drives;
+import syc.mvc.controller.Controller_editDrive;
 import syc.mvc.controller.Controller_home;
 import syc.mvc.controller.Controller_synchronisationRules;
 import syc.mvc.model.Model;
@@ -68,6 +69,10 @@ public class Main_SYC
 		IHM_addSynchronisationRule view_addSynchronisationRule = new IHM_addSynchronisationRule(model_SYC);
 		Controller_addSynchronisationRule c_addSynchronisationRule = new Controller_addSynchronisationRule(model_SYC, view_addSynchronisationRule);
 		c_addSynchronisationRule.ControllerActionListenerForComponent(view_addSynchronisationRule.getContentPane());
+		
+		IHM_editDrive view_editDrive = new IHM_editDrive(model_SYC);
+		Controller_editDrive c_editDrive = new Controller_editDrive(model_SYC, view_editDrive);
+		c_editDrive.ControllerActionListenerForComponent(view_editDrive.getContentPane());
 		
 		view_home.setVisible(true);
 	}

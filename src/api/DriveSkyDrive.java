@@ -131,6 +131,24 @@ public class DriveSkyDrive implements IntDrive{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String getNiceName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getNiceSize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 	
 }
