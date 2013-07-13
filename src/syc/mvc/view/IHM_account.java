@@ -179,7 +179,6 @@ public class IHM_account extends IHM_SYC
 		this.jBt_Cancel = jBt_Cancel;
 	}
 
-
 	public void update(Observable arg0, Object arg1) 
 	{
 		super.update(arg0, arg1);
