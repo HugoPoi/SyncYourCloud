@@ -79,7 +79,7 @@ public class Main_SYC
 }
 
 //MemoMVC=========================================================
-/*	ClassView cv = new ClassView();
+/*	ClassView cv = new ClassView(cm);
  *	ClassModel cm = new ClassModel();
  *	ClassController cc = new ClassController(cv,cm); 
  *	Enchainement du code cc.fonction().fonctionExemplecvSurcm()... etc

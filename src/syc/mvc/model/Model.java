@@ -20,13 +20,16 @@ import java.util.Observable;
 
 public class Model extends Observable 
 {	
+	//a creer supprimer ou adapter ds la ou les classe concerner
+	//================================================================================================================
 	private String testText = "INITIAL";
 	private String logo_SYC = "SYC_image.jpg";
 	private String logo_Dropbox = "Dropbox-logo.png";
 	private String logo_Google = "Google-logo.png";
 	private String logo_Owncloud = "Owncloud-logo.png";
 	private String logo_SkyDrive = "SkyDrive-logo.png";
-	private String Drivelink = "https://www.dropbox.com:443/1/oauth/authorize?oauth_token=VrkJyghx3cX3D8qv&locale=fr"; //a creer ds la classe concerner
+	private String Drivelink = "https://www.dropbox.com:443/1/oauth/authorize?oauth_token=VrkJyghx3cX3D8qv&locale=fr"; 
+	//================================================================================================================
 	
 	private String currentConfFile = null;
 	private ManageDrive driveManagement;
@@ -97,6 +100,8 @@ public class Model extends Observable
 
 	public void setLogo_SYC(String logo_SYC) {
 		this.logo_SYC = logo_SYC;
+		setChanged();
+		notifyObservers();
 	}
 
 	public void settestText(String aTestText) 

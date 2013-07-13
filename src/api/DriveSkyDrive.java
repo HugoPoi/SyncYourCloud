@@ -1,5 +1,6 @@
 package api;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import com.dropbox.client2.jsonextract.JsonExtractionException;
@@ -62,6 +63,7 @@ public class DriveSkyDrive implements IntDrive{
 
 	@Override
 	public ArrayList<Entry> getEntries(String path) {
+		ArrayList<api.Entry> myEntries = new ArrayList<>();
 		try{
 			Client client = Client.create();
 			
@@ -77,12 +79,18 @@ public class DriveSkyDrive implements IntDrive{
 			
 			JSONObject obj = (JSONObject) JSONSerializer.toJSON(output);
 			JSONArray ids = (JSONArray) obj.get("data");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mi:ss");
 			
 			for(int i=0;i<ids.size();i++){
 				net.sf.json.JSONObject tmp = ids.getJSONObject(i);
-				//Entry ent = new EntrySkyDrive(this,tmp.getString("name"),tmp.getString("upload_location"),tmp.getString("updated_time"),tmp.getString("created_time"),tmp.getString("id").startsWith("folder"),tmp.getLong("size"),null);
+				myEntries.add(new EntrySkyDrive(this,tmp.getString("name"),tmp.getString("upload_location"),sdf.parse(tmp.getString("updated_time")),sdf.parse(tmp.getString("created_time")),tmp.getString("id").startsWith("folder"),tmp.getLong("size"),null));
 			}
+<<<<<<< HEAD
 			return null;
+=======
+			
+			return myEntries;
+>>>>>>> 46ae933307d826c5e43539d6527b5bff5dcc8730
 		}
 		catch(Exception e){
 			e.printStackTrace();
