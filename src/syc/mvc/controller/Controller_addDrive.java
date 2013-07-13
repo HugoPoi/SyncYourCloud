@@ -89,7 +89,7 @@ public class Controller_addDrive implements ActionListener
 			else
 			{
 				//add the selected Drive
-				
+				model_SYC.setSelectedDriveType(this.view_addDrive.getjCbx_DriveList().getSelectedItem().toString());
 				//then second step go to IHM_authorization
 				model_SYC.init();
 				model_SYC.setDisplay_authorization(true);

@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
+import api.DriveDropBox;
 import api.IntDrive;
 import api.ManageDrive;
 
@@ -26,12 +27,29 @@ public class Model extends Observable
 	private String logo_Google = "Google-logo.png";
 	private String logo_Owncloud = "Owncloud-logo.png";
 	private String logo_SkyDrive = "SkyDrive-logo.png";
-	private String Drivelink = "https://www.dropbox.com:443/1/oauth/authorize?oauth_token=VrkJyghx3cX3D8qv&locale=fr"; //a creer ds la classe concerner
+	private String Drivelink = "---- Erreur : Pas de lien ----";
 	
 	private String currentConfFile = null;
 	private ManageDrive driveManagement;
 	public ArrayList<IntDrive> drives;
 	
+	private String selectedDriveType = null;
+	private DriveDropBox addDropbox = null;
+	
+	public String getSelectedDriveType() {
+		return selectedDriveType;
+	}
+
+	public void setSelectedDriveType(String selectedDriveType) {
+		this.selectedDriveType = selectedDriveType;
+		if(selectedDriveType.equals("DropBox")){
+			this.addDropbox = new DriveDropBox();
+			Drivelink = addDropbox.authUrl;
+		}
+		setChanged();
+		notifyObservers();
+	}
+
 	public String getCurrentConfFile() {
 		return currentConfFile;
 	}

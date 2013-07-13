@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import api.DriveDropBox;
+
 import syc.mvc.model.Model;
 
 public class IHM_authorization extends IHM_SYC
@@ -20,19 +22,32 @@ public class IHM_authorization extends IHM_SYC
 	private JButton jBt_AddDriveAccount = new JButton("Ajouter Compte"); 
 	private JButton jBt_Cancel = new JButton("Annuler");
 	
-	private JLabel jLab_info = new JLabel("Pour ajouter le compte aller sur le lien ci dessous :");
-	private JLabel jLab_LiensURL = new JLabel(model_SYC.getDrivelink()); 
-	private JLabel jLab_info1 = new JLabel("Puis cliquer sur le bouton ajouter");
+	private JLabel jLab_info = null;
+	private JLabel jLab_LiensURL = null; 
+	private JLabel jLab_info1 = null;
+	private JPanel jPan4b = null;
+	
 	
 	public IHM_authorization(Model aModel_SYC) 
 	{
 		super(aModel_SYC);
+		drawBase();
+	}
+	public void drawBase(){
 		
-		this.jLab_Welcome.setText("Procédure d'ajout de compte CloudDrive suivez les instructions");
-		this.setTitle("Page d'authentification et d'autorisation");
+		jBt_AddDriveAccount = new JButton("Ajouter Compte"); 
+		jBt_Cancel = new JButton("Annuler");
+		
+		jLab_info = new JLabel("Pour ajouter le compte aller sur le lien ci dessous :");
+		jLab_LiensURL = new JLabel(model_SYC.getDrivelink()); 
+		jLab_info1 = new JLabel("Puis cliquer sur le bouton ajouter");
+		
 		
 		jPan3.add(jBt_AddDriveAccount);
-		jPan3.add(jBt_Cancel);	
+		jPan3.add(jBt_Cancel);
+		jLab_LiensURL = new JLabel(model_SYC.getDrivelink());
+		this.jLab_Welcome.setText("Procédure d'ajout de compte CloudDrive suivez les instructions");
+		this.setTitle("Page d'authentification et d'autorisation");
 		
 		JPanel jPan4a = new JPanel();
         jPan4a.setBackground(Color.WHITE);
@@ -47,7 +62,7 @@ public class IHM_authorization extends IHM_SYC
 		jLab_LiensURL.setHorizontalAlignment(JLabel.CENTER);
 		jPan4.add(jPan4a, gBC_gBLay_Level_2);
 		
-		JPanel jPan4b = new JPanel();
+		jPan4b = new JPanel();
         jPan4b.setBackground(Color.WHITE);
         jLab_LiensURL.setForeground(Color.BLUE);
         jPan4b.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
@@ -72,9 +87,16 @@ public class IHM_authorization extends IHM_SYC
 		gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
 		jPan4.add(jPan4c, gBC_gBLay_Level_2);
 	}
-	
 	public void displayIHM_authorization(boolean displayed)
 	{	
+		if(displayed){
+			this.jPan4b.remove(jLab_LiensURL);
+			jLab_LiensURL = new JLabel(model_SYC.getDrivelink());
+			jLab_LiensURL.setForeground(Color.BLUE);
+			this.jPan4b.add(jLab_info);
+			this.validate();
+			this.repaint();
+		}
 		this.setVisible(displayed);
 	}
 	

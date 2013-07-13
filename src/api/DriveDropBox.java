@@ -14,6 +14,7 @@ import com.dropbox.client2.jsonextract.*;
 import org.json.simple.JSONObject;
 
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -192,13 +193,15 @@ public class DriveDropBox implements IntDrive{
 
 	@Override
 	public String getNiceSize() {
-		// TODO Auto-generated method stub
-		return "" + accountInfos.quotaNormal;
+		DecimalFormat df = new DecimalFormat ( ) ;
+		df.setMaximumFractionDigits(2);
+		df.setMinimumFractionDigits(2);
+		return "Espace restant : " + df.format( (float) accountInfos.quotaNormal/(1024*1024*1024)) + " Go";
 	}
 
 	@Override
 	public String getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return ""+ this.uid;
 	}
 }

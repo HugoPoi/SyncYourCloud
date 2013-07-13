@@ -128,7 +128,7 @@ public class IHM_drives extends IHM_SYC
 		       while (itDrive.hasNext()) {
 					IntDrive intDrive = (IntDrive) itDrive.next();
 					System.out.println( i++ +" "+intDrive.toString());
-			       String[] s = new String[]{intDrive.getNiceName(),intDrive.getNiceSize(),intDrive.getId(),""};//Sera un parametre du model via le controlleur
+			       String[] s = new String[]{intDrive.getId(), intDrive.getNiceName(),intDrive.getNiceSize(),""};//Sera un parametre du model via le controlleur
 			       
 			       JPanel jp=createJPanel(Color.WHITE,true);
 			       addElement(s, jp);
