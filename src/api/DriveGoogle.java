@@ -2,8 +2,10 @@ package api;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -48,8 +50,7 @@ public class DriveGoogle implements IntDrive {
 	   
 	    flow = new GoogleAuthorizationCodeFlow.Builder(
 	        httpTransport, jsonFactory, app_key, app_secret, Arrays.asList(DriveScopes.DRIVE))
-	        .setAccessType("online")
-	        .setApprovalPrompt("auto").build();
+	        .setAccessType("offline").setApprovalPrompt("force").build();
 	    
 	    authUrl = flow.newAuthorizationUrl().setRedirectUri(app_redirect_uri).build();
 	    
@@ -58,14 +59,12 @@ public class DriveGoogle implements IntDrive {
 	public Boolean validateToken(String code){
 	    GoogleTokenResponse response;
 		try {
-			response = flow.newTokenRequest(code).setRedirectUri(app_redirect_uri).execute();
+			response = new GoogleAuthorizationCodeTokenRequest(httpTransport,jsonFactory,app_key,
+			        app_secret,code,app_redirect_uri).execute();
 			credential = new GoogleCredential().setFromTokenResponse(response);
 			//Create a new authorized API client
 		    service = new Drive.Builder(httpTransport, jsonFactory, credential).build();
-		    Oauth2 oauthService = getOauth2Service(getCredential(req, resp));
-		    Userinfo about = 
-		    		service.userinfo().get().execute();
-		    uid = about.getId();
+		    
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,6 +108,7 @@ public class DriveGoogle implements IntDrive {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject savedState() {
 		JSONObject save = new JSONObject();
