@@ -85,12 +85,7 @@ public class DriveSkyDrive implements IntDrive{
 				net.sf.json.JSONObject tmp = ids.getJSONObject(i);
 				myEntries.add(new EntrySkyDrive(this,tmp.getString("name"),tmp.getString("upload_location"),sdf.parse(tmp.getString("updated_time")),sdf.parse(tmp.getString("created_time")),tmp.getString("id").startsWith("folder"),tmp.getLong("size"),null));
 			}
-<<<<<<< HEAD
-			return null;
-=======
-			
 			return myEntries;
->>>>>>> 46ae933307d826c5e43539d6527b5bff5dcc8730
 		}
 		catch(Exception e){
 			e.printStackTrace();
