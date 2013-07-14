@@ -58,7 +58,8 @@ public class Main_SYC
 		IHM_editDrive view_editDrive = new IHM_editDrive(model_SYC);
 		Controller_editDrive c_editDrive = new Controller_editDrive(model_SYC, view_editDrive);
 		
-		view_home.setVisible(true);
+		//view_home.setVisible(true);
+		view_editDrive.setVisible(true);
 	}
 }
 

@@ -77,10 +77,7 @@ public class Controller_authorization implements ActionListener,MouseListener
 				}
 				if(cmp_temps instanceof JLabel)
 				{
-					if(cmp_temps==this.view_authorization.getjLab_LiensURL())
-					{
-						cmp_temps.addMouseListener(this);
-					}
+					cmp_temps.addMouseListener(this);	
 				}
 			}
 		}	
@@ -145,19 +142,28 @@ public class Controller_authorization implements ActionListener,MouseListener
 	@Override
 	public void mouseEntered(java.awt.event.MouseEvent e) 
 	{
-		this.view_authorization.getjLab_LiensURL().setText("<html><body><u><b>"+model_SYC.getDrivelink() +"</b></u></body></html>");
+		if(e.getSource()==this.view_authorization.getjLab_LiensURL())
+		{
+			this.view_authorization.getjLab_LiensURL().setText("<html><body><u><b>"+model_SYC.getDrivelink() +"</b></u></body></html>");
+		}
 	}
 
 	@Override
 	public void mouseExited(java.awt.event.MouseEvent e) 
 	{
-		this.view_authorization.getjLab_LiensURL().setText(model_SYC.getDrivelink());	
+		if(e.getSource()==this.view_authorization.getjLab_LiensURL())
+		{
+			this.view_authorization.getjLab_LiensURL().setText(model_SYC.getDrivelink());	
+		}
 	}
 
 	@Override
 	public void mousePressed(java.awt.event.MouseEvent e) 
 	{
-		this.view_authorization.getjLab_LiensURL().setForeground(Color.red);
+		if(e.getSource()==this.view_authorization.getjLab_LiensURL())
+		{
+			this.view_authorization.getjLab_LiensURL().setForeground(Color.red);
+		}
 	}
 
 	@Override

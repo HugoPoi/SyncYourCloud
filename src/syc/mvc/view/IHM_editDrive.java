@@ -132,6 +132,7 @@ public class IHM_editDrive extends IHM_SYC
 	
 	public void displayIHM_editDrive(boolean displayed)
 	{	
+		this.repaint();
 		this.setVisible(displayed);
 	}
 	

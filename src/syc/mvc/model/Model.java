@@ -81,7 +81,7 @@ public class Model extends Observable
      
   	private String txt_Account_editDrive ;		
   	private String txt_Login_editDrive;	
-  	private String txt_LocalLocation_editDrive; 	
+  	private String txt_LocalLocation_editDrive = ".";	
   	
     public Model()
     {
@@ -235,6 +235,8 @@ public class Model extends Observable
 
 	public void setTxt_Account_editDrive(String txt_Account_editDrive) {
 		this.txt_Account_editDrive = txt_Account_editDrive;
+		setChanged();
+		notifyObservers();
 	}
 
 	public String getTxt_Login_editDrive() {
@@ -243,6 +245,8 @@ public class Model extends Observable
 
 	public void setTxt_Login_editDrive(String txt_Login_editDrive) {
 		this.txt_Login_editDrive = txt_Login_editDrive;
+		setChanged();
+		notifyObservers();
 	}
 
 	public String getTxt_LocalLocation_editDrive() {
@@ -251,5 +255,7 @@ public class Model extends Observable
 
 	public void setTxt_LocalLocation_editDrive(String txt_LocalLocation_editDrive) {
 		this.txt_LocalLocation_editDrive = txt_LocalLocation_editDrive;
+		setChanged();
+		notifyObservers();
 	}   
 }

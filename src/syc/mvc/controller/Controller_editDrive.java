@@ -99,13 +99,22 @@ public class Controller_editDrive implements ActionListener
 		{
 			JPanel jpan_Browse= new JPanel();
 			this.view_editDrive.getJFC_Browse().setPreferredSize(new Dimension(500,270));	
+			this.view_editDrive.getJFC_Browse().setDialogTitle("Selection de l'emplacement Local");
+			this.view_editDrive.getJFC_Browse().setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			this.view_editDrive.getJFC_Browse().setApproveButtonText("Choisir dossier");
+			this.view_editDrive.getJFC_Browse().setAcceptAllFileFilterUsed(false);
+			
+			
+			this.view_editDrive.getJFC_Browse().setCurrentDirectory(new java.io.File(model_SYC.getTxt_LocalLocation_editDrive()));
 			
 			int dialogResult = this.view_editDrive.getJFC_Browse().showOpenDialog(jpan_Browse);
 			 
-            if (dialogResult == JFileChooser.APPROVE_OPTION) 
+            if (dialogResult == JFileChooser.APPROVE_OPTION)
             {
-               java.io.File file = this.view_editDrive.getJFC_Browse().getSelectedFile();
-               //System.out.println(file.getName());
+               if(this.view_editDrive.getJFC_Browse().getSelectedFile() != null)
+            	model_SYC.setTxt_LocalLocation_editDrive(this.view_editDrive.getJFC_Browse().getSelectedFile().getAbsolutePath());
+               
+               //move the folder to the new place selected
             }
 		}	
 	}
