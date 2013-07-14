@@ -40,7 +40,7 @@ public class IHM_authorization extends IHM_SYC
 		jBt_Cancel = new JButton("Annuler");
 		
 		jLab_info = new JLabel("Pour ajouter le compte aller sur le lien ci dessous :");
-		jLab_LiensURL = new JLabel(model_SYC.getDrivelink()); 
+		jLab_LiensURL = new JLabel(""); 
 		jLab_info1 = new JLabel("Puis cliquer sur le bouton ajouter");
 		
 		
@@ -91,13 +91,7 @@ public class IHM_authorization extends IHM_SYC
 	public void displayIHM_authorization(boolean displayed)
 	{	
 		if(displayed){
-			System.out.println(model_SYC.getDrivelink());
-			this.jPan4b.remove(jLab_LiensURL);
-			jLab_LiensURL = new JLabel(model_SYC.getDrivelink());
-			jLab_LiensURL.setForeground(Color.BLUE);
-			this.jPan4b.add(jLab_info);
-			this.jPan4b.validate();
-			this.jPan4b.repaint();
+			jLab_LiensURL.setText(model_SYC.getDrivelink());
 		}
 		this.setVisible(displayed);
 	}
