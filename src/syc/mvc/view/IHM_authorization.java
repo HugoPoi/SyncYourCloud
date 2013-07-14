@@ -39,13 +39,14 @@ public class IHM_authorization extends IHM_SYC
 		jBt_Cancel = new JButton("Annuler");
 		
 		jLab_info = new JLabel("Pour ajouter le compte aller sur le lien ci dessous :");
+		jLab_LiensURL = new JLabel(""); 
 		jLab_info1 = new JLabel("Puis cliquer sur le bouton ajouter");
 		
 		
 		jPan3.add(jBt_AddDriveAccount);
 		jPan3.add(jBt_Cancel);
 		jLab_LiensURL = new JLabel(model_SYC.getDrivelink());
-		this.jLab_Welcome.setText("Procédure d'ajout de compte CloudDrive suivez les instructions");
+		this.jLab_Welcome.setText("Procï¿½dure d'ajout de compte CloudDrive suivez les instructions");
 		this.setTitle("Page d'authentification et d'autorisation");
 		
 		JPanel jPan4a = new JPanel();
@@ -89,12 +90,7 @@ public class IHM_authorization extends IHM_SYC
 	public void displayIHM_authorization(boolean displayed)
 	{	
 		if(displayed){
-			this.jPan4b.remove(jLab_LiensURL);
-			jLab_LiensURL = new JLabel(model_SYC.getDrivelink());
-			jLab_LiensURL.setForeground(Color.BLUE);
-			this.jPan4b.add(jLab_info);
-			this.validate();
-			this.repaint();
+			jLab_LiensURL.setText(model_SYC.getDrivelink());
 		}
 		this.setVisible(displayed);
 	}

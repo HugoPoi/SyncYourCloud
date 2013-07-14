@@ -19,7 +19,8 @@ import syc.mvc.model.Model;
 
 public class IHM_editDrive extends IHM_SYC
 {
-	//private IntDrive currentDrive=model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage());// pr linstant
+
+	private IntDrive currentDrive = null;// pr linstant Ã  setter dans le update de cette vue
 	private JButton jBt_BackToDrives = new JButton("Retour au Drive"); 
 	private JButton jBt_EditDrive = new JButton("Modifier"); 
 	private JButton jBt_Browse = new JButton("Parcourir");
@@ -37,7 +38,7 @@ public class IHM_editDrive extends IHM_SYC
 	{
 		super(aModel_SYC);
 		
-		this.jLab_Welcome.setText("Modifiez le label associé ou l'emplacement local du Drive");
+		this.jLab_Welcome.setText("Modifiez le label associï¿½ ou l'emplacement local du Drive");
 		this.setTitle("Page de Modification");
 		
 		jPan3.add(jBt_EditDrive);

@@ -97,17 +97,18 @@ public class Controller_authorization implements ActionListener,MouseListener
 		if(e.getSource()==this.view_authorization.getjBt_AddDriveAccount())
 		{
 			//add the drive account
-			if(this.view_authorization.getjLab_LiensURL().getForeground()!=Color.red)
+			/*if(this.view_authorization.getjLab_LiensURL().getForeground()!=Color.red)
 			{
 				JOptionPane.showMessageDialog (this.view_authorization,"Veuillez cliquer sur le lien","SYC message",1);				
 			}
 			else
-			{
+			{*/
 				//Back to IHM_drives
 				this.view_authorization.getjLab_LiensURL().setForeground(Color.blue);
+				this.model_SYC.validateToken();
 				model_SYC.init();
 				model_SYC.setDisplay_drives(true);
-			}	
+			//}	
 		}	
 	}
 	

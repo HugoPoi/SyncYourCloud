@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.dropbox.client2.jsonextract.JsonExtractionException;
 import com.dropbox.client2.jsonextract.JsonMap;
 import com.dropbox.client2.session.AppKeyPair;
+import com.google.gwt.dev.shell.remoteui.RemoteMessageProto.Message.Request;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -15,6 +16,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 
 import org.json.simple.JSONObject;
+
+import sun.awt.RequestFocusController;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -46,6 +49,10 @@ public class DriveSkyDrive implements IntDrive{
     public DriveSkyDrive(String newToken)
     {
     	this.token = newToken;
+    }
+    
+    public static String ParseUrlToken(String url){
+    	return null;
     }
     
     public static String GetUrlForToken(){
