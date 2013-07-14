@@ -43,8 +43,7 @@ public class IHM_home extends IHM_SYC
 	private JButton jBt_Exit = new JButton("Quitter"); 
 	
 	private TextField txt_Login = new TextField();
-	private TextField txt_Password = new TextField();
-	//private JPasswordField txt_Password = new JPasswordField('*');
+	private JPasswordField txt_Password = new JPasswordField('*');
 	
 	private JLabel jLab_Login = new JLabel("Login :"/*model_SYC.gettestText()*/);
 	private JLabel jLab_Password = new JLabel("Mot de passe : ");
@@ -102,18 +101,24 @@ public class IHM_home extends IHM_SYC
         gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
         jPan4.add(getTxt_Password(), gBC_gBLay_Level_2);   
        
-        getTxt_Login().setPreferredSize(new Dimension(125,25));
-		getTxt_Password().setPreferredSize(new Dimension(125,25));
+        txt_Login.setPreferredSize(new Dimension(125,25));
+		txt_Password.setPreferredSize(new Dimension(125,30));
+		txt_Login.setMinimumSize(new Dimension(125,25));
+		txt_Password.setMinimumSize(new Dimension(125,30));
+		txt_Login.setMaximumSize(new Dimension(125,25));
+		txt_Password.setMaximumSize(new Dimension(125,30));
 		
-		getTxt_Login().setFont(police);
-		getTxt_Password().setFont(police);
+		txt_Login.setFont(police);
+		txt_Password.setFont(police);
 
-		getjLab_Login().setFont(police);
+		jLab_Login.setFont(police);
 		jLab_Password.setFont(police);
 		
-		getjBt_Account().setFont(police);
-		getjBt_Connexion().setFont(police);
-		getjBt_Exit().setFont(police);
+		jLab_Login.setMinimumSize(jLab_Password.getPreferredSize());
+		
+		jBt_Account.setFont(police);
+		jBt_Connexion.setFont(police);
+		jBt_Exit.setFont(police);
 	}
 	
 	public void displayIHM_home(boolean displayed)
@@ -121,11 +126,11 @@ public class IHM_home extends IHM_SYC
 		this.setVisible(displayed);
 	}
 	
-	public TextField getTxt_Password() {
+	public JPasswordField getTxt_Password() {
 		return txt_Password;
 	}
 
-	public void setTxt_Password(TextField txt_Password) {
+	public void setTxt_Password(JPasswordField txt_Password) {
 		this.txt_Password = txt_Password;
 	}
 
