@@ -19,7 +19,7 @@ import syc.mvc.model.Model;
 
 public class IHM_editDrive extends IHM_SYC
 {
-	private IntDrive currentDrive=model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage());// pr linstant
+	//private IntDrive currentDrive=model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage());// pr linstant
 	private JButton jBt_BackToDrives = new JButton("Retour au Drive"); 
 	private JButton jBt_EditDrive = new JButton("Modifier"); 
 	private JButton jBt_Browse = new JButton("Parcourir");

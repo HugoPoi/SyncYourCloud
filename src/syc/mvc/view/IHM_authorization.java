@@ -33,14 +33,12 @@ public class IHM_authorization extends IHM_SYC
 		super(aModel_SYC);
 		drawBase();
 	}
-	
 	public void drawBase(){
 		
 		jBt_AddDriveAccount = new JButton("Ajouter Compte"); 
 		jBt_Cancel = new JButton("Annuler");
 		
 		jLab_info = new JLabel("Pour ajouter le compte aller sur le lien ci dessous :");
-		jLab_LiensURL = new JLabel(model_SYC.getDrivelink()); 
 		jLab_info1 = new JLabel("Puis cliquer sur le bouton ajouter");
 		
 		
@@ -123,6 +121,10 @@ public class IHM_authorization extends IHM_SYC
 
 	public void setjLab_LiensURL(JLabel jLab_LiensURL) {
 		this.jLab_LiensURL = jLab_LiensURL;
+	}
+	
+	public void setJLabel_LiensUrlTxt(String txt){
+		this.jLab_LiensURL.setText(txt);
 	}
 
 	public void update(Observable arg0, Object arg1) 

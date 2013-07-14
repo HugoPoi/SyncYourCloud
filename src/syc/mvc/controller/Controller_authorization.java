@@ -99,7 +99,7 @@ public class Controller_authorization implements ActionListener,MouseListener
 			//add the drive account
 			if(this.view_authorization.getjLab_LiensURL().getForeground()!=Color.red)
 			{
-				JOptionPane.showMessageDialog (this.view_authorization,"Cliquez sur le lien avant!","SYC message",1);				
+				JOptionPane.showMessageDialog (this.view_authorization,"Veuillez cliquer sur le lien","SYC message",1);				
 			}
 			else
 			{

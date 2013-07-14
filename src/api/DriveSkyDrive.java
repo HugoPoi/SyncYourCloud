@@ -49,7 +49,7 @@ public class DriveSkyDrive implements IntDrive{
     }
     
     public static String GetUrlForToken(){
-    	return String.format("https://login.live.com/oauth20_authorize.srf?client_id={0}&scope" +
+    	return String.format("https://login.live.com/oauth20_authorize.srf?client_id=%s&scope" +
     			"=wl.skydrive&response_type=token&redirect_uri=https://login.live.com/oauth20_desktop.srf", DriveSkyDrive.appKey.key);
     }
     

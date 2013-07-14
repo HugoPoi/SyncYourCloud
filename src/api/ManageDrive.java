@@ -16,6 +16,7 @@ public class ManageDrive {
 		ArrayList<IntDrive> drives = new ArrayList<IntDrive>();
 		currentconf = new api.Config(appConfigPath,userConfPath);
 		DriveDropBox.init(currentconf.dropboxAppKey,currentconf.dropboxAppSecret);
+		DriveSkyDrive.init(currentconf.skydriveAppKey, currentconf.skydriveAppSecret);
 		Iterator<JsonMap> drivesConfIterator = currentconf.drives.iterator();
 		while(drivesConfIterator.hasNext()){
 			JsonMap confDrive = drivesConfIterator.next();
@@ -23,6 +24,9 @@ public class ManageDrive {
 				switch (confDrive.get("type").expectString()) {
 				case "dropbox": 
 					drives.add(new DriveDropBox(confDrive));
+					break;
+				case "skydrive":
+					drives.add(new DriveSkyDrive(confDrive));
 					break;
 				case "googledrive":
 					drives.add(new DriveDropBox(confDrive));
