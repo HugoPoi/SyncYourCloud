@@ -101,6 +101,7 @@ public class Controller_addDrive implements ActionListener
 		{
 			//a drive has been selected
 			JOptionPane.showMessageDialog (this.view_addDrive,"Validez votre choix en cliquant sur ajouter Drive","SYC message",1);
+			model_SYC.setIndexDriveSelectedOnAddDrivePage(this.view_addDrive.getjCbx_DriveList().getSelectedIndex());
 		}
 	}
 }
