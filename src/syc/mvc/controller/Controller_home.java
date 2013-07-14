@@ -1,40 +1,18 @@
 package syc.mvc.controller;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.List;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
 
-import javax.print.DocFlavor.STRING;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
 
 import syc.mvc.model.Connexion;
 import syc.mvc.model.Model;
-import syc.mvc.view.IHM_account;
 import syc.mvc.view.IHM_home;
 
 public class Controller_home implements ActionListener
@@ -48,7 +26,8 @@ public class Controller_home implements ActionListener
 		this.view_home = aView_home;
     }
 	
-    public void ControllerActionListenerForComponent(Container cont_temps)
+    @SuppressWarnings("unchecked")
+	public void ControllerActionListenerForComponent(Container cont_temps)
 	{
 		if(cont_temps instanceof Container)
 		{

@@ -1,23 +1,13 @@
 package syc.mvc.model;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import javax.swing.JOptionPane;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
-import org.json.simple.parser.JSONParser;
-
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -34,7 +24,6 @@ public class Connexion {
 			if(!new File(Connexion.FILE).exists())
 				return true;
 			
-			JSONParser jp = new JSONParser();
 			JSONArray jsa = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(new FileReader(FILE)));
 			
 			for(Object o : jsa){
@@ -55,7 +44,6 @@ public class Connexion {
 	public static boolean Exist(String id, String pwd){
 		try{
 			
-			JSONParser jp = new JSONParser();
 			JSONArray jsa = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(new FileReader(FILE)));
 			
 			for(Object o : jsa){

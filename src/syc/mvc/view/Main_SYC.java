@@ -1,12 +1,5 @@
 package syc.mvc.view;
 
-import java.awt.Component;
-import java.awt.Container;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
