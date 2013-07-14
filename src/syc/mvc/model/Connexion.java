@@ -19,9 +19,10 @@ public class Connexion {
 	
 	public static final String FILE = "Identifiants.json";
 	
+	// Verifie si le login existe déja
 	public static boolean CheckLogin(String login){
 		try{
-			if(!new File(Connexion.FILE).exists())
+			if(!new File(FILE).exists())
 				return true;
 			
 			JSONArray jsa = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(new FileReader(FILE)));
@@ -40,7 +41,7 @@ public class Connexion {
 		}
 	}
 	
-	
+	// Verifie si login et mdp correspondent à un compte
 	public static boolean Exist(String id, String pwd){
 		try{
 			
@@ -65,14 +66,15 @@ public class Connexion {
 		}
 	}
 	
+	// Creer un identifiant dans le fichier json
 	public static boolean CreateIdentifiant(String id,String pwd){
 		try {
+			fileConf = id+".json";
 			JSONObject js = new JSONObject();
 			js.put("Login",id);
 			js.put("Password", Encrypt(pwd).toString());
-			js.put("File",id+".json");
+			js.put("File",fileConf);
 			
-			fileConf = id+".json";
 			System.out.println(FILE);
 			if(!new File(FILE).exists()){
 				PrintWriter fileOut = new PrintWriter (new BufferedWriter (new FileWriter (FILE)));
@@ -99,6 +101,7 @@ public class Connexion {
 		}		
 	}
 	
+	// Crypte le mot de passe
 	private static String Encrypt(String passwd){
 		
 		try {
@@ -110,6 +113,7 @@ public class Connexion {
 		}
 	}
 	
+	// Decrypte le mot de passe
 	private static String Decrypt(String passwd){
 		
 		try {
