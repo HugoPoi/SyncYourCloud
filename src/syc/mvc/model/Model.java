@@ -83,16 +83,11 @@ public class Model extends Observable
     private boolean display_drives;
     private boolean display_editDrive;
     private boolean display_home;
-    private boolean display_synchronisationRules;   
-<<<<<<< HEAD
-     
+    private boolean display_synchronisationRules;        
   	private String txt_Account_editDrive ;		
   	private String txt_Login_editDrive;	
   	private String txt_LocalLocation_editDrive = ".";	
   	
-=======
-    
->>>>>>> a67da4410e79506d372e02def6b400aa9b753bb7
     public Model()
     {
     	
@@ -237,7 +232,6 @@ public class Model extends Observable
     public boolean getDisplay_synchronisationRules() 
     {
     	return display_synchronisationRules;
-<<<<<<< HEAD
     }
 
 	public String getTxt_Account_editDrive() {
@@ -269,7 +263,5 @@ public class Model extends Observable
 		setChanged();
 		notifyObservers();
 	}   
-=======
-    }   
->>>>>>> a67da4410e79506d372e02def6b400aa9b753bb7
+	
 }
