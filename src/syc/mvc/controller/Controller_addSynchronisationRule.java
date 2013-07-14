@@ -37,6 +37,7 @@ public class Controller_addSynchronisationRule implements ActionListener
     {
 		this.model_SYC = aModel_SYC;
 		this.view_addSynchronisationRule = aView_addSynchronisationRule;
+		this.ControllerActionListenerForComponent(view_addSynchronisationRule.getContentPane());
     }
 	
     public void ControllerActionListenerForComponent(Container cont_temps)

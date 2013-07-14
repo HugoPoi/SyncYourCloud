@@ -40,7 +40,8 @@ public class Controller_authorization implements ActionListener,MouseListener
     public Controller_authorization(Model aModel_SYC, IHM_authorization aView_authorization) 
     {
 		this.model_SYC = aModel_SYC;
-		this.view_authorization = aView_authorization;
+		this.view_authorization = aView_authorization; 
+		this.ControllerActionListenerForComponent(view_authorization.getContentPane());
     }
 	
     public void ControllerActionListenerForComponent(Container cont_temps)

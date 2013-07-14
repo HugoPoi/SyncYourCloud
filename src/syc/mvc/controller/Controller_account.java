@@ -40,6 +40,7 @@ public class Controller_account implements ActionListener
     {
 		this.model_SYC = aModel_SYC;
 		this.view_account = aView_account;
+		this.ControllerActionListenerForComponent(view_account.getContentPane());
     }
     
 	public void ControllerActionListenerForComponent(Container cont_temps)

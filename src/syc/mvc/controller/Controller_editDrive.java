@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -33,6 +34,7 @@ public class Controller_editDrive implements ActionListener
     {
 		this.model_SYC = aModel_SYC;
 		this.view_editDrive = aView_editDrive;
+		this.ControllerActionListenerForComponent(view_editDrive.getContentPane());
     }
 	
     public void ControllerActionListenerForComponent(Container cont_temps)
@@ -75,15 +77,30 @@ public class Controller_editDrive implements ActionListener
 	{
 		if(e.getSource()==this.view_editDrive.getjBt_BackToDrives())
 		{
-			//back to Drive
+			//back to Drives
+			model_SYC.init();
+			model_SYC.setDisplay_drives(true);
 		}	
 		if(e.getSource()==this.view_editDrive.getjBt_EditDrive())
 		{
+			int dialogResult = JOptionPane.showConfirmDialog (this.view_editDrive,
+					"Confirmez la ou les modifications apportée(s)","SYC message",JOptionPane.OK_CANCEL_OPTION);
 			
+			if(dialogResult == JOptionPane.OK_OPTION)
+			{
+				//apply the new modification
+				
+				//then go back back to Drives
+				model_SYC.init();
+				model_SYC.setDisplay_drives(true);
+			}
 		}	
 		if(e.getSource()==this.view_editDrive.getjBt_Browse())
 		{
-			int dialogResult = this.view_editDrive.getJFC_Browse().showOpenDialog(new JPanel());
+			JPanel jpan_Browse= new JPanel();
+			this.view_editDrive.getJFC_Browse().setPreferredSize(new Dimension(500,270));	
+			
+			int dialogResult = this.view_editDrive.getJFC_Browse().showOpenDialog(jpan_Browse);
 			 
             if (dialogResult == JFileChooser.APPROVE_OPTION) 
             {

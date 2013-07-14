@@ -38,6 +38,7 @@ public class Controller_drives implements ActionListener
     {
 		this.model_SYC = aModel_SYC;
 		this.view_drives = aView_drives;
+		this.ControllerActionListenerForComponent(view_drives.getContentPane());
     }
 	
     public void ControllerActionListenerForComponent(Container cont_temps)
