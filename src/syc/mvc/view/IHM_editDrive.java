@@ -13,18 +13,21 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import api.IntDrive;
+
 import syc.mvc.model.Model;
 
 public class IHM_editDrive extends IHM_SYC
 {
+	private IntDrive currentDrive=model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage());// pr linstant
 	private JButton jBt_BackToDrives = new JButton("Retour au Drive"); 
 	private JButton jBt_EditDrive = new JButton("Modifier"); 
 	private JButton jBt_Browse = new JButton("Parcourir");
 	private JFileChooser JFC_Browse = new JFileChooser();
 	
-	private TextField txt_Account = new TextField(model_SYC.getTxt_Account_editDrive());  
-	private TextField txt_Login = new TextField(model_SYC.getTxt_Login_editDrive());		
-	private TextField txt_LocalLocation = new TextField(model_SYC.getTxt_LocalLocation_editDrive());
+	private TextField txt_Account = new TextField(); //model_SYC.getTxt_Account_editDrive());  
+	private TextField txt_Login = new TextField(); //model_SYC.getTxt_Login_editDrive());		
+	private TextField txt_LocalLocation = new TextField(); //model_SYC.getTxt_LocalLocation_editDrive());
 	
 	private JLabel jLab_Account = new JLabel("Compte : ");
 	private JLabel jLab_Login = new JLabel("Identifiant : ");	
