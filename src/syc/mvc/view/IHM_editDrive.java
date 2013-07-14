@@ -37,7 +37,7 @@ public class IHM_editDrive extends IHM_SYC
 	{
 		super(aModel_SYC);
 		
-		this.jLab_Welcome.setText("Modifiez le label associé ou l'emplacement local du Drive");
+		this.jLab_Welcome.setText("Modifiez le label associï¿½ ou l'emplacement local du Drive");
 		this.setTitle("Page de Modification");
 		
 		jPan3.add(jBt_EditDrive);

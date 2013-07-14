@@ -44,6 +44,15 @@ public class Model extends Observable
 	public String getSelectedDriveType() {
 		return selectedDriveType;
 	}
+	public void validateToken(){
+		if(this.addDropbox.validateToken()){
+			this.drives.add(addDropbox);
+			driveManagement.currentconf.save(drives);
+		}
+		else{
+			System.err.println("Erreur de validation de token");
+		}
+	}
 
 	public void setSelectedDriveType(String selectedDriveType) {
 		this.selectedDriveType = selectedDriveType;
