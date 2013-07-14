@@ -33,7 +33,7 @@ public class IHM_account extends IHM_SYC
 	
 	private JLabel jLab_Login = new JLabel("Nom d'utilisateur : ");
 	private JLabel jLab_Password = new JLabel("Mot de passe : ");
-	private JLabel jLab_PasswordBis = new JLabel("Vérificaiton du mot de passe : ");
+	private JLabel jLab_PasswordBis = new JLabel("Vérification du mot de passe : ");
 	
 	public IHM_account(Model aModel_SYC)
 	{
