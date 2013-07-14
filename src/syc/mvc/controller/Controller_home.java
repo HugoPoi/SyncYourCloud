@@ -24,6 +24,7 @@ public class Controller_home implements ActionListener
     {
 		this.model_SYC = aModel_SYC;
 		this.view_home = aView_home;
+		this.ControllerActionListenerForComponent(view_home.getContentPane());
     }
 	
     @SuppressWarnings("unchecked")

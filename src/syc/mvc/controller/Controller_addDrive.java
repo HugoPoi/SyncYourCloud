@@ -33,6 +33,7 @@ public class Controller_addDrive implements ActionListener
     {
 		this.model_SYC = aModel_SYC;
 		this.view_addDrive = aView_addDrive;
+		this.ControllerActionListenerForComponent(view_addDrive.getContentPane());
     }
 	
     public void ControllerActionListenerForComponent(Container cont_temps)

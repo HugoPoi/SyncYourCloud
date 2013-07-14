@@ -33,6 +33,7 @@ public class IHM_authorization extends IHM_SYC
 		super(aModel_SYC);
 		drawBase();
 	}
+	
 	public void drawBase(){
 		
 		jBt_AddDriveAccount = new JButton("Ajouter Compte"); 
