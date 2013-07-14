@@ -6,7 +6,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.LayoutManager2;
+import java.awt.List;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
@@ -31,9 +33,9 @@ public class IHM_drives extends IHM_SYC
 	private  JButton jBt_AddCloudDrive = new JButton("Ajouter un CloudDrive"); 
 	private JButton jBt_RulesSYC = new JButton("Règle de Synchronisation"); 
 	
-	//private JButton jBt_SeeFile = new JButton("Voir fichier"); 
-	//private JButton jBt_Remove = new JButton("Supprimer"); 
-	//private JButton jBt_Edit = new JButton("Modifier"); 
+	private ArrayList<JButton> tabBt_SeeFile = new  ArrayList<JButton>(); //model_SYC.drives.size()
+	private ArrayList<JButton> tabBt_Remove = new  ArrayList<JButton>(); //model_SYC.drives.size()
+	private ArrayList<JButton> tabBt_Edit = new  ArrayList<JButton>(); //model_SYC.drives.size()
 	
 	private JLabel jLab_DriveBrand = new JLabel("Drive Icone ");
 	private JLabel jLab_DriveOwner = new JLabel(" Propiétaire ");
@@ -123,12 +125,14 @@ public class IHM_drives extends IHM_SYC
 	
 	public void displayIHM_drives(boolean displayed)
 	{	
-		if(displayed){
+		if(displayed)
+		{			
 			int i=0;
 		       Iterator<IntDrive> itDrive = model_SYC.drives.iterator();	
-		       while (itDrive.hasNext()) {
+		       while (itDrive.hasNext()) 
+		       {
 					IntDrive intDrive = (IntDrive) itDrive.next();
-					System.out.println( i++ +" "+intDrive.toString());
+					System.out.println( i +" "+intDrive.toString());
 			       String[] s = new String[]{intDrive.getId(), intDrive.getNiceName(),intDrive.getNiceSize(),""};//Sera un parametre du model via le controlleur
 			       
 			       JPanel jp=createJPanel(Color.WHITE,true);
@@ -157,21 +161,52 @@ public class IHM_drives extends IHM_SYC
 			       jPan4.add(jp1, gBC_gBLay_Level_2);
 			       jp1.setPreferredSize(new Dimension(80,80));
 			       gBC_gBLay_Level_2.fill=GridBagConstraints.HORIZONTAL;
+			   	
 			       JButton jb = createJButton("Voir fichier");
 			       //jb.setFont(policeSmall);
+			       tabBt_SeeFile.add(i,jb);
 			       jp1.add(jb);
+			       
 			       jb = createJButton("modifier");
 			       //jb.setFont(policeSmall);
+			       tabBt_Edit.add(i,jb);
 			       jp1.add(jb);
+			       
 			       jb = createJButton("Supprimer");
 			       //jb.setFont(policeSmall);
+			       tabBt_Remove.add(i,jb);
 			       jp1.add(jb);
-
+			       
+			       i++;
 		       }
 		}
 		this.setVisible(displayed);
 	}
 		
+	public ArrayList<JButton> getTabBt_SeeFile() {
+		return tabBt_SeeFile;
+	}
+
+	public void setTabBt_SeeFile(ArrayList<JButton> tabBt_SeeFile) {
+		this.tabBt_SeeFile = tabBt_SeeFile;
+	}
+
+	public ArrayList<JButton> getTabBt_Remove() {
+		return tabBt_Remove;
+	}
+
+	public void setTabBt_Remove(ArrayList<JButton> tabBt_Remove) {
+		this.tabBt_Remove = tabBt_Remove;
+	}
+
+	public ArrayList<JButton> getTabBt_Edit() {
+		return tabBt_Edit;
+	}
+
+	public void setTabBt_Edit(ArrayList<JButton> tabBt_Edit) {
+		this.tabBt_Edit = tabBt_Edit;
+	}
+
 	public JButton getjBt_Deconnexion() {
 		return jBt_Deconnexion;
 	}

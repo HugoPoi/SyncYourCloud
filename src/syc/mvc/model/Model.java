@@ -20,6 +20,7 @@ public class Model extends Observable
 	private String logo_Owncloud = "Owncloud-logo.png";
 	private String logo_SkyDrive = "SkyDrive-logo.png";*/
 
+	private int indexIntDriveSelectedOnDrivePage=0;
 	private String Drivelink;
 	
 	private String currentConfFile = null;
@@ -29,6 +30,17 @@ public class Model extends Observable
 	private String selectedDriveType = null;
 	private DriveDropBox addDropbox = null;
 	
+	public int getIndexIntDriveSelectedOnDrivePage() {
+		return indexIntDriveSelectedOnDrivePage;
+	}
+
+	public void setIndexIntDriveSelectedOnDrivePage(
+			int indexIntDriveSelectedOnDrivePage) {
+		this.indexIntDriveSelectedOnDrivePage = indexIntDriveSelectedOnDrivePage;
+		setChanged();
+		notifyObservers();
+	}
+
 	public String getSelectedDriveType() {
 		return selectedDriveType;
 	}

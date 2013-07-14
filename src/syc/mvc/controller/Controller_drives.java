@@ -10,6 +10,7 @@ import java.awt.LayoutManager;
 import java.awt.LayoutManager2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,6 +25,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+import org.apache.commons.collections.iterators.ArrayListIterator;
 
 import syc.mvc.model.Model;
 import syc.mvc.view.IHM_drives;
@@ -85,18 +88,44 @@ public class Controller_drives implements ActionListener
 			model_SYC.init();
 			model_SYC.setDisplay_home(true);
 			
-		}	
+		}
+		
 		if(e.getSource()==this.view_drives.getjBt_RulesSYC()) 
 		{
 			//go to IHM_synchronisationRules
 			model_SYC.init();
 			model_SYC.setDisplay_synchronisationRules(true);
-		}	
+		}
+		
 		if(e.getSource()==this.view_drives.getjBt_AddCloudDrive())
 		{
 			//go to IHM_AddDrive
 			model_SYC.init();
 			model_SYC.setDisplay_addDrive(true);	
-		}	
+		}
+		
+		int i;
+		for(i = 0; i < model_SYC.drives.size();i++)
+		{
+			if(e.getSource()==this.view_drives.getTabBt_Edit().get(i))
+			{
+				//Select the Drive to edit for the next page
+				model_SYC.setIndexIntDriveSelectedOnDrivePage(i);
+
+				//go to IHM_editDrive
+				model_SYC.init();
+				model_SYC.setDisplay_editDrive(true);
+			}
+			
+			if(e.getSource()==this.view_drives.getTabBt_Remove().get(i))
+			{
+				
+			}
+			
+			if(e.getSource()==this.view_drives.getTabBt_SeeFile().get(i))
+			{
+				
+			}
+		}
 	}
 }
