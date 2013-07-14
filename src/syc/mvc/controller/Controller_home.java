@@ -117,11 +117,6 @@ public class Controller_home implements ActionListener
 				return;
 			}
 						
-			if(Connexion.CheckLogin(this.view_home.getTxt_Login().getText())){
-				JOptionPane.showMessageDialog (this.view_home,"Ce login n'existe pas.","SYC message",1); 
-				return;
-			}
-			
 			//Connection and go to IHM_drives
 			if(Connexion.Exist(this.view_home.getTxt_Login().getText(), this.view_home.getTxt_Password().getText()))//pr linstant
 			{

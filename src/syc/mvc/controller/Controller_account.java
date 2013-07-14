@@ -87,19 +87,19 @@ public class Controller_account implements ActionListener
 		{
 			if(login.isEmpty() || pwd.isEmpty() || this.view_account.getTxt_PasswordBis().getText().isEmpty())
 			{
-				JOptionPane.showMessageDialog (this.view_account,"Renseignez les champs pour vous connecter","SYC message",1);
+				JOptionPane.showMessageDialog (this.view_account,"Renseignez les champs pour vous connecter","SYC message",2);
 				return;
 			}
 			
 			if(!pwd.equals(this.view_account.getTxt_PasswordBis().getText()))
 			{
-				JOptionPane.showMessageDialog (this.view_account,"Mot de passe incorrect","SYC message",1);
+				JOptionPane.showMessageDialog (this.view_account,"Les mots de passes ne correspondent pas","SYC message",2);
 				return;
 			}
 			
 			if(!Connexion.CheckLogin(login))
 			{
-				JOptionPane.showMessageDialog (this.view_account,"Login existant","SYC message",1);
+				JOptionPane.showMessageDialog (this.view_account,"Login existant","SYC message",2);
 				return;
 			}
 			
@@ -110,7 +110,7 @@ public class Controller_account implements ActionListener
 				model_SYC.setDisplay_drives(true);
 			}
 			else
-				JOptionPane.showMessageDialog (this.view_account,"Une erreur est intervenue. Contactez l'administrateur.","SYC message",1);
+				JOptionPane.showMessageDialog (this.view_account,"Une erreur est intervenue. Contactez l'administrateur.","SYC message",2);
 				
 		}
 			
