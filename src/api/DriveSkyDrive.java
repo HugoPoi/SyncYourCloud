@@ -30,6 +30,8 @@ public class DriveSkyDrive implements IntDrive{
     	appKey = new AppKeyPair(key,secret);
     }
     
+    public DriveSkyDrive(){}
+    
     public DriveSkyDrive(JsonMap config){
     	try{
     		this.token = config.getOrNull("token").expectString();	

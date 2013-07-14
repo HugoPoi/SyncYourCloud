@@ -20,6 +20,8 @@ public class Config {
 	public ArrayList<JsonMap> drives;
 	protected String dropboxAppKey;
 	protected String dropboxAppSecret;
+	protected String skydriveAppKey;
+	protected String skydriveAppSecret;
 	private String appConfigPath;
 	private String userConfigPath;
 	
@@ -54,6 +56,9 @@ public class Config {
 			
 			dropboxAppKey = appConf.get("dropbox_app_key").expectList().get(0).expectString();
 			dropboxAppSecret = appConf.get("dropbox_app_key").expectList().get(1).expectString();
+			skydriveAppKey = appConf.get("skydrive_app_key").expectList().get(0).expectString();
+			skydriveAppSecret = appConf.get("skydrive_app_key").expectList().get(1).expectString();
+			
 			
 		} catch (JsonExtractionException e) {
 			e.printStackTrace();
@@ -69,11 +74,11 @@ public class Config {
 		JsonThing userConfigJson;
 		try {
 			userConfigJson = new JsonThing(new JSONParser().parse(userConfigBuffer));
-			JsonList dropboxs = userConfigJson.expectList();
+			JsonList clouds = userConfigJson.expectList();
 			
-			Iterator<JsonThing> dropboxIterator = dropboxs.iterator();
-			while(dropboxIterator.hasNext()){
-				this.drives.add(dropboxIterator.next().expectMap());
+			Iterator<JsonThing> cloudsIterator = clouds.iterator();
+			while(cloudsIterator.hasNext()){
+				this.drives.add(cloudsIterator.next().expectMap());
 			}
 		} catch (IOException e) {
 		} catch (ParseException e) {

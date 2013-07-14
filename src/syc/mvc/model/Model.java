@@ -2,10 +2,10 @@ package syc.mvc.model;
 
 
 import api.DriveDropBox;
+import api.DriveSkyDrive;
 import api.IntDrive;
 import api.ManageDrive;
 
-import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -15,13 +15,12 @@ public class Model extends Observable
 	//================================================================================================================
 	private String testText = "INITIAL";
 	private String logo_SYC = "SYC_image.jpg";
-	
-	/*private String logo_Google = "Google-logo.png";
+	/*private String logo_Dropbox = "Dropbox-logo.png";
+	private String logo_Google = "Google-logo.png";
 	private String logo_Owncloud = "Owncloud-logo.png";
 	private String logo_SkyDrive = "SkyDrive-logo.png";*/
 
-	private String Drivelink = "---- Erreur : Pas de lien ----";
-	private String Drivelogo = "noIcone";
+	private String Drivelink;
 	
 	private String currentConfFile = null;
 	private ManageDrive driveManagement;
@@ -34,15 +33,20 @@ public class Model extends Observable
 		return selectedDriveType;
 	}
 
-	public void setSelectedDriveType(String selectedDriveType) 
-	{
+	public void setSelectedDriveType(String selectedDriveType) {
 		this.selectedDriveType = selectedDriveType;
-		
-		if(selectedDriveType.equals("DropBox"))
-		{
-			this.addDropbox = new DriveDropBox();
-			this.Drivelink = addDropbox.authUrl;
-			this.Drivelogo = "Dropbox-logo.png";
+
+		switch(selectedDriveType){
+			case "DropBox":
+				this.addDropbox = new DriveDropBox();
+				Drivelink = addDropbox.authUrl;
+				break;
+			case "SkyDrive":
+				Drivelink = DriveSkyDrive.GetUrlForToken();
+				break;
+			default:
+				Drivelink = "---- Erreur : Pas de lien ----";
+				break;
 		}
 		setChanged();
 		notifyObservers();
@@ -61,11 +65,13 @@ public class Model extends Observable
 	}
 
 	private static final String INITIAL_Value="";
+	
 	public static String getInitialValue() {
 		return INITIAL_Value;
 	}
 	
 	private static final String PATH_IMAGE_SYC=System.getProperty("user.dir" ).toString()+"\\image\\";
+	
 	public static String getPathImageSyc() {
 		return PATH_IMAGE_SYC;
 	}
@@ -78,11 +84,15 @@ public class Model extends Observable
     private boolean display_editDrive;
     private boolean display_home;
     private boolean display_synchronisationRules;   
+<<<<<<< HEAD
      
   	private String txt_Account_editDrive ;		
   	private String txt_Login_editDrive;	
   	private String txt_LocalLocation_editDrive = ".";	
   	
+=======
+    
+>>>>>>> a67da4410e79506d372e02def6b400aa9b753bb7
     public Model()
     {
     	
@@ -227,6 +237,7 @@ public class Model extends Observable
     public boolean getDisplay_synchronisationRules() 
     {
     	return display_synchronisationRules;
+<<<<<<< HEAD
     }
 
 	public String getTxt_Account_editDrive() {
@@ -258,4 +269,7 @@ public class Model extends Observable
 		setChanged();
 		notifyObservers();
 	}   
+=======
+    }   
+>>>>>>> a67da4410e79506d372e02def6b400aa9b753bb7
 }

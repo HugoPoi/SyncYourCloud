@@ -105,9 +105,7 @@ public class Controller_home implements ActionListener
 				model_SYC.setDisplay_drives(true);  	
 			}
 			else
-			{
 				JOptionPane.showMessageDialog (this.view_home,"Identifiant ou mot de passe incorrect.","SYC message",1); 
-			}
 		}	
 	}
 }
