@@ -20,7 +20,7 @@ import syc.mvc.model.Model;
 
 public class IHM_addDrive extends IHM_SYC
 {
-	private JComboBox jCbx_DriveList = new JComboBox(new String[] {"DropBox", "GoogleDrive", "SkyDrive","OwnDrive"});
+	private JComboBox jCbx_DriveList = new JComboBox(model_SYC.getDriveTypeList());
 	
 	private JButton jBt_Cancel = new JButton("Annuler"); 
 	private  JButton jBt_AddCloudDrive = new JButton("Ajouter Drive"); 
