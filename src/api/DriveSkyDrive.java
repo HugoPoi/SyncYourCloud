@@ -6,6 +6,11 @@ import java.util.Arrays;
 import com.dropbox.client2.jsonextract.JsonExtractionException;
 import com.dropbox.client2.jsonextract.JsonMap;
 import com.dropbox.client2.session.AppKeyPair;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.HttpMethod;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
 import com.google.gwt.dev.shell.remoteui.RemoteMessageProto.Message.Request;
 
 import com.sun.jersey.api.client.Client;
@@ -19,7 +24,10 @@ import org.json.simple.JSONObject;
 
 import sun.awt.RequestFocusController;
 
+import java.io.File;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,6 +36,8 @@ public class DriveSkyDrive implements IntDrive{
 	
 	private static AppKeyPair appKey;
 	private String token;
+	private final WebClient webClient = new WebClient();
+	private WebRequest requestSettings;
     
     public static void init(String key, String secret) {
     	appKey = new AppKeyPair(key,secret);
@@ -62,14 +72,61 @@ public class DriveSkyDrive implements IntDrive{
     
 	@Override
 	public void uploadFile(String path, OutputStream file) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public Entry getEntryInfo(String path) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public boolean deleteFile(String idFolder,File deleteFile){
+		try {
+		
+		requestSettings = new WebRequest(new URL("https://apis.live.net/v5.0/" + idFolder + "/files?access_token=" + this.token));
+		
+		Page page = webClient.getPage(requestSettings);
+		
+		String reponse = page.getWebResponse().getContentAsString();
+		
+		JSONObject obj = (JSONObject) JSONSerializer.toJSON(reponse);
+		JSONArray array = (JSONArray) obj.get("data");
+		
+		String id = null;
+		
+		for(int o = 0; o < array.size(); o++) {
+			
+			File tmp = new File(array.getJSONObject(0).getString("path"));
+			String tmpid = array.getJSONObject(0).getString("id");
+			
+			if(tmp.getName().compareTo(deleteFile.getName()) == 0)
+			{
+				id = tmpid;
+				break;
+			}
+		}
+		
+		if(id == null)
+			return false;
+		else{
+
+			requestSettings = new WebRequest(new URL("https://apis.live.net/v5.0/" + id + "?access_token=" + this.token), HttpMethod.DELETE);
+		
+			webClient.loadWebResponse(requestSettings);
+			
+			deleteFile.delete();
+			
+			return true;
+	
+		}
+		
+	} catch (Exception e) {
+		
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return false;
+	} 
+	
+}
 
 	@Override
 	public ArrayList<Entry> getEntries(String path) {
