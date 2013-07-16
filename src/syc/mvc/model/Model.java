@@ -17,10 +17,22 @@ public class Model extends Observable
 	private String logo_SYC = "SYC_image.jpg";
 	/*private String logo_Dropbox = "Dropbox-logo.png";
 	private String logo_Google = "Google-logo.png";
-	private String logo_Owncloud = "Owncloud-logo.png";
-	private String logo_SkyDrive = "SkyDrive-logo.png";*/
+	private String logo_Owncloud = "Owncloud-logo.png";*/
+	private String logo_SkyDrive = "SkyDrive-logo.png";
 
+	public String getLogo_SkyDrive() {
+		return logo_SkyDrive;
+	}
+
+	public void setLogo_SkyDrive(String logo_SkyDrive) {
+		this.logo_SkyDrive = logo_SkyDrive;
+		setChanged();
+		notifyObservers();
+	}
+
+	private String[] driveTypeList = new String[] {"DropBox", "GoogleDrive", "SkyDrive","OwnDrive"};
 	private int indexIntDriveSelectedOnDrivePage=0;
+	private int indexDriveSelectedOnAddDrivePage=1;
 	private String Drivelink;
 	
 	private String currentConfFile = null;
@@ -283,6 +295,25 @@ public class Model extends Observable
 		this.txt_LocalLocation_editDrive = txt_LocalLocation_editDrive;
 		setChanged();
 		notifyObservers();
-	}   
+	}
+
+	public int getIndexDriveSelectedOnAddDrivePage() {
+		return indexDriveSelectedOnAddDrivePage;
+	}
+
+	public void setIndexDriveSelectedOnAddDrivePage(int indexDriveSelectedOnAddDrivePage) {
+		this.indexDriveSelectedOnAddDrivePage = indexDriveSelectedOnAddDrivePage;
+		setChanged();
+		notifyObservers();
+	}  
 	
+	public String[] getDriveTypeList() {
+		return driveTypeList;
+	}
+
+	public void setDriveTypeList(String[] driveTypeList) {
+		this.driveTypeList = driveTypeList;
+		setChanged();
+		notifyObservers();
+	}
 }
