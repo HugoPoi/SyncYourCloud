@@ -47,7 +47,7 @@ public class IHM_authorization extends IHM_SYC
 		jPan3.add(jBt_AddDriveAccount);
 		jPan3.add(jBt_Cancel);
 		jLab_LiensURL = new JLabel(model_SYC.getDrivelink());
-		this.jLab_Welcome.setText("Proc�dure d'ajout de compte CloudDrive suivez les instructions");
+		this.jLab_Welcome.setText("Procédure d'ajout de compte CloudDrive suivez les instructions");
 		this.setTitle("Page d'authentification et d'autorisation");
 		
 		JPanel jPan4a = new JPanel();

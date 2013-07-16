@@ -54,11 +54,13 @@ public class DriveDropBox implements IntDrive{
         try {
 			uid = session.retrieveWebAccessToken(authInfo.requestTokenPair);
 			access = session.getAccessTokenPair();
+			this.api = new DropboxAPI<WebAuthSession>(session);
+			accountInfos = this.api.accountInfo();
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return (uid.length() == 0);
+        return (uid.length() != 0);
 	}
 	public DriveDropBox(JsonMap config){
 		try {
