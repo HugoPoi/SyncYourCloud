@@ -39,7 +39,7 @@ public class Model extends Observable
 	private ManageDrive driveManagement;
 	public ArrayList<IntDrive> drives;
 	
-	private String selectedDriveType = null;
+	private String selectedDriveType = "";
 	private DriveDropBox addDropbox = null;
 	
 	public int getIndexIntDriveSelectedOnDrivePage() {

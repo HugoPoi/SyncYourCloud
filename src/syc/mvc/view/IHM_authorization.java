@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import api.DriveDropBox;
 
@@ -26,6 +27,8 @@ public class IHM_authorization extends IHM_SYC
 	private JLabel jLab_LiensURL = null; 
 	private JLabel jLab_info1 = null;
 	private JPanel jPan4b = null;
+	
+	private JTextField jTextField = null;
 	
 	
 	public IHM_authorization(Model aModel_SYC) 
@@ -86,6 +89,9 @@ public class IHM_authorization extends IHM_SYC
 		gBC_gBLay_Level_2.anchor = GridBagConstraints.CENTER;
 		gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
 		jPan4.add(jPan4c, gBC_gBLay_Level_2);
+		
+		jTextField = new JTextField();
+		jPan4b.add(jTextField);
 	}
 	public void displayIHM_authorization(boolean displayed)
 	{	
@@ -93,6 +99,7 @@ public class IHM_authorization extends IHM_SYC
 			jLab_LiensURL.setText(model_SYC.getDrivelink());
 		}
 		this.setVisible(displayed);
+		jTextField.setVisible(this.model_SYC.getSelectedDriveType().equals("SkyDrive"));
 	}
 	
 	public JButton getjBt_AddDriveAccount() {
