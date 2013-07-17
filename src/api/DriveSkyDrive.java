@@ -173,7 +173,6 @@ public class DriveSkyDrive implements IntDrive{
 
 	@Override
 	public void removeDrive() {
-		// TODO Auto-generated method stub
 		
 	}
 

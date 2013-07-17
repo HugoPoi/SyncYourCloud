@@ -82,6 +82,13 @@ public class Model extends Observable
 			return false;
 		}
 	}
+	
+	public void removeDrive(int index){
+		drives.remove(index);
+		ManageDrive.currentconf.save(drives);
+		setChanged();
+		notifyObservers();
+	}
 
 	public void setSelectedDriveType(String selectedDriveType) {
 		this.selectedDriveType = selectedDriveType;

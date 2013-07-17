@@ -28,6 +28,8 @@ import javax.swing.border.LineBorder;
 
 import org.apache.commons.collections.iterators.ArrayListIterator;
 
+import api.ManageDrive;
+
 import syc.mvc.model.Model;
 import syc.mvc.view.IHM_drives;
 import syc.mvc.view.IHM_home;
@@ -120,7 +122,9 @@ public class Controller_drives implements ActionListener
 			
 			if(e.getSource()==this.view_drives.getTabBt_Remove().get(i))
 			{
-				System.out.println("supp select");
+				int dialogResult = JOptionPane.showConfirmDialog (this.view_drives, "Êtes vous sûr de vouloir supprimer?","Warning", 1);
+				if(dialogResult == JOptionPane.YES_OPTION)
+					model_SYC.removeDrive(i);
 			}
 			
 			if(e.getSource()==this.view_drives.getTabBt_SeeFile().get(i))

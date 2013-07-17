@@ -8,7 +8,7 @@ import com.dropbox.client2.jsonextract.JsonMap;
 
 public class ManageDrive {
 	
-	public Config currentconf;
+	public static Config currentconf;
 	
 	public static final String appConfigPath = "appconf.json";
 	
