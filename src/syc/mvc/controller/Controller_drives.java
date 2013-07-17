@@ -53,7 +53,6 @@ public class Controller_drives implements ActionListener
 			for(i =0; i< j ;i++)
 			{
 				Component cmp_temps = cont_temps.getComponents()[i];
-				//System.out.println(j);
 						
 				if(cmp_temps instanceof JButton)
 				{	
@@ -119,7 +118,7 @@ public class Controller_drives implements ActionListener
 			
 			if(e.getSource()==this.view_drives.getTabBt_Remove().get(i))
 			{
-				
+				System.out.println("supp select");
 			}
 			
 			if(e.getSource()==this.view_drives.getTabBt_SeeFile().get(i))

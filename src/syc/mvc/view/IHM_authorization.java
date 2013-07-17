@@ -28,6 +28,7 @@ public class IHM_authorization extends IHM_SYC
 	private JLabel jLab_LiensURL = null; 
 	private JLabel jLab_info1 = null;
 	private JPanel jPan4b = null;
+	private JPanel jPan4d = null;
 	
 	private JTextField jTextField = null;
 	private JLabel jLab_Token = null;
@@ -92,7 +93,7 @@ public class IHM_authorization extends IHM_SYC
 		gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
 		jPan4.add(jPan4c, gBC_gBLay_Level_2);
 		
-		JPanel jPan4d = new JPanel();
+		jPan4d = new JPanel();
 		jPan4d.setBackground(Color.WHITE);
 		jPan4d.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.DARK_GRAY));
 		jPan4d.setLayout(new BorderLayout());
@@ -110,12 +111,11 @@ public class IHM_authorization extends IHM_SYC
 	}
 	public void displayIHM_authorization(boolean displayed)
 	{	
-		if(displayed){
+		if(displayed)
 			jLab_LiensURL.setText(model_SYC.getDrivelink());
-		}
+		
+		jPan4d.setVisible(this.model_SYC.getSelectedDriveType().equals("SkyDrive"));
 		this.setVisible(displayed);
-		jTextField.setVisible(this.model_SYC.getSelectedDriveType().equals("SkyDrive"));
-		jLab_Token.setVisible(this.model_SYC.getSelectedDriveType().equals("SkyDrive"));
 	}
 	
 	public JButton getjBt_AddDriveAccount() {

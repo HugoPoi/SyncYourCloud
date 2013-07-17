@@ -114,7 +114,6 @@ public class Config {
 			JSONValue.writeJSONString(jsondrives, saved);
 			saved.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

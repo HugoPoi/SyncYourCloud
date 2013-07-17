@@ -29,7 +29,7 @@ public class ManageDrive {
 					drives.add(new DriveSkyDrive(confDrive));
 					break;
 				case "googledrive":
-					drives.add(new DriveDropBox(confDrive));
+					drives.add(new DriveGoogle(confDrive));
 				default:
 					break;
 				}
