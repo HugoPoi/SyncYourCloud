@@ -1,6 +1,8 @@
 package syc.mvc.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -31,6 +33,7 @@ import api.DriveGoogle;
 import api.DriveSkyDrive;
 import api.IntDrive;
 
+import syc.mvc.controller.Controller_drives;
 import syc.mvc.model.Model;
 import syc.mvc.model.Singleton_Connexion;
 
@@ -38,21 +41,27 @@ public class IHM_drives extends IHM_SYC
 {
 	private JButton jBt_Deconnexion = new JButton("Deconnexion"); 
 	private  JButton jBt_AddCloudDrive = new JButton("Ajouter un CloudDrive"); 
-	private JButton jBt_RulesSYC = new JButton("Règle de Synchronisation"); 
+	private JButton jBt_RulesSYC = new JButton("Rï¿½gle de Synchronisation"); 
 	
 	private ArrayList<JButton> tabBt_SeeFile = new  ArrayList<JButton>(); //model_SYC.drives.size()
 	private ArrayList<JButton> tabBt_Remove = new  ArrayList<JButton>(); //model_SYC.drives.size()
 	private ArrayList<JButton> tabBt_Edit = new  ArrayList<JButton>(); //model_SYC.drives.size()
 	
 	//private JLabel jLab_DriveBrand = new JLabel("Drive Icone ");
-	//private JLabel jLab_DriveOwner = new JLabel(" Propiétaire ");
-	//private JLabel jLab_DriveMemoryUsed = new JLabel(" Espace Utilisé ");
-	//private JLabel jLab_DriveMemoryCapacity = new JLabel("Capacité totale");
+	//private JLabel jLab_DriveOwner = new JLabel(" Propiï¿½taire ");
+	//private JLabel jLab_DriveMemoryUsed = new JLabel(" Espace Utilisï¿½ ");
+	//private JLabel jLab_DriveMemoryCapacity = new JLabel("Capacitï¿½ totale");
 	
 	private ImageIcon logoDropBox = null;
 	private ImageIcon logoSkyDrive = null;
 	private ImageIcon logoGoogleDrive = null;
 	
+	private Controller_drives controllerOfThis;
+	
+	public void setControllerOfThis(Controller_drives controllerOfThis) {
+		this.controllerOfThis = controllerOfThis;
+	}
+
 	public IHM_drives(Model aModel_SYC)
 	{
 		super(aModel_SYC);
@@ -178,21 +187,22 @@ public class IHM_drives extends IHM_SYC
 			   	
 			       JButton jb = createJButton("Voir fichier");
 			       //jb.setFont(policeSmall);
-			       tabBt_SeeFile.add(i,jb);
+			       tabBt_SeeFile.add(jb);
 			       jp1.add(jb);
 			       
 			       jb = createJButton("modifier");
 			       //jb.setFont(policeSmall);
-			       tabBt_Edit.add(i,jb);
+			       tabBt_Edit.add(jb);
 			       jp1.add(jb);
 			       
 			       jb = createJButton("Supprimer");
 			       //jb.setFont(policeSmall);
-			       tabBt_Remove.add(i,jb);
+			       tabBt_Remove.add(jb);
 			       jp1.add(jb);
 			       
 			       i++;
 		       }
+		      controllerOfThis.ControllerActionListenerForComponent(this.jPan4); 
 		}
 		this.setVisible(displayed);
 	}
@@ -272,17 +282,6 @@ public class IHM_drives extends IHM_SYC
 		return jp;
 	}
 	
-	private JPanel addElement(String[] s, JPanel jp)
-	{
-		if(s.length>4)
-			return jp;
-
-		int i = 0;
-		for(i=0;i<s.length;i++)
-			jp.add(new JLabel(s[i].toString()));
-		
-		return jp;
-	}
 	
 	public void update(Observable arg0, Object arg1) 
 	{

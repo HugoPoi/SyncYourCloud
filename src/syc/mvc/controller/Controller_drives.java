@@ -41,6 +41,7 @@ public class Controller_drives implements ActionListener
     {
 		this.model_SYC = aModel_SYC;
 		this.view_drives = aView_drives;
+		aView_drives.setControllerOfThis(this);
 		this.ControllerActionListenerForComponent(view_drives.getContentPane());
     }
 	
@@ -82,6 +83,7 @@ public class Controller_drives implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		
 		if(e.getSource()==this.view_drives.getjBt_Deconnexion())
 		{
 			//back to IHM_home
