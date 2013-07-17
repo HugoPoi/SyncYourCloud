@@ -15,10 +15,10 @@ public class Model extends Observable
 	//================================================================================================================
 	private String testText = "INITIAL";
 	private String logo_SYC = "SYC_image.jpg";
-	/*private String logo_Dropbox = "Dropbox-logo.png";
-	private String logo_Google = "Google-logo.png";
-	private String logo_Owncloud = "Owncloud-logo.png";*/
-	private String logo_SkyDrive = "SkyDrive-logo.png";
+	public String logo_Dropbox = "Dropbox-logo-mini.png";
+	public String logo_Google = "Google-logo.png";
+	public String logo_Owncloud = "Owncloud-logo.png";
+	public String logo_SkyDrive = "SkyDrive-logo.png";
 
 	public String getLogo_SkyDrive() {
 		return logo_SkyDrive;

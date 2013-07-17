@@ -8,12 +8,16 @@ import java.awt.LayoutManager;
 import java.awt.LayoutManager2;
 import java.awt.List;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -22,6 +26,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 
+import api.DriveDropBox;
+import api.DriveGoogle;
+import api.DriveSkyDrive;
 import api.IntDrive;
 
 import syc.mvc.model.Model;
@@ -37,14 +44,19 @@ public class IHM_drives extends IHM_SYC
 	private ArrayList<JButton> tabBt_Remove = new  ArrayList<JButton>(); //model_SYC.drives.size()
 	private ArrayList<JButton> tabBt_Edit = new  ArrayList<JButton>(); //model_SYC.drives.size()
 	
-	private JLabel jLab_DriveBrand = new JLabel("Drive Icone ");
-	private JLabel jLab_DriveOwner = new JLabel(" Propiétaire ");
-	private JLabel jLab_DriveMemoryUsed = new JLabel(" Espace Utilisé ");
-	private JLabel jLab_DriveMemoryCapacity = new JLabel("Capacité totale");
+	//private JLabel jLab_DriveBrand = new JLabel("Drive Icone ");
+	//private JLabel jLab_DriveOwner = new JLabel(" Propiétaire ");
+	//private JLabel jLab_DriveMemoryUsed = new JLabel(" Espace Utilisé ");
+	//private JLabel jLab_DriveMemoryCapacity = new JLabel("Capacité totale");
+	
+	private ImageIcon logoDropBox = null;
+	private ImageIcon logoSkyDrive = null;
+	private ImageIcon logoGoogleDrive = null;
 	
 	public IHM_drives(Model aModel_SYC)
 	{
-		super(aModel_SYC);	
+		super(aModel_SYC);
+		init_icon();
 		
 		this.jLab_Welcome.setText("Liste de vos drives");
 		this.setTitle("Page des CloudDrives");
@@ -63,63 +75,61 @@ public class IHM_drives extends IHM_SYC
 		JPanel jPan4a = new JPanel();
         jPan4a.setBackground(Color.WHITE);
         jPan4a.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
-        jPan4a.add(jLab_DriveBrand);
+        //jPan4a.add(jLab_DriveBrand);
         gBC_gBLay_Level_2.gridx = 0;
 		gBC_gBLay_Level_2.gridy = 0;
 		gBC_gBLay_Level_2.gridwidth = 1;
 		gBC_gBLay_Level_2.gridheight = 1;
 		gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
 		gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
-		jLab_DriveBrand.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-		jLab_DriveBrand.setHorizontalAlignment(JLabel.CENTER);
-		jPan4.add(jPan4a, gBC_gBLay_Level_2);
+		//jLab_DriveBrand.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+		//jLab_DriveBrand.setHorizontalAlignment(JLabel.CENTER);
+		//jPan4.add(jPan4a, gBC_gBLay_Level_2);
 		
 		JPanel jPan4b = new JPanel();
         jPan4b.setBackground(Color.WHITE);
         jPan4b.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
-        jPan4b.add(jLab_DriveOwner);
+        //jPan4b.add(jLab_DriveOwner);
         gBC_gBLay_Level_2.gridx = 1;
 		gBC_gBLay_Level_2.gridy = 0;
 		gBC_gBLay_Level_2.gridwidth = 1;
 		gBC_gBLay_Level_2.gridheight = 1;
 		gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
 		gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
-		jLab_DriveOwner.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-        jLab_DriveOwner.setHorizontalAlignment(JLabel.CENTER);
-		jPan4.add(jPan4b, gBC_gBLay_Level_2);
+		//jLab_DriveOwner.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+        //jLab_DriveOwner.setHorizontalAlignment(JLabel.CENTER);
+		//jPan4.add(jPan4b, gBC_gBLay_Level_2);
 		
 		JPanel jPan4c = new JPanel();
 		jPan4c.setBackground(Color.WHITE);
         jPan4c.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
-        jPan4c.add(jLab_DriveMemoryUsed);
+        //jPan4c.add(jLab_DriveMemoryUsed);
         gBC_gBLay_Level_2.gridx = 2;
         gBC_gBLay_Level_2.gridy = 0;
         gBC_gBLay_Level_2.gridwidth = 1;
         gBC_gBLay_Level_2.gridheight = 1;
         gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
         gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
-        jLab_DriveMemoryUsed.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-        jLab_DriveMemoryUsed.setHorizontalAlignment(JLabel.CENTER);
-        jPan4.add(jPan4c, gBC_gBLay_Level_2);
+        //jLab_DriveMemoryUsed.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+        //jLab_DriveMemoryUsed.setHorizontalAlignment(JLabel.CENTER);
+        //jPan4.add(jPan4c, gBC_gBLay_Level_2);
         
         //gBC_gBLay_Level_2.fill=GridBagConstraints.HORIZONTAL;
         JPanel jPan4d = new JPanel();
 		jPan4d.setBackground(Color.WHITE);
         jPan4d.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
-        jPan4d.add(jLab_DriveMemoryCapacity);
+        //jPan4d.add(jLab_DriveMemoryCapacity);
         gBC_gBLay_Level_2.gridx = 3;
         gBC_gBLay_Level_2.gridy = 0;
         gBC_gBLay_Level_2.gridwidth = 1;
         gBC_gBLay_Level_2.gridheight = 1;
         gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
         gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
-        jLab_DriveMemoryCapacity.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-        jLab_DriveMemoryCapacity.setHorizontalAlignment(JLabel.CENTER);
-        jPan4.add(jPan4d, gBC_gBLay_Level_2);
+        //jLab_DriveMemoryCapacity.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+        //jLab_DriveMemoryCapacity.setHorizontalAlignment(JLabel.CENTER);
+        //jPan4.add(jPan4d, gBC_gBLay_Level_2);
         
        //=================ModifierApres========================================
-        
-         
        
 	}
 	
@@ -133,10 +143,14 @@ public class IHM_drives extends IHM_SYC
 		       {
 					IntDrive intDrive = (IntDrive) itDrive.next();
 					System.out.println( i +" "+intDrive.toString());
-			       String[] s = new String[]{intDrive.getId(), intDrive.getNiceName(),intDrive.getNiceSize(),""};//Sera un parametre du model via le controlleur
 			       
-			       JPanel jp=createJPanel(Color.WHITE,true);
-			       addElement(s, jp);
+			       JPanel jp = createJPanel(Color.WHITE,true);
+			       jp.setLayout(new BorderLayout());
+			       if(intDrive instanceof DriveDropBox) jp.add(new JLabel(logoDropBox),BorderLayout.WEST);
+			       if(intDrive instanceof DriveSkyDrive) jp.add(new JLabel(logoSkyDrive),BorderLayout.WEST);
+			       if(intDrive instanceof DriveGoogle) jp.add(new JLabel(logoGoogleDrive),BorderLayout.WEST);
+			       
+			       jp.add(new JLabel(intDrive.getId()+" "+intDrive.getNiceName()+" "+intDrive.getNiceSize()),BorderLayout.EAST);
 			       
 			       gBC_gBLay_Level_2.ipadx = 0;
 			       gBC_gBLay_Level_2.ipady = 0;
@@ -154,12 +168,12 @@ public class IHM_drives extends IHM_SYC
 			       //gBC_gBLay_Level_2.fill=GridBagConstraints.BOTH;
 			       gBC_gBLay_Level_2.gridx = 4;
 			       gBC_gBLay_Level_2.gridy = i;
-			       gBC_gBLay_Level_2.gridwidth = gBC_gBLay_Level_2.REMAINDER;
+			       gBC_gBLay_Level_2.gridwidth = GridBagConstraints.REMAINDER;
 			       gBC_gBLay_Level_2.gridheight = 1;
 			       //gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_END;
 			       gBC_gBLay_Level_2.insets = new Insets(1, 1, 1, 1);
 			       jPan4.add(jp1, gBC_gBLay_Level_2);
-			       jp1.setPreferredSize(new Dimension(80,80));
+			       jp1.setPreferredSize(new Dimension(100,80));
 			       gBC_gBLay_Level_2.fill=GridBagConstraints.HORIZONTAL;
 			   	
 			       JButton jb = createJButton("Voir fichier");
@@ -231,14 +245,6 @@ public class IHM_drives extends IHM_SYC
 		this.jBt_RulesSYC = jBt_RulesSYC;
 	}
 
-	private JLabel createJLabel(String s) //trouver solution indexer bt ou les nommer
-	{
-		JLabel l = new JLabel(s);
-		//l.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
-		l.setHorizontalAlignment(JLabel.CENTER);
-		 return l;
-	}
-	
 	private JButton createJButton(String s) 
 	{
 		JButton jb = new JButton(s);
@@ -251,10 +257,10 @@ public class IHM_drives extends IHM_SYC
 	{
 		JPanel jp = new JPanel();
 		jp.setBackground(colorPanel);
-		jp.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
+		jp.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK));
 	    if(autoSize)
 	    {
-	    	jp.setPreferredSize(new Dimension(300,75));
+	    	jp.setPreferredSize(new Dimension(400,80));
 	    }
 	    return jp;
 	}
@@ -266,23 +272,20 @@ public class IHM_drives extends IHM_SYC
 		return jp;
 	}
 	
-	private JPanel addElement(String[] s, JPanel jp)
-	{
-		if(s.length>4)
-		{
-			return jp;
-		}
-		int i = 0;
-		for(i=0;i<s.length;i++)
-		{
-			jp.add(createJLabel(s[i].toString()));
-		}
-		return jp;
-	}
-	
 	public void update(Observable arg0, Object arg1) 
 	{
 		super.update(arg0, arg1);
 		displayIHM_drives(model_SYC.getDisplay_drives());
+	}
+	
+	private void init_icon(){
+		try {
+			logoDropBox = new ImageIcon(ImageIO.read(new File(Model.getPathImageSyc()+model_SYC.logo_Dropbox)));
+			logoSkyDrive = new ImageIcon(ImageIO.read(new File(Model.getPathImageSyc()+model_SYC.logo_SkyDrive)));
+			logoGoogleDrive = new ImageIcon(ImageIO.read(new File(Model.getPathImageSyc()+model_SYC.logo_Google)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
