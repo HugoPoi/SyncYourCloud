@@ -120,7 +120,7 @@ public class Model extends Observable
 		return INITIAL_Value;
 	}
 	
-	private static final String PATH_IMAGE_SYC=System.getProperty("user.dir" ).toString()+"\\image\\";
+	private static final String PATH_IMAGE_SYC=System.getProperty("user.dir" ).toString()+"/image/";
 	
 	public static String getPathImageSyc() {
 		return PATH_IMAGE_SYC;
