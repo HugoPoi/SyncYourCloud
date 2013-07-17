@@ -68,7 +68,7 @@ public abstract class IHM_SYC extends JFrame implements Observer
 		
 		this.setTitle("Page MERE ");
 		this.setBackground(Color.BLUE);
-		this.setSize(550,275);
+		this.setSize(550,350);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

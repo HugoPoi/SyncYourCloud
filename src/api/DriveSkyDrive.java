@@ -18,9 +18,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
-
-import org.json.simple.JSONObject;
 
 import sun.awt.RequestFocusController;
 
@@ -61,8 +60,14 @@ public class DriveSkyDrive implements IntDrive{
     	this.token = newToken;
     }
     
-    public static String ParseUrlToken(String url){
-    	return null;
+    public static DriveSkyDrive validateToken(String url){
+    	try{
+	    	String token = url.split("#")[1].split("&")[0].substring(13);
+	    	return new DriveSkyDrive(token);
+    	}
+    	catch(Exception e){
+    		return null;
+    	}
     }
     
     public static String GetUrlForToken(){
@@ -174,16 +179,32 @@ public class DriveSkyDrive implements IntDrive{
 
 	@Override
 	public IntDrive listDrive() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
-	public JSONObject savedState() {
-		JSONObject save = new JSONObject();
+	public org.json.simple.JSONObject savedState() {
+		org.json.simple.JSONObject save = new org.json.simple.JSONObject();
 		save.put("type", "skydrive");
 		save.put("token", this.token);
 		return save;
+	}
+	
+	public boolean deleteFolder(File folder,String id) {		
+		try {
+			
+			requestSettings = new WebRequest(new URL("https://apis.live.net/v5.0/" + id + "?access_token=" + this.token), HttpMethod.DELETE);
+		
+			webClient.loadWebResponse(requestSettings);
+			
+			suppRecurse(folder);
+			
+			return folder.delete();
+			
+		} catch (Exception e) {
+			e.printStackTrace();		
+			return false;
+		} 
 	}
     
 	public boolean equals(Object obj){	
@@ -201,23 +222,60 @@ public class DriveSkyDrive implements IntDrive{
 			return false;
 		return true;
 	}
+	
+	 public void suppRecurse(File r) {
+		 
+		    File [] fileList = r.listFiles();
+		    
+		    for(int i = 0;i<fileList.length;i++){
+		    	
+		      if(fileList[i].isDirectory() ){
+		    	  suppRecurse(fileList[i]);
+		        fileList[i].delete();
+		      }else{
+		        fileList[i].delete();
+		      }
+		      
+		    }
+	 }
 
 	@Override
 	public String getNiceName() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			System.out.println(this.token);
+			requestSettings = new WebRequest(new URL(String.format("https://apis.live.net/v5.0/me?access_token=%s",this.token)),HttpMethod.GET);
+			Page page = webClient.getPage(requestSettings);
+			
+			String reponse = page.getWebResponse().getContentAsString();
+			
+			return ((JSONObject) JSONSerializer.toJSON(reponse)).getString("name");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Erreur de nom";
+		}
 	}
 
 	@Override
 	public String getNiceSize() {
-		// TODO Auto-generated method stub
-		return null;
+		return "0";
 	}
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			requestSettings = new WebRequest(new URL(String.format("https://apis.live.net/v5.0/me?access_token=%s",this.token)),HttpMethod.GET);
+			Page page = webClient.getPage(requestSettings);
+			
+			String reponse = page.getWebResponse().getContentAsString();
+			
+			return ((JSONObject) JSONSerializer.toJSON(reponse)).getString("id");
+			
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			return "Erreur de nom";
+		}
 	}
     
 	

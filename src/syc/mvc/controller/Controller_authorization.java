@@ -97,6 +97,13 @@ public class Controller_authorization implements ActionListener,MouseListener
 		
 		if(e.getSource()==this.view_authorization.getjBt_AddDriveAccount())
 		{
+			if(this.model_SYC.getSelectedDriveType().equals("SkyDrive")){
+				if(this.view_authorization.getJt_UrlSkyDrive().isEmpty())
+				{
+					JOptionPane.showMessageDialog (this.view_authorization,"Veuillez copier l'url retourné.","SYC message",2);
+					return;
+				}
+			}
 			//add the drive account
 			/*if(this.view_authorization.getjLab_LiensURL().getForeground()!=Color.red)
 			{
@@ -106,7 +113,24 @@ public class Controller_authorization implements ActionListener,MouseListener
 			{*/
 				//Back to IHM_drives
 				this.view_authorization.getjLab_LiensURL().setForeground(Color.blue);
-				this.model_SYC.validateToken();
+				boolean result = true;
+				switch(model_SYC.getSelectedDriveType()){
+				   case "DropBox":
+						result = this.model_SYC.validateToken();
+						break;
+				   case "SkyDrive":
+						result = this.model_SYC.validateToken(this.view_authorization.getJt_UrlSkyDrive());
+						break;
+				default:
+					break;
+				}
+				
+				if(!result)
+				{
+					JOptionPane.showMessageDialog (this.view_authorization,"Erreur lors de votre authentification.","SYC message",2);
+					return;	
+				}
+				
 				model_SYC.init();
 				model_SYC.setDisplay_drives(true);
 			//}	

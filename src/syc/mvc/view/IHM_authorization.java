@@ -1,4 +1,5 @@
 package syc.mvc.view;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -29,6 +30,7 @@ public class IHM_authorization extends IHM_SYC
 	private JPanel jPan4b = null;
 	
 	private JTextField jTextField = null;
+	private JLabel jLab_Token = null;
 	
 	
 	public IHM_authorization(Model aModel_SYC) 
@@ -90,8 +92,21 @@ public class IHM_authorization extends IHM_SYC
 		gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
 		jPan4.add(jPan4c, gBC_gBLay_Level_2);
 		
+		JPanel jPan4d = new JPanel();
+		jPan4d.setBackground(Color.WHITE);
+		jPan4d.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.DARK_GRAY));
+		jPan4d.setLayout(new BorderLayout());
+		jLab_Token = new JLabel("Une page blanche va s'afficher. Copiez l'URL de cette page ci dessous :");
 		jTextField = new JTextField();
-		jPan4b.add(jTextField);
+		jPan4d.add(jLab_Token,BorderLayout.NORTH);
+		jPan4d.add(jTextField,BorderLayout.SOUTH);
+        gBC_gBLay_Level_2.gridx = 0;
+        gBC_gBLay_Level_2.gridy = 4;
+        gBC_gBLay_Level_2.gridwidth = 1;
+        gBC_gBLay_Level_2.gridheight = 1;
+        gBC_gBLay_Level_2.anchor = GridBagConstraints.CENTER;
+        gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
+		jPan4.add(jPan4d, gBC_gBLay_Level_2);
 	}
 	public void displayIHM_authorization(boolean displayed)
 	{	
@@ -100,6 +115,7 @@ public class IHM_authorization extends IHM_SYC
 		}
 		this.setVisible(displayed);
 		jTextField.setVisible(this.model_SYC.getSelectedDriveType().equals("SkyDrive"));
+		jLab_Token.setVisible(this.model_SYC.getSelectedDriveType().equals("SkyDrive"));
 	}
 	
 	public JButton getjBt_AddDriveAccount() {
@@ -113,7 +129,11 @@ public class IHM_authorization extends IHM_SYC
 	public JButton getjBt_Cancel() {
 		return jBt_Cancel;
 	}
-
+	
+	public String getJt_UrlSkyDrive(){
+		return jTextField.getText();
+	} 
+	
 	public void setjBt_Cancel(JButton jBt_Cancel) {
 		this.jBt_Cancel = jBt_Cancel;
 	}

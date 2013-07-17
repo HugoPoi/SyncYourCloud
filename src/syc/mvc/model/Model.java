@@ -47,7 +47,7 @@ public class Model extends Observable
 	}
 
 	public void setIndexIntDriveSelectedOnDrivePage(
-			int indexIntDriveSelectedOnDrivePage) {
+		int indexIntDriveSelectedOnDrivePage) {
 		this.indexIntDriveSelectedOnDrivePage = indexIntDriveSelectedOnDrivePage;
 		setChanged();
 		notifyObservers();
@@ -56,13 +56,30 @@ public class Model extends Observable
 	public String getSelectedDriveType() {
 		return selectedDriveType;
 	}
-	public void validateToken(){
+	
+	public boolean validateToken(){
 		if(this.addDropbox.validateToken()){
 			this.drives.add(addDropbox);
 			driveManagement.currentconf.save(drives);
+			return true;
 		}
 		else{
 			System.err.println("Erreur de validation de token");
+			return false;
+		}
+	}
+	
+	public boolean validateToken(String url){
+		DriveSkyDrive addSD = DriveSkyDrive.validateToken(url);
+		if(addSD != null)
+		{
+			this.drives.add(addSD);
+			driveManagement.currentconf.save(drives);
+			return true;
+		}
+		else{
+			System.err.println("Erreur de validation de token");
+			return false;
 		}
 	}
 

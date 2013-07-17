@@ -269,14 +269,12 @@ public class IHM_drives extends IHM_SYC
 	private JPanel addElement(String[] s, JPanel jp)
 	{
 		if(s.length>4)
-		{
 			return jp;
-		}
+
 		int i = 0;
 		for(i=0;i<s.length;i++)
-		{
 			jp.add(createJLabel(s[i].toString()));
-		}
+		
 		return jp;
 	}
 	
