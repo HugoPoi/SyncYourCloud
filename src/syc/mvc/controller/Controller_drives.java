@@ -107,7 +107,7 @@ public class Controller_drives implements ActionListener
 			model_SYC.setDisplay_addDrive(true);	
 		}
 		
-		for(int i = 0; i < model_SYC.drives.size();i++)
+		for(int i = 0; i < this.view_drives.getTabBt_Edit().size();i++)
 		{
 			if(e.getSource()==this.view_drives.getTabBt_Edit().get(i))
 			{
