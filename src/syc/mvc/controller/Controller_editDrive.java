@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
 
 import com.google.api.services.drive.model.File;
 
@@ -102,7 +103,7 @@ public class Controller_editDrive implements ActionListener
 			this.view_editDrive.getJFC_Browse().setDialogTitle("Selection de l'emplacement local");
 			this.view_editDrive.getJFC_Browse().setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			this.view_editDrive.getJFC_Browse().setApproveButtonText("Sélectionner");
-			this.view_editDrive.getJFC_Browse().setAcceptAllFileFilterUsed(false);
+			this.view_editDrive.getJFC_Browse().setAcceptAllFileFilterUsed(true);
 			
 			
 			this.view_editDrive.getJFC_Browse().setCurrentDirectory(new java.io.File(model_SYC.getTxt_LocalLocation_editDrive()));

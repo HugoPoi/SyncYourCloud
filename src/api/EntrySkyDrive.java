@@ -6,7 +6,7 @@ public class EntrySkyDrive extends Entry {
 
 		DriveSkyDrive parentSkyDrive;
 		
-		public EntrySkyDrive(IntDrive _parentDrive, String _name, String _path,
+		public EntrySkyDrive(IntDrive _parentDrive, String id, String _name, String _path,
 				Date _modificationDate, Date _creationDate, Boolean _isDir,
 				long _size, String _sizeHumanReadable){
 			super(_parentDrive, _name, _path, _modificationDate, _creationDate, _isDir, _size, _sizeHumanReadable);

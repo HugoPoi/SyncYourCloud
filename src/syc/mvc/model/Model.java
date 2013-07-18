@@ -3,6 +3,7 @@ package syc.mvc.model;
 
 import api.DriveDropBox;
 import api.DriveSkyDrive;
+import api.Entry;
 import api.IntDrive;
 import api.ManageDrive;
 
@@ -73,8 +74,11 @@ public class Model extends Observable
 		DriveSkyDrive addSD = DriveSkyDrive.validateToken(url);
 		if(addSD != null)
 		{
+			for(Entry e : addSD.getRootEntries())
+				System.out.println(e.getName() + "chemin : " + e.getPath());
+			
 			this.drives.add(addSD);
-			driveManagement.currentconf.save(drives);
+			ManageDrive.currentconf.save(drives);
 			return true;
 		}
 		else{

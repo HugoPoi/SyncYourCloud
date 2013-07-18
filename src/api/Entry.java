@@ -115,6 +115,10 @@ public abstract class Entry {
 	public String getName() {
 		return name;
 	}
+	
+	public String getPath(){
+		return path;
+	}
 
 	public abstract void download(String localFilePath);
 }

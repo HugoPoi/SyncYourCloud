@@ -25,13 +25,9 @@ public class IHM_editDrive extends IHM_SYC
 	private JButton jBt_EditDrive = new JButton("Modifier"); 
 	private JButton jBt_Browse = new JButton("Parcourir");
 	private JFileChooser JFC_Browse = new JFileChooser();
-	
-	private TextField txt_Account = new TextField(); //model_SYC.getTxt_Account_editDrive());  
-	private TextField txt_Login = new TextField(); //model_SYC.getTxt_Login_editDrive());		
+			
 	private TextField txt_LocalLocation = new TextField(); //model_SYC.getTxt_LocalLocation_editDrive());
 	
-	private JLabel jLab_Account = new JLabel("Compte : ");
-	private JLabel jLab_Login = new JLabel("Identifiant : ");	
 	private JLabel jLab_LocalLocation = new JLabel("Emplacement local : ");
 	
 	public IHM_editDrive(Model aModel_SYC) 
@@ -44,51 +40,6 @@ public class IHM_editDrive extends IHM_SYC
 		jPan3.add(jBt_EditDrive);
 		jPan3.add(jBt_BackToDrives);
 			
-		
-		JPanel jPan4a = new JPanel();
-        jPan4a.setBackground(Color.WHITE);
-        jPan4a.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
-        jPan4a.setPreferredSize(new Dimension(125,32));
-        jPan4a.add(jLab_Account);
-		gBC_gBLay_Level_2.gridx = 0;
-		gBC_gBLay_Level_2.gridy = 0;
-		gBC_gBLay_Level_2.gridwidth = 1;
-		gBC_gBLay_Level_2.gridheight = 1;
-		gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
-		gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);	//top,left,bottom,right
-		jPan4.add(jPan4a, gBC_gBLay_Level_2);
-         
-        gBC_gBLay_Level_2.gridx = 1;
-        gBC_gBLay_Level_2.gridy = 0;
-        gBC_gBLay_Level_2.gridwidth = 2;
-        gBC_gBLay_Level_2.gridheight = 1;
-        gBC_gBLay_Level_2.anchor = GridBagConstraints.CENTER;
-        gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
-        jPan4.add(txt_Account, gBC_gBLay_Level_2);
-        
-        
-        JPanel jPan4b = new JPanel();
-        jPan4b.setBackground(Color.WHITE);
-        jPan4b.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
-        jPan4b.setPreferredSize(new Dimension(125,32));
-        jPan4b.add(jLab_Login);
-        gBC_gBLay_Level_2.gridx = 0;
-        gBC_gBLay_Level_2.gridy = 1;
-        gBC_gBLay_Level_2.gridwidth = 1;
-        gBC_gBLay_Level_2.gridheight = 1;
-        gBC_gBLay_Level_2.anchor = GridBagConstraints.LINE_START;
-        gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
-        jPan4.add(jPan4b, gBC_gBLay_Level_2);
-         
-        gBC_gBLay_Level_2.gridx = 1;
-        gBC_gBLay_Level_2.gridy = 1;
-        gBC_gBLay_Level_2.gridwidth = 2;
-        gBC_gBLay_Level_2.gridheight = 1;
-        gBC_gBLay_Level_2.anchor = GridBagConstraints.CENTER;
-        gBC_gBLay_Level_2.insets = new Insets(2, 2, 2, 2);
-        jPan4.add(txt_Login, gBC_gBLay_Level_2);   
-        
-        
         JPanel jPan4c = new JPanel();
         jPan4c.setBackground(Color.WHITE);
         jPan4c.setBorder(BorderFactory.createMatteBorder(3, 5, 3, 5, Color.BLACK));
@@ -118,17 +69,10 @@ public class IHM_editDrive extends IHM_SYC
         gBC_gBLay_Level_2.insets = new Insets(2, 0, 2, 2);
         jPan4.add(jBt_Browse, gBC_gBLay_Level_2);
         
-        
-        txt_Account.setPreferredSize(new Dimension(125,25));
-        txt_Login.setPreferredSize(new Dimension(125,25));
 		txt_LocalLocation.setPreferredSize(new Dimension(125,25));
-        
-		txt_Account.setFont(police);
-		txt_Login.setFont(police);
+
 		txt_LocalLocation.setFont(police);
 		
-		jLab_Account.setFont(police);
-		jLab_Login.setFont(police);
 		jLab_LocalLocation.setFont(police);
 		
 		jBt_Browse.setFont(police);	
@@ -170,22 +114,6 @@ public class IHM_editDrive extends IHM_SYC
 
 	public void setJFC_Browse(JFileChooser jFC_Browse) {
 		JFC_Browse = jFC_Browse;
-	}
-
-	public TextField getTxt_Account() {
-		return txt_Account;
-	}
-
-	public void setTxt_Account(TextField txt_Account) {
-		this.txt_Account = txt_Account;
-	}
-
-	public TextField getTxt_Login() {
-		return txt_Login;
-	}
-
-	public void setTxt_Login(TextField txt_Login) {
-		this.txt_Login = txt_Login;
 	}
 
 	public TextField getTxt_LocalLocation() {

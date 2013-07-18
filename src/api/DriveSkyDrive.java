@@ -124,38 +124,91 @@ public class DriveSkyDrive implements IntDrive{
 	
 		}
 		
-	} catch (Exception e) {
-		
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		return false;
-	} 
+		} catch (Exception e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} 
 	
-}
-
-	@Override
-	public ArrayList<Entry> getEntries(String path) {
+	 }
+	
+	public ArrayList<Entry> getRootEntries(){
 		ArrayList<api.Entry> myEntries = new ArrayList<>();
+		try {
+			requestSettings = new WebRequest(new URL(String.format("https://apis.live.net/v5.0/me/skydrive/files?access_token=%s",this.token)),HttpMethod.GET);
+			Page page = webClient.getPage(requestSettings);
+			
+			String reponse = page.getWebResponse().getContentAsString();
+			JSONObject obj = (JSONObject)JSONSerializer.toJSON(reponse);
+			JSONArray array = obj.getJSONArray("data");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
+				
+			for(int i=0;i<array.size();i++){
+				JSONObject tmp = array.getJSONObject(i);
+				String tmpPath = "/"+tmp.getString("name");
+				
+				if(tmp.getString("type")!="file")
+					myEntries.addAll(getEntries2(tmp.getString("id"),tmpPath));
+				
+				myEntries.add(new EntrySkyDrive(this,tmp.getString("id"),tmp.getString("name"),tmpPath,sdf.parse(tmp.getString("updated_time").replace("T"," ")),sdf.parse(tmp.getString("created_time").replace("T"," ")),tmp.getString("type").equals("folder"),tmp.getLong("size"),null));
+			}
+			return myEntries;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public ArrayList<Entry> getEntries2(String id,String path){
 		try{
-			Client client = Client.create();
-			
-			WebResource wr = client.resource(String.format("https://apis.live.net/v5.0/{0}?access_token={1}",path,this.token));
-			
-			ClientResponse cr = wr.accept("application/json").get(ClientResponse.class);
-			
-			// A voir si on met en place un logger
-			if(cr.getStatus() != 200)
+			ArrayList<api.Entry> myEntries = new ArrayList<>();
+			try {
+				requestSettings = new WebRequest(new URL(String.format("https://apis.live.net/v5.0/%s/files?access_token=%s",id,this.token)),HttpMethod.GET);
+				Page page = webClient.getPage(requestSettings);
+				
+				String reponse = page.getWebResponse().getContentAsString();
+				JSONObject obj = (JSONObject)JSONSerializer.toJSON(reponse);
+				JSONArray array = obj.getJSONArray("data");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
+					
+				for(int i=0;i<array.size();i++){
+					JSONObject tmp = array.getJSONObject(i);
+					String tmpPath = path+"/"+tmp.getString("name");
+					
+					System.out.println(tmp.getString("type"));
+					if(!tmp.getString("type").equals("file"))
+						myEntries.addAll(getEntries2(tmp.getString("id"),tmpPath));
+					
+					myEntries.add(new EntrySkyDrive(this,tmp.getString("id"),tmp.getString("name"),tmpPath,sdf.parse(tmp.getString("updated_time").replace("T", " ")),sdf.parse(tmp.getString("created_time").replace("T", " ")),tmp.getString("type").equals("folder"),tmp.getLong("size"),null));
+				}
+				return myEntries;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
 				return null;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public ArrayList<Entry> getEntries(String id) {
+		ArrayList<api.Entry> myEntries = new ArrayList<>();
+		try{	
+			requestSettings = new WebRequest(new URL(String.format("https://apis.live.net/v5.0/%s/files?access_token=%s",id,this.token)),HttpMethod.GET);
+			Page page = webClient.getPage(requestSettings);
 			
-			String output = cr.getEntity(String.class);
-			
-			JSONObject obj = (JSONObject) JSONSerializer.toJSON(output);
-			JSONArray ids = (JSONArray) obj.get("data");
+			String reponse = page.getWebResponse().getContentAsString();
+			JSONArray ids = (JSONArray)JSONSerializer.toJSON(reponse);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mi:ss");
 			
 			for(int i=0;i<ids.size();i++){
-				net.sf.json.JSONObject tmp = ids.getJSONObject(i);
-				myEntries.add(new EntrySkyDrive(this,tmp.getString("name"),tmp.getString("upload_location"),sdf.parse(tmp.getString("updated_time")),sdf.parse(tmp.getString("created_time")),tmp.getString("id").startsWith("folder"),tmp.getLong("size"),null));
+				JSONObject tmp = ids.getJSONObject(i);
+				myEntries.add(new EntrySkyDrive(this,tmp.getString("id"),tmp.getString("name"),tmp.getString("upload_location"),sdf.parse(tmp.getString("updated_time")),sdf.parse(tmp.getString("created_time")),tmp.getBoolean("type"),tmp.getLong("size"),null));
 			}
 			return myEntries;
 		}
