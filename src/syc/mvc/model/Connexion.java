@@ -12,10 +12,11 @@ import org.apache.commons.io.IOUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
-
 public class Connexion {
 
 	public static String fileConf;
+	
+	private static String PATH_ACCOUNT = System.getProperty("user.dir" ).toString()+"\\account\\";
 	
 	public static final String FILE = "Identifiants.json";
 	
@@ -69,7 +70,7 @@ public class Connexion {
 	// Creer un identifiant dans le fichier json
 	public static boolean CreateIdentifiant(String id,String pwd){
 		try {
-			fileConf = id+".json";
+			fileConf = PATH_ACCOUNT + id + ".json";
 			JSONObject js = new JSONObject();
 			js.put("Login",id);
 			js.put("Password", Encrypt(pwd).toString());

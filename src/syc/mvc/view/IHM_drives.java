@@ -145,7 +145,9 @@ public class IHM_drives extends IHM_SYC
 	public void displayIHM_drives(boolean displayed)
 	{	
 		if(displayed)
-		{			
+		{	
+			this.jPan4.removeAll();
+			this.repaint();
 			int i=0;
 		       Iterator<IntDrive> itDrive = model_SYC.drives.iterator();	
 		       while (itDrive.hasNext()) 

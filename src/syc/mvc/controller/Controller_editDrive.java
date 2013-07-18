@@ -99,9 +99,9 @@ public class Controller_editDrive implements ActionListener
 		{
 			JPanel jpan_Browse= new JPanel();
 			this.view_editDrive.getJFC_Browse().setPreferredSize(new Dimension(500,270));	
-			this.view_editDrive.getJFC_Browse().setDialogTitle("Selection de l'emplacement Local");
+			this.view_editDrive.getJFC_Browse().setDialogTitle("Selection de l'emplacement local");
 			this.view_editDrive.getJFC_Browse().setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			this.view_editDrive.getJFC_Browse().setApproveButtonText("Choisir dossier");
+			this.view_editDrive.getJFC_Browse().setApproveButtonText("Sélectionner");
 			this.view_editDrive.getJFC_Browse().setAcceptAllFileFilterUsed(false);
 			
 			
