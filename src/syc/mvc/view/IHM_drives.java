@@ -41,7 +41,7 @@ public class IHM_drives extends IHM_SYC
 {
 	private JButton jBt_Deconnexion = new JButton("Deconnexion"); 
 	private  JButton jBt_AddCloudDrive = new JButton("Ajouter un CloudDrive"); 
-	private JButton jBt_RulesSYC = new JButton("R�gle de Synchronisation"); 
+	private JButton jBt_RulesSYC = new JButton("Regles de Synchronisations"); 
 	
 	private ArrayList<JButton> tabBt_SeeFile = new  ArrayList<JButton>(); //model_SYC.drives.size()
 	private ArrayList<JButton> tabBt_Remove = new  ArrayList<JButton>(); //model_SYC.drives.size()

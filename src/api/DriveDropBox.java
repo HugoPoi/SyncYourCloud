@@ -116,8 +116,10 @@ public class DriveDropBox implements IntDrive{
 		save.put("uid", this.uid);
 		save.put("key", access.key);
 		save.put("secret", access.secret);
-		save.put("localpath", sync.getLocalpath());	
-		save.put("localstate", sync.getLocalStateHash());	
+		if(sync != null){
+			save.put("localpath", sync.getLocalpath());
+			save.put("localstate", sync.getLocalStateHash());
+		}	
 		return save;
 	}
 
@@ -210,7 +212,7 @@ public class DriveDropBox implements IntDrive{
 		DecimalFormat df = new DecimalFormat ( ) ;
 		df.setMaximumFractionDigits(2);
 		df.setMinimumFractionDigits(2);
-		return "Espace restant : " + df.format( (float) accountInfos.quotaNormal/(1024*1024*1024)) + " Go";
+		return "Espace restant : " + df.format( (float) ((float)accountInfos.quotaNormal/(float)(1024*1024*1024)) ) + " Go";
 	}
 
 	@Override
