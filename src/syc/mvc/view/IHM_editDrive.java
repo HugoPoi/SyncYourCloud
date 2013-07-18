@@ -120,8 +120,8 @@ public class IHM_editDrive extends IHM_SYC
 		return txt_LocalLocation;
 	}
 
-	public void setTxt_LocalLocation(TextField txt_LocalLocation) {
-		this.txt_LocalLocation = txt_LocalLocation;
+	public void setTxt_LocalLocation(String txt_LocalLocation) {
+		this.txt_LocalLocation.setText(txt_LocalLocation);
 	}
 
 	public void update(Observable arg0, Object arg1) 
