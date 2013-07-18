@@ -149,6 +149,9 @@ public class IHM_drives extends IHM_SYC
 			this.jPan4.removeAll();
 			this.repaint();
 			int i=0;
+			tabBt_SeeFile.clear();
+			tabBt_Edit.clear();
+			tabBt_Remove.clear();
 		       Iterator<IntDrive> itDrive = model_SYC.drives.iterator();	
 		       while (itDrive.hasNext()) 
 		       {

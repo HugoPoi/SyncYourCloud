@@ -84,7 +84,7 @@ public class Controller_drives implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		
+		System.out.println("Action performed!");
 		if(e.getSource()==this.view_drives.getjBt_Deconnexion())
 		{
 			//back to IHM_home
@@ -107,8 +107,7 @@ public class Controller_drives implements ActionListener
 			model_SYC.setDisplay_addDrive(true);	
 		}
 		
-		int i;
-		for(i = 0; i < model_SYC.drives.size();i++)
+		for(int i = 0; i < model_SYC.drives.size();i++)
 		{
 			if(e.getSource()==this.view_drives.getTabBt_Edit().get(i))
 			{
@@ -120,9 +119,10 @@ public class Controller_drives implements ActionListener
 				model_SYC.setDisplay_editDrive(true);
 			}
 			
-			if(e.getSource()==this.view_drives.getTabBt_Remove().get(i))
+			if(e.getSource() == this.view_drives.getTabBt_Remove().get(i))
 			{
-				int dialogResult = JOptionPane.showConfirmDialog (this.view_drives, "Êtes vous sûr de vouloir supprimer ce drive?","Warning", 1);
+				System.out.println("Delete : "+i);
+				int dialogResult = JOptionPane.showConfirmDialog (this.view_drives, "Êtes vous sûr de vouloir supprimer ce drive ?","Warning", 1);
 				if(dialogResult == JOptionPane.YES_OPTION)
 					model_SYC.removeDrive(i);
 	
