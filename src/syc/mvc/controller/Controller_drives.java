@@ -119,6 +119,8 @@ public class Controller_drives implements ActionListener
 				model_SYC.setDisplay_editDrive(true);
 			}
 			
+			
+			
 			if(e.getSource()==this.view_drives.getTabBt_Remove().get(i))
 			{
 				model_SYC.setIndexIntDriveSelectedOnDrivePage(i);
@@ -126,11 +128,12 @@ public class Controller_drives implements ActionListener
 				if(dialogResult == JOptionPane.YES_OPTION)
 					model_SYC.removeDrive(i);
 			}
-			
+
 			if(e.getSource()==this.view_drives.getTabBt_SeeFile().get(i))
 			{
 				model_SYC.setIndexIntDriveSelectedOnDrivePage(i);
 			}
+
 		}
 	}
 }
