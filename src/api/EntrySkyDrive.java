@@ -33,7 +33,6 @@ public class EntrySkyDrive extends Entry {
 			if(!isDir)
 			{
 				try {
-					
 					WebClient webClient = new WebClient();
 					WebRequest requestSettings = new WebRequest(new URL("https://apis.live.net/v5.0/" + this.id + "/content?access_token=" + this.parentSkyDrive.getToken()));
 					
@@ -56,13 +55,9 @@ public class EntrySkyDrive extends Entry {
 			}
 			else
 			{
-				new File(localFilePath).mkdir();
-				ArrayList<Entry> tree = parentSkyDrive.getEntries(this.path);
-				Iterator<Entry> itTree = tree.iterator();
-				while(itTree.hasNext()){
-					Entry next = itTree.next();
-					next.download(localFilePath+File.separator+next.name);
-				}
+				File f = new File(localFilePath);
+				if(!f.exists())
+					f.mkdir();
 			}
 		}
 }

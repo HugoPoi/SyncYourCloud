@@ -82,19 +82,25 @@ public class Controller_account implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
     	String login = this.view_account.getTxt_Login().getText();
-    	String pwd = this.view_account.getTxt_Password().getText();
+    	String pwd = new String(this.view_account.getTxt_Password().getPassword());
     	
 		if(e.getSource()==this.view_account.getjBt_Account())
 		{
-			if(login.isEmpty() || pwd.isEmpty() || this.view_account.getTxt_PasswordBis().getText().isEmpty())
+			if(login.isEmpty() || pwd.isEmpty() || this.view_account.getTxt_PasswordBis().getPassword().length == 0)
 			{
 				JOptionPane.showMessageDialog (this.view_account,"Renseignez les champs pour vous connecter","SYC message",2);
 				return;
 			}
 			
-			if(!pwd.equals(this.view_account.getTxt_PasswordBis().getText()))
+			if(!pwd.equals(new String(this.view_account.getTxt_PasswordBis().getPassword())))
 			{
 				JOptionPane.showMessageDialog (this.view_account,"Les mots de passes ne correspondent pas","SYC message",2);
+				return;
+			}
+			
+			if(pwd.length() < 6)
+			{
+				JOptionPane.showMessageDialog (this.view_account,"Le mot de passe doit contenir au moins 6 caractères","SYC message",2);
 				return;
 			}
 			

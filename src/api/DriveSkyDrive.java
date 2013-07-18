@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class DriveSkyDrive implements IntDrive{
@@ -37,6 +38,7 @@ public class DriveSkyDrive implements IntDrive{
 	private String token;
 	private final WebClient webClient = new WebClient();
 	private WebRequest requestSettings;
+	private Sync sync;
     
     public static void init(String key, String secret) {
     	appKey = new AppKeyPair(key,secret);
@@ -154,6 +156,8 @@ public class DriveSkyDrive implements IntDrive{
 				
 				myEntries.add(new EntrySkyDrive(this,tmp.getString("id"),tmp.getString("name"),tmpPath,sdf.parse(tmp.getString("updated_time").replace("T"," ")),sdf.parse(tmp.getString("created_time").replace("T"," ")),tmp.getString("type").equals("folder"),tmp.getLong("size"),null));
 			}
+			
+			Collections.reverse(myEntries);
 			return myEntries;
 			
 		} catch (Exception e) {
@@ -178,7 +182,6 @@ public class DriveSkyDrive implements IntDrive{
 					JSONObject tmp = array.getJSONObject(i);
 					String tmpPath = path+File.separator+tmp.getString("name");
 					
-					System.out.println(tmp.getString("type"));
 					if(!tmp.getString("type").equals("file"))
 						myEntries.addAll(getEntries2(tmp.getString("id"),tmpPath));
 					
@@ -198,7 +201,11 @@ public class DriveSkyDrive implements IntDrive{
 	}
 	@Override
 	public ArrayList<Entry> getEntries(String id) {
-		ArrayList<api.Entry> myEntries = new ArrayList<>();
+		if(id == "/")
+			return getRootEntries();
+		else
+			return null;
+		/*ArrayList<api.Entry> myEntries = new ArrayList<>();
 		try{	
 			requestSettings = new WebRequest(new URL(String.format("https://apis.live.net/v5.0/%s/files?access_token=%s",id,this.token)),HttpMethod.GET);
 			Page page = webClient.getPage(requestSettings);
@@ -216,7 +223,7 @@ public class DriveSkyDrive implements IntDrive{
 		catch(Exception e){
 			e.printStackTrace();
 			return null;
-		}
+		}*/
 	}
 
 	@Override
@@ -333,14 +340,12 @@ public class DriveSkyDrive implements IntDrive{
 
 	@Override
 	public Sync getSync() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sync;	
 	}
 
 	@Override
 	public void setSync(String localpath) {
-		// TODO Auto-generated method stub
-		
+		this.sync = new Sync(this, localpath, null);
 	}
     
 	public String getToken(){
