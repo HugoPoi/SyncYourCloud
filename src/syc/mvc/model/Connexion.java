@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
@@ -27,7 +28,6 @@ public class Connexion {
 				return true;
 			
 			JSONArray jsa = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(new FileReader(FILE)));
-			
 			for(Object o : jsa){
 				JSONObject js = (JSONObject) o;
 				if(js.getString("Login").equals(login))
@@ -50,8 +50,7 @@ public class Connexion {
 			
 			for(Object o : jsa){
 				JSONObject js = (JSONObject) o;
-				
-				if(js.getString("Login").equals(id) && Decrypt(js.getString("Password")).equals((pwd).toString())){
+				if(js.getString("Login").equals(id) && js.getString("Password").equals((Encrypt(pwd)).toString())){
 					fileConf = js.getString("File");
 					return true;	
 				}
@@ -106,23 +105,27 @@ public class Connexion {
 	private static String Encrypt(String passwd){
 		
 		try {
-			byte[] encoded = Base64.encodeBase64(passwd.getBytes());
-			return new String(encoded);
+			byte[] bytesOfMessage = passwd.getBytes("UTF-8");
+
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] thedigest = md.digest(bytesOfMessage);
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < thedigest.length; ++i) {
+				String hex = Integer.toHexString(thedigest[i]);
+				if (hex.length() == 1) {
+					sb.append(0);
+					sb.append(hex.charAt(hex.length() - 1));
+				} else {
+					sb.append(hex.substring(hex.length() - 2));
+				}
+			}
+			return sb.toString();
+			/*byte[] encoded = Base64.encodeBase64(passwd.getBytes());
+			return new String(encoded);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	// Decrypte le mot de passe
-	private static String Decrypt(String passwd){
-		
-		try {
-			return new String(Base64.decodeBase64(passwd.getBytes()),"UTF-8");
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 }
