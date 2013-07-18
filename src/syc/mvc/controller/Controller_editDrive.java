@@ -85,7 +85,7 @@ public class Controller_editDrive implements ActionListener
 		if(e.getSource()==this.view_editDrive.getjBt_EditDrive())
 		{
 			int dialogResult = JOptionPane.showConfirmDialog (this.view_editDrive,
-					"Confirmez la ou les modifications apportée(s)","SYC message",JOptionPane.OK_CANCEL_OPTION);
+					"Confirmez la ou les modifications apportï¿½e(s)","SYC message",JOptionPane.OK_CANCEL_OPTION);
 			
 			if(dialogResult == JOptionPane.OK_OPTION)
 			{
@@ -102,7 +102,7 @@ public class Controller_editDrive implements ActionListener
 			this.view_editDrive.getJFC_Browse().setPreferredSize(new Dimension(500,270));	
 			this.view_editDrive.getJFC_Browse().setDialogTitle("Selection de l'emplacement local");
 			this.view_editDrive.getJFC_Browse().setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			this.view_editDrive.getJFC_Browse().setApproveButtonText("Sélectionner");
+			this.view_editDrive.getJFC_Browse().setApproveButtonText("Sï¿½lectionner");
 			this.view_editDrive.getJFC_Browse().setAcceptAllFileFilterUsed(true);
 			
 			
@@ -113,6 +113,7 @@ public class Controller_editDrive implements ActionListener
             if (dialogResult == JFileChooser.APPROVE_OPTION)
             {
                if(this.view_editDrive.getJFC_Browse().getSelectedFile() != null){
+            	   this.view_editDrive.setTxt_LocalLocation(this.view_editDrive.getJFC_Browse().getSelectedFile().getAbsolutePath());
             	   model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage()).setSync(this.view_editDrive.getJFC_Browse().getSelectedFile().getAbsolutePath());
             	}
                

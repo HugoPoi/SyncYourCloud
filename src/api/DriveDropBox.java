@@ -212,7 +212,7 @@ public class DriveDropBox implements IntDrive{
 		DecimalFormat df = new DecimalFormat ( ) ;
 		df.setMaximumFractionDigits(2);
 		df.setMinimumFractionDigits(2);
-		return "Espace restant : " + df.format( (float) ((float)accountInfos.quotaNormal/(float)(1024*1024*1024)) ) + " Go";
+		return "Total : " + df.format( (float) ((float)accountInfos.quota/(float)(1024*1024*1024)) ) + " Go";
 	}
 
 	@Override
