@@ -73,10 +73,7 @@ public class Model extends Observable
 	public boolean validateToken(String url){
 		DriveSkyDrive addSD = DriveSkyDrive.validateToken(url);
 		if(addSD != null)
-		{
-			for(Entry e : addSD.getRootEntries())
-				System.out.println(e.getName() + "chemin : " + e.getPath());
-			
+		{	
 			this.drives.add(addSD);
 			ManageDrive.currentconf.save(drives);
 			return true;

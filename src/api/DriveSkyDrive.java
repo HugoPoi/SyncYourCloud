@@ -62,6 +62,7 @@ public class DriveSkyDrive implements IntDrive{
     
     public static DriveSkyDrive validateToken(String url){
     	try{
+    		// Pas très propre mais permet de récupérer le token de l'URL
 	    	String token = url.split("#")[1].split("&")[0].substring(13);
 	    	return new DriveSkyDrive(token);
     	}
@@ -146,7 +147,7 @@ public class DriveSkyDrive implements IntDrive{
 				
 			for(int i=0;i<array.size();i++){
 				JSONObject tmp = array.getJSONObject(i);
-				String tmpPath = "/"+tmp.getString("name");
+				String tmpPath = File.separator+tmp.getString("name");
 				
 				if(tmp.getString("type")!="file")
 					myEntries.addAll(getEntries2(tmp.getString("id"),tmpPath));
@@ -175,7 +176,7 @@ public class DriveSkyDrive implements IntDrive{
 					
 				for(int i=0;i<array.size();i++){
 					JSONObject tmp = array.getJSONObject(i);
-					String tmpPath = path+"/"+tmp.getString("name");
+					String tmpPath = path+File.separator+tmp.getString("name");
 					
 					System.out.println(tmp.getString("type"));
 					if(!tmp.getString("type").equals("file"))
@@ -330,5 +331,8 @@ public class DriveSkyDrive implements IntDrive{
 		}
 	}
     
+	public String getToken(){
+		return token;
+	}
 	
 }

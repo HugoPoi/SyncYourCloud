@@ -119,16 +119,17 @@ public class Controller_drives implements ActionListener
 				model_SYC.setDisplay_editDrive(true);
 			}
 			
+			
+			if(e.getSource()==this.view_drives.getTabBt_SeeFile().get(i))
+			{
+				
+			}
+			
 			if(e.getSource()==this.view_drives.getTabBt_Remove().get(i))
 			{
 				int dialogResult = JOptionPane.showConfirmDialog (this.view_drives, "Êtes vous sûr de vouloir supprimer ce drive?","Warning", 1);
 				if(dialogResult == JOptionPane.YES_OPTION)
 					model_SYC.removeDrive(i);
-			}
-			
-			if(e.getSource()==this.view_drives.getTabBt_SeeFile().get(i))
-			{
-				
 			}
 		}
 	}
