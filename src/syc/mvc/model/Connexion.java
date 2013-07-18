@@ -69,13 +69,17 @@ public class Connexion {
 	// Creer un identifiant dans le fichier json
 	public static boolean CreateIdentifiant(String id,String pwd){
 		try {
+			
+			File f;
+			if(!(f = new File(PATH_ACCOUNT)).exists())
+				f.mkdir();
+				
 			fileConf = PATH_ACCOUNT + id + ".json";
 			JSONObject js = new JSONObject();
 			js.put("Login",id);
 			js.put("Password", Encrypt(pwd).toString());
 			js.put("File",fileConf);
 			
-			System.out.println(FILE);
 			if(!new File(FILE).exists()){
 				PrintWriter fileOut = new PrintWriter (new BufferedWriter (new FileWriter (FILE)));
 				JSONArray array = new JSONArray();
