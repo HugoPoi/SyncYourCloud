@@ -18,7 +18,7 @@ public class Model extends Observable
 	public String logo_Dropbox = "Dropbox-logo-mini.png";
 	public String logo_Google = "Google-logo.png";
 	public String logo_Owncloud = "Owncloud-logo.png";
-	public String logo_SkyDrive = "SkyDrive-logo.png";
+	public String logo_SkyDrive = "SkyDrive-logo-mini.png";
 
 	public String getLogo_SkyDrive() {
 		return logo_SkyDrive;
