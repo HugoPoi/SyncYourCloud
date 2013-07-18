@@ -1,6 +1,7 @@
 package api;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,15 +14,21 @@ import com.dropbox.client2.exception.DropboxException;
 public class EntryDropBox extends Entry{
 	
 	DriveDropBox parentDropBox;
+	private String hash;
 
 	public EntryDropBox(IntDrive _parentDrive, String _name, String _path,
 			Date _modificationDate, Date _creationDate, Boolean _isDir,
-			long _size, String _sizeHumanReadable) {
+			long _size, String _sizeHumanReadable, String hash) {
 		super(_parentDrive, _name, _path, _modificationDate, _creationDate, _isDir,
 				_size, _sizeHumanReadable);
+		this.hash = hash;
 		if(_parentDrive instanceof DriveDropBox) parentDropBox = (DriveDropBox) parentDrive;
 	}
 	
+	public String getHash() {
+		return hash;
+	}
+
 	@Override
 	public void download(String localPath) {
 		if(!this.isDir){
@@ -52,4 +59,7 @@ public class EntryDropBox extends Entry{
 			
 		}
 	}
+	/*public void upload(FileInputStream file){
+		
+	}*/
 }

@@ -31,13 +31,11 @@ public class Model extends Observable
 		notifyObservers();
 	}
 
-	private String[] driveTypeList = new String[] {"DropBox", "GoogleDrive", "SkyDrive","OwnDrive"};
+	private String[] driveTypeList = new String[] {"DropBox", "SkyDrive"}; //in the future "GoogleDrive", "OwnDrive"
 	private int indexIntDriveSelectedOnDrivePage=0;
-	private int indexDriveSelectedOnAddDrivePage=1;
 	private String Drivelink;
 	
 	private String currentConfFile = null;
-	private ManageDrive driveManagement;
 	public ArrayList<IntDrive> drives;
 	
 	private String selectedDriveType = "";
@@ -47,8 +45,7 @@ public class Model extends Observable
 		return indexIntDriveSelectedOnDrivePage;
 	}
 
-	public void setIndexIntDriveSelectedOnDrivePage(
-		int indexIntDriveSelectedOnDrivePage) {
+	public void setIndexIntDriveSelectedOnDrivePage(int indexIntDriveSelectedOnDrivePage) {
 		this.indexIntDriveSelectedOnDrivePage = indexIntDriveSelectedOnDrivePage;
 		setChanged();
 		notifyObservers();
@@ -61,7 +58,7 @@ public class Model extends Observable
 	public boolean validateToken(){
 		if(this.addDropbox.validateToken()){
 			this.drives.add(addDropbox);
-			driveManagement.currentconf.save(drives);
+			saveConfig();
 			return true;
 		}
 		else{
@@ -78,7 +75,7 @@ public class Model extends Observable
 				System.out.println(e.getName() + "chemin : " + e.getPath());
 			
 			this.drives.add(addSD);
-			ManageDrive.currentconf.save(drives);
+			saveConfig();
 			return true;
 		}
 		else{
@@ -89,7 +86,7 @@ public class Model extends Observable
 	
 	public void removeDrive(int index){
 		drives.remove(index);
-		ManageDrive.currentconf.save(drives);
+		saveConfig();
 		setChanged();
 		notifyObservers();
 	}
@@ -119,8 +116,7 @@ public class Model extends Observable
 
 	public void setCurrentConfFile(String currentConfFile) {
 		this.currentConfFile = currentConfFile;
-		driveManagement = new ManageDrive();
-		drives = driveManagement.loadDrives(this.currentConfFile);
+		drives = ManageDrive.loadDrives(this.currentConfFile);
 		setChanged();
 		notifyObservers();
 	}
@@ -324,16 +320,6 @@ public class Model extends Observable
 		setChanged();
 		notifyObservers();
 	}
-
-	public int getIndexDriveSelectedOnAddDrivePage() {
-		return indexDriveSelectedOnAddDrivePage;
-	}
-
-	public void setIndexDriveSelectedOnAddDrivePage(int indexDriveSelectedOnAddDrivePage) {
-		this.indexDriveSelectedOnAddDrivePage = indexDriveSelectedOnAddDrivePage;
-		setChanged();
-		notifyObservers();
-	}  
 	
 	public String[] getDriveTypeList() {
 		return driveTypeList;
@@ -343,5 +329,9 @@ public class Model extends Observable
 		this.driveTypeList = driveTypeList;
 		setChanged();
 		notifyObservers();
+	}
+	
+	public void saveConfig(){
+		ManageDrive.currentconf.save(drives);
 	}
 }

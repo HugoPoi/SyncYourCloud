@@ -90,7 +90,7 @@ public class Controller_editDrive implements ActionListener
 			if(dialogResult == JOptionPane.OK_OPTION)
 			{
 				//apply the new modification
-				
+				model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage()).getSync().start();
 				//then go back back to Drives
 				model_SYC.init();
 				model_SYC.setDisplay_drives(true);
@@ -112,8 +112,9 @@ public class Controller_editDrive implements ActionListener
 			 
             if (dialogResult == JFileChooser.APPROVE_OPTION)
             {
-               if(this.view_editDrive.getJFC_Browse().getSelectedFile() != null)
-            	model_SYC.setTxt_LocalLocation_editDrive(this.view_editDrive.getJFC_Browse().getSelectedFile().getAbsolutePath());
+               if(this.view_editDrive.getJFC_Browse().getSelectedFile() != null){
+            	   model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage()).setSync(this.view_editDrive.getJFC_Browse().getSelectedFile().getAbsolutePath());
+            	}
                
                //move the folder to the new place selected
             }

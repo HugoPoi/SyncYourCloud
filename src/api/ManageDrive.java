@@ -12,7 +12,7 @@ public class ManageDrive {
 	
 	public static final String appConfigPath = "appconf.json";
 	
-	public ArrayList<IntDrive> loadDrives(String userConfPath){
+	public static ArrayList<IntDrive> loadDrives(String userConfPath){
 		ArrayList<IntDrive> drives = new ArrayList<IntDrive>();
 		currentconf = new api.Config(appConfigPath,userConfPath);
 		DriveDropBox.init(currentconf.dropboxAppKey,currentconf.dropboxAppSecret);

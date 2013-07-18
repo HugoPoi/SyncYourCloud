@@ -7,6 +7,10 @@ import org.json.simple.JSONObject;
 
 public interface IntDrive {
 	
+	public Sync getSync();
+	
+	public void setSync(String localpath);
+	
 	public void uploadFile(String path,OutputStream file);
 	
 	public Entry getEntryInfo(String path);

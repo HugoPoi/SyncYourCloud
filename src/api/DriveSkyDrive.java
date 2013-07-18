@@ -329,6 +329,18 @@ public class DriveSkyDrive implements IntDrive{
 			return "Erreur de nom";
 		}
 	}
+
+	@Override
+	public Sync getSync() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSync(String localpath) {
+		// TODO Auto-generated method stub
+		
+	}
     
 	
 }

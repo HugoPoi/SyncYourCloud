@@ -121,6 +121,7 @@ public class Controller_drives implements ActionListener
 			
 			if(e.getSource()==this.view_drives.getTabBt_Remove().get(i))
 			{
+				model_SYC.setIndexIntDriveSelectedOnDrivePage(i);
 				int dialogResult = JOptionPane.showConfirmDialog (this.view_drives, "Êtes vous sûr de vouloir supprimer ce drive?","Warning", 1);
 				if(dialogResult == JOptionPane.YES_OPTION)
 					model_SYC.removeDrive(i);
@@ -128,7 +129,7 @@ public class Controller_drives implements ActionListener
 			
 			if(e.getSource()==this.view_drives.getTabBt_SeeFile().get(i))
 			{
-				
+				model_SYC.setIndexIntDriveSelectedOnDrivePage(i);
 			}
 		}
 	}

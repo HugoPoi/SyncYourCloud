@@ -170,16 +170,6 @@ public class Controller_authorization implements ActionListener,MouseListener
 	{
 		if(e.getSource()==this.view_authorization.getjLab_LiensURL())
 		{
-			this.view_authorization.getjLab_LiensURL().setText("<html><body><u><b>"+model_SYC.getDrivelink() +"</b></u></body></html>");
-			
-			System.out.println(model_SYC.getIndexDriveSelectedOnAddDrivePage());
-			if(model_SYC.getDriveTypeList()[model_SYC.getIndexDriveSelectedOnAddDrivePage()].equals(model_SYC.getDriveTypeList()[2]))//SkyDrive number in the model list
-			{
-				String LinkSkyDrive = (String)JOptionPane.showInputDialog(this.view_authorization,
-						   "Copiez et collez le lien SkyDrive ici: ","SkyDrive autorisation",
-						   JOptionPane.QUESTION_MESSAGE,new ImageIcon(model_SYC.getPathImageSyc()+model_SYC.getLogo_SkyDrive()),
-						   null, ""/*no initial value*/); 
-			}
 		}
 	}
 

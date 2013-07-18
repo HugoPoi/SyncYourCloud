@@ -162,4 +162,16 @@ public class DriveGoogle implements IntDrive {
 		return null;
 	}
 
+	@Override
+	public Sync getSync() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSync(String localpath) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

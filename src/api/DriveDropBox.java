@@ -32,6 +32,7 @@ public class DriveDropBox implements IntDrive{
 	
 	public String authUrl;
 	
+	private Sync sync;
 	
 	/*
 	 * 
@@ -79,6 +80,16 @@ public class DriveDropBox implements IntDrive{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try{
+			String initlocalpath =	(config.getOrNull("localpath") == null) ? null: config.getOrNull("localpath").expectString();
+			String initlocalstate =	(config.getOrNull("localstate") == null) ? null: config.getOrNull("localstate").expectString();
+			if(initlocalpath != null)
+				sync = new Sync(this, initlocalpath, initlocalstate);
+		}
+		catch (JsonExtractionException e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -104,7 +115,9 @@ public class DriveDropBox implements IntDrive{
 		save.put("type", "dropbox");
 		save.put("uid", this.uid);
 		save.put("key", access.key);
-		save.put("secret", access.secret);	
+		save.put("secret", access.secret);
+		save.put("localpath", sync.getLocalpath());	
+		save.put("localstate", sync.getLocalStateHash());	
 		return save;
 	}
 
@@ -120,7 +133,7 @@ public class DriveDropBox implements IntDrive{
 		DropboxAPI.Entry entryInfo;
 		try {
 			entryInfo = api.metadata(path, 0, null, true, null);
-			return new api.EntryDropBox(this,entryInfo.fileName(),entryInfo.path,RESTUtility.parseDate(entryInfo.modified),RESTUtility.parseDate(entryInfo.modified),entryInfo.isDir,entryInfo.bytes,entryInfo.size);
+			return new api.EntryDropBox(this,entryInfo.fileName(),entryInfo.path,RESTUtility.parseDate(entryInfo.modified),RESTUtility.parseDate(entryInfo.modified),entryInfo.isDir,entryInfo.bytes,entryInfo.size,entryInfo.hash);
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -165,14 +178,14 @@ public class DriveDropBox implements IntDrive{
 					com.dropbox.client2.DropboxAPI.Entry curfile = it.next();
 					if(!curfile.isDeleted){
 						if(curfile.isDir){
-							outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.modified),curfile.isDir,curfile.bytes,curfile.size));
+							outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.modified),curfile.isDir,curfile.bytes,curfile.size,curfile.hash));
 						}
-						else outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.clientMtime),curfile.isDir,curfile.bytes,curfile.size));
+						else outEntries.add(new api.EntryDropBox(this,curfile.fileName(),curfile.path,RESTUtility.parseDate(curfile.modified),RESTUtility.parseDate(curfile.clientMtime),curfile.isDir,curfile.bytes,curfile.size,curfile.hash));
 					}
 				}
 			}
 			else{
-				outEntries.add(new api.EntryDropBox(this,base.fileName(),base.path,RESTUtility.parseDate(base.modified),RESTUtility.parseDate(base.modified),base.isDir,base.bytes,base.size));
+				outEntries.add(new api.EntryDropBox(this,base.fileName(),base.path,RESTUtility.parseDate(base.modified),RESTUtility.parseDate(base.modified),base.isDir,base.bytes,base.size,base.hash));
 			}
 			return outEntries;
 		} catch (DropboxException e) {
@@ -189,7 +202,6 @@ public class DriveDropBox implements IntDrive{
 
 	@Override
 	public String getNiceName() {
-		// TODO Auto-generated method stub
 		return accountInfos.displayName;
 	}
 
@@ -205,5 +217,13 @@ public class DriveDropBox implements IntDrive{
 	public String getId() {
 		// TODO Auto-generated method stub
 		return ""+ this.uid;
+	}
+
+	@Override
+	public Sync getSync() {
+		return this.sync;
+	}
+	public void setSync(String localpath) {
+		this.sync = new Sync(this, localpath, null);
 	}
 }
