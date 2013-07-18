@@ -37,6 +37,7 @@ public class DriveSkyDrive implements IntDrive{
 	private String token;
 	private final WebClient webClient = new WebClient();
 	private WebRequest requestSettings;
+	private Sync sync;
     
     public static void init(String key, String secret) {
     	appKey = new AppKeyPair(key,secret);
@@ -198,7 +199,11 @@ public class DriveSkyDrive implements IntDrive{
 	}
 	@Override
 	public ArrayList<Entry> getEntries(String id) {
-		ArrayList<api.Entry> myEntries = new ArrayList<>();
+		if(id == "/")
+			return getRootEntries();
+		else
+			return null;
+		/*ArrayList<api.Entry> myEntries = new ArrayList<>();
 		try{	
 			requestSettings = new WebRequest(new URL(String.format("https://apis.live.net/v5.0/%s/files?access_token=%s",id,this.token)),HttpMethod.GET);
 			Page page = webClient.getPage(requestSettings);
@@ -216,7 +221,7 @@ public class DriveSkyDrive implements IntDrive{
 		catch(Exception e){
 			e.printStackTrace();
 			return null;
-		}
+		}*/
 	}
 
 	@Override
@@ -333,14 +338,12 @@ public class DriveSkyDrive implements IntDrive{
 
 	@Override
 	public Sync getSync() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sync;	
 	}
 
 	@Override
 	public void setSync(String localpath) {
-		// TODO Auto-generated method stub
-		
+		this.sync = new Sync(this, localpath, null);
 	}
     
 	public String getToken(){

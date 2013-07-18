@@ -30,10 +30,10 @@ public class EntrySkyDrive extends Entry {
 
 		@Override
 		public void download(String localFilePath) {
+			System.out.println(localFilePath);
 			if(!isDir)
 			{
 				try {
-					
 					WebClient webClient = new WebClient();
 					WebRequest requestSettings = new WebRequest(new URL("https://apis.live.net/v5.0/" + this.id + "/content?access_token=" + this.parentSkyDrive.getToken()));
 					

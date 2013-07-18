@@ -116,8 +116,8 @@ public class DriveDropBox implements IntDrive{
 		save.put("uid", this.uid);
 		save.put("key", access.key);
 		save.put("secret", access.secret);
-		save.put("localpath", sync.getLocalpath());	
-		save.put("localstate", sync.getLocalStateHash());	
+		//save.put("localpath", sync.getLocalpath());	
+		//save.put("localstate", sync.getLocalStateHash());	
 		return save;
 	}
 

@@ -16,7 +16,7 @@ public class Connexion {
 
 	public static String fileConf;
 	
-	private static String PATH_ACCOUNT = System.getProperty("user.dir" ).toString()+"\\account\\";
+	private static String PATH_ACCOUNT = System.getProperty("user.dir" ).toString()+File.separator + "account" + File.separator;
 	
 	public static final String FILE = "Identifiants.json";
 	
