@@ -115,13 +115,11 @@ public class Connexion {
 				if (hex.length() == 1) {
 					sb.append(0);
 					sb.append(hex.charAt(hex.length() - 1));
-				} else {
-					sb.append(hex.substring(hex.length() - 2));
-				}
+				} else 
+					sb.append(hex.substring(hex.length() - 2));				
 			}
 			return sb.toString();
-			/*byte[] encoded = Base64.encodeBase64(passwd.getBytes());
-			return new String(encoded);*/
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
