@@ -30,7 +30,6 @@ public class EntrySkyDrive extends Entry {
 
 		@Override
 		public void download(String localFilePath) {
-			System.out.println(localFilePath);
 			if(!isDir)
 			{
 				try {
@@ -56,13 +55,9 @@ public class EntrySkyDrive extends Entry {
 			}
 			else
 			{
-				new File(localFilePath).mkdir();
-				ArrayList<Entry> tree = parentSkyDrive.getEntries(this.path);
-				Iterator<Entry> itTree = tree.iterator();
-				while(itTree.hasNext()){
-					Entry next = itTree.next();
-					next.download(localFilePath+File.separator+next.name);
-				}
+				File f = new File(localFilePath);
+				if(!f.exists())
+					f.mkdir();
 			}
 		}
 }

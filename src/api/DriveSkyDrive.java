@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class DriveSkyDrive implements IntDrive{
@@ -155,6 +156,8 @@ public class DriveSkyDrive implements IntDrive{
 				
 				myEntries.add(new EntrySkyDrive(this,tmp.getString("id"),tmp.getString("name"),tmpPath,sdf.parse(tmp.getString("updated_time").replace("T"," ")),sdf.parse(tmp.getString("created_time").replace("T"," ")),tmp.getString("type").equals("folder"),tmp.getLong("size"),null));
 			}
+			
+			Collections.reverse(myEntries);
 			return myEntries;
 			
 		} catch (Exception e) {
@@ -179,7 +182,6 @@ public class DriveSkyDrive implements IntDrive{
 					JSONObject tmp = array.getJSONObject(i);
 					String tmpPath = path+File.separator+tmp.getString("name");
 					
-					System.out.println(tmp.getString("type"));
 					if(!tmp.getString("type").equals("file"))
 						myEntries.addAll(getEntries2(tmp.getString("id"),tmpPath));
 					
