@@ -1,0 +1,27 @@
+Identifiant du test	Description du test	Etat du test
+A01	Test des API en ligne de commande		F
+A02	Test fonctionnel de l’interface graphique	F
+A03	Test unitaire sur les classes			F
+A04	Test de la sauvegarde JSON			F
+A05	Test de l’extraction de données via le JSON	F
+A06	Tester l’authentification avec compte de test pour l’application	F
+A07	Tester la synchronisation de fichier entre 2 drives	AF
+A08	Test de comparaison d’empreinte MD5 de fichiers	AF
+
+Description : 
+
+A01 : 
+
+A02 : Parcourir toute l'application et tester l'ensemble des composants pour valider qu'il y ait au minimum une action qui se lance si besoin est. Notifier les erreurs au fur et à mesure.
+
+A03 : 
+
+A04 : Effectuer les différentes manipulations nécessitant une sauvegarde JSON (création d'un utilisateur,ajout d'un drive, ajout d'un fichier local pour la synchronisation). Vérifiez que la sauvegarde s'effectue bien.
+
+A05 : Suite de l'étape A04. Lancer l'application depuis le début vérifier que l'authentification, le listing des drives et la connexion à ces derniers fonctionnent.
+
+A06 : Vérifier que l'application a bien un compte développeur. Effectuer une requete, regarder si la réponse correspond à ce qui était attendu.
+
+A07 : Synchroniser deux drives et vérifier que les fichiers sont bien synchronisé dans le dossier voulu. Vérification des fichiers/dossier manquants et de la nature des fichier téléchargés ( non corrompu ).
+
+A08 : /
