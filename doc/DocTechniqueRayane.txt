@@ -1,0 +1,30 @@
+Configuration JSON
+Tout d’abord, il est nécessaire de préciser que pour relier notre application au différents Drive, nous avons du créer un compte « développeur » sur chacune de ces plateformes. Il nous a été fourni une clé et un secret, permettant d’identifier notre application auprès du serveur, et donc, nous autoriser à récupérer les informations des utilisateurs.
+{
+"dropbox_app_key" : ["iqru8waahskiz7w","xsp14fcdvpi9q00"],
+"skydrive_app_key" : ["00000000440FC003","TizPkTE6PXMnP8YNO50ryJe23vxIZISz"]
+}
+Ces identifiants sont fournis soit par requêtes http, soit, dans une URL afin d’afficher une page permettant à l’utilisateur de donner les droits à l’application.
+
+Concernant la configuration des drives, un utilisateur possède un fichier de configuration de ses drives. Les attributs spécifiés dans le JSON différencient selon le drive enregistré :
+[
+	{
+		"uid":"22805197",
+		"secret":"yw5xe2v0wfaecpn",
+		"type":"dropbox",
+		"key":"2950qc95ccrv5ixp"
+	},
+	{
+		"token":"192z0a4l1k 730 xmqrfl1/fsdfsd/98676fd275",
+		"type":"skydrive"
+	}
+]
+Ces fichiers permettent de stocker les identifiants uniques des drives. De ce fait, il nous est possible d’associer un fichier .JSON à chaque compte de notre application comme suit : 
+[
+   {
+	"Login":"test",
+	"Password":" ab4f63f9ac65152575886860dde480a1",
+	"File":"PATH\test.json"
+   }
+]
+Le mot de passe de chaque utilisateur est crypté en MD5 pour assurer une certaine sécurité dans le fichier des identifiants.
