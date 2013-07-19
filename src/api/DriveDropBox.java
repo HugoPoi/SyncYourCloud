@@ -82,8 +82,8 @@ public class DriveDropBox implements IntDrive{
 		}
 		
 		try{
-			String initlocalpath =	(config.getOrNull("localpath") == null) ? null: config.getOrNull("localpath").expectString();
-			String initlocalstate =	(config.getOrNull("localstate") == null) ? null: config.getOrNull("localstate").expectString();
+			String initlocalpath =	config.getOrNull("localpath").isNull() ? null: config.getOrNull("localpath").expectString();
+			String initlocalstate =	config.getOrNull("localstate").isNull() ? null: config.getOrNull("localstate").expectString();
 			if(initlocalpath != null)
 				sync = new Sync(this, initlocalpath, initlocalstate);
 		}
