@@ -93,6 +93,7 @@ public abstract class IHM_SYC extends JFrame implements Observer
 		jPan2.add(jLab_Welcome,bLay_Level_2.CENTER);
 		jPan2.add(icone_SYC,bLay_Level_2.EAST);
 		
+		this.setIconImage(new ImageIcon(model_SYC.getPathImageSyc()+model_SYC.getLogo_SYC()).getImage());
 		icone_SYC.setFichierImage( Picture.createFichierImage(model_SYC.getPathImageSyc(),model_SYC.getLogo_SYC()));
 		icone_SYC.setPreferredSize(new Dimension(50,46));
 		
