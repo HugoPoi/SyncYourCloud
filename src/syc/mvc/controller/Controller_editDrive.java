@@ -91,6 +91,7 @@ public class Controller_editDrive implements ActionListener
 			{
 				//apply the new modification
 				model_SYC.drives.get(model_SYC.getIndexIntDriveSelectedOnDrivePage()).getSync().start();
+				JOptionPane.showMessageDialog(this.view_editDrive, "Synchronisation effectuee !","Synchro",1);
 				//then go back back to Drives
 				model_SYC.init();
 				model_SYC.setDisplay_drives(true);

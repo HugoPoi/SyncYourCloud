@@ -38,7 +38,7 @@ public class Main_SYC
 		Controller_home c_home =  new Controller_home(model_SYC, view_home);
 		
 		IHM_account  view_account = new IHM_account(model_SYC);
-		Controller_account c_account =  new Controller_account(model_SYC, view_account);
+		 new Controller_account(model_SYC, view_account);
 		
 		IHM_drives view_drives = new IHM_drives(model_SYC);
 		Controller_drives c_drives =  new Controller_drives(model_SYC, view_drives);
